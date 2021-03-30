@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using Jubi.Abstracts;
+using Jubi.Exceptions;
 using Jubi.Models;
 using Jubi.Response.Attachments.Keyboard;
 using SimpleIni;
@@ -64,22 +65,38 @@ namespace Jubi
         /// </summary>
         private void LoadExecutors(ExecutorInformation executorInformation)
         {
-            CommandExecutors = executorInformation.Assembly.GetTypes().Where(
+            CommandExecutors =
+                GetCommandExecutorsViaReflection(executorInformation.Assembly, executorInformation.Namespace).ToHashSet();
+            
+            foreach (var command in 
+                GetCommandExecutorsViaReflection(Assembly.GetExecutingAssembly(), "Jubi.Executors"))
+            {
+                CommandExecutors.Add(command);
+            }
+
+            if (CommandExecutors.All(c => c.Alias != "error"))
+            {
+                throw new JubiException("Executor for handling errors not found (create executor with alias \"error\")");
+            }
+        }
+
+        private IEnumerable<CommandExecutor> GetCommandExecutorsViaReflection(Assembly assembly, string ns)
+        {
+            return assembly.GetTypes().Where(
                     t => t.IsSubclassOf(typeof(CommandExecutor))
                          && !t.IsAbstract
-                         && 
-                            (t.Namespace?.StartsWith(executorInformation.Namespace) ?? false)
-                         )
-                .Select(t => Activator.CreateInstance(t) as CommandExecutor).ToHashSet();
+                         &&
+                         (t.Namespace?.StartsWith(ns) ?? false)
+                )
+                .Select(GetCommandExecutor);
+        }
 
-            foreach (var command in Assembly.GetExecutingAssembly().GetTypes().Where(t => 
-                t.IsSubclassOf(typeof(CommandExecutor))
-                && !t.IsAbstract
-                && 
-                (t.Namespace?.StartsWith("Jubi.Executors") ?? false)))
-            {
-                CommandExecutors.Add(Activator.CreateInstance(command) as CommandExecutor);
-            }
+        private CommandExecutor GetCommandExecutor(object obj)
+        {
+            var executor = obj as CommandExecutor;
+            executor.BotInstance = this;
+            
+            return executor;
         }
 
         /// <summary>
@@ -96,7 +113,10 @@ namespace Jubi
                           "; put here api keys for Jubi providers\n" +
                           "; field for api should be called like the provider with a lowercase letter " +
                           "(TelegramProvider -> telegram, VKontakteProvider -> vkontakte)\n" +
-                          "exampleService = api_key";
+                          "exampleService = api_key\n" +
+                          "[prefix_error]\n" +
+                          "default = Error:\n" +
+                          "syntax = Syntax error! True syntax:";
             var ini = new Ini(content);
             
             File.WriteAllText(pathToFile, content);

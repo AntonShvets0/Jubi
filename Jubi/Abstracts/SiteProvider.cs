@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Jubi.Api;
 using Jubi.Api.Types;
+using Jubi.Exceptions;
 using Jubi.Response;
 using Jubi.Response.Attachments.Keyboard;
 using Jubi.Updates;
@@ -96,7 +97,6 @@ namespace Jubi.Abstracts
         /// </summary>
         public virtual void OnInit()
         {
-            
         }
     }
     
@@ -309,6 +309,16 @@ namespace Jubi.Abstracts
             user.Api = Api;
 
             return user;
+        }
+
+        protected string AccessToken;
+
+        public override void OnInit()
+        {
+            if (BotInstance.Configuration["apiKeys"]?["vkontakte"] == null)
+                throw new JubiException($"{Id} api key not found");
+            
+            AccessToken = BotInstance.Configuration["apiKeys"][Id];
         }
     }
 }

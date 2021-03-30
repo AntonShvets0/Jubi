@@ -8,14 +8,12 @@ namespace Jubi.Telegram
     public class TelegramProvider : SiteProvider<TelegramUser>
     {
         protected override IApiProvider Api { get; set; }
-        public override string Id { get; set; } = "T";
+        public override string Id { get; set; } = "telegram";
 
         public override void OnInit()
         {
-            if (BotInstance.Configuration["apiKeys"]?["telegram"] == null)
-                throw new TelegramProviderException("Telegram api key not found");
-
-            Api = new TelegramApiProvider(BotInstance.Configuration["apiKeys"]["telegram"]);
+            base.OnInit();
+            Api = new TelegramApiProvider(AccessToken);
         }
     }
 }

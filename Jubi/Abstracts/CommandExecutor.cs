@@ -39,5 +39,17 @@ namespace Jubi.Abstracts
         /// <param name="args">Arguments</param>
         /// <returns>Response to user</returns>
         public abstract Message? Execute(User user, string[] args);
+
+        public Bot BotInstance;
+
+        public Message? GetError(string error)
+        {
+            return BotInstance.Configuration["prefix_error"]["default"] + " " + error;
+        } 
+        
+        public Message? GetSyntaxError(string error)
+        {
+            return BotInstance.Configuration["prefix_error"]["syntax"] +  $"/{Alias} " + error;
+        }
     }
 }
