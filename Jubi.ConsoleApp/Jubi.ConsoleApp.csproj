@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="SimpleIni, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\..\SimpleIni\SimpleIni\bin\Release\net5.0\SimpleIni.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Jubi.Telegram\Jubi.Telegram.csproj" />
+      <ProjectReference Include="..\Jubi.VKontakte\Jubi.VKontakte.csproj" />
+      <ProjectReference Include="..\Jubi\Jubi.csproj" />
+    </ItemGroup>
+
+</Project>

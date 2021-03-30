@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\lordoverlord0\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\lordoverlord0\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_Jubi.-1410683093.00" t="ExcludeRecursive" />
+    <e p="C:\Users\lordoverlord0\RiderProjects\Jubi" t="IncludeFlat">
+      <e p="Jubi" t="IncludeRecursive">
+        <e p="Abstracts" t="Include">
+          <e p="CommandExecutor.cs" t="Include" />
+          <e p="SiteProvider.cs" t="Include" />
+          <e p="User.cs" t="Include" />
+        </e>
+        <e p="Api" t="Include">
+          <e p="IApiProvider.cs" t="Include" />
+          <e p="Types" t="Include">
+            <e p="IMessageApiProvider.cs" t="Include" />
+            <e p="IMethodApiProvider.cs" t="Include" />
+            <e p="IUpdateApiProvider.cs" t="Include" />
+          </e>
+          <e p="WebMultipartContent.cs" t="Include" />
+          <e p="WebProvider.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Bot.cs" t="Include" />
+        <e p="Executors" t="Include">
+          <e p="PageExecutor.cs" t="Include" />
+        </e>
+        <e p="Jubi.csproj" t="IncludeRecursive" />
+        <e p="Models" t="Include">
+          <e p="ExecutorInformation.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Response" t="Include">
+          <e p="Attachments" t="Include">
+            <e p="Keyboard" t="Include">
+              <e p="KeyboardAction.cs" t="Include" />
+              <e p="KeyboardColor.cs" t="Include" />
+              <e p="KeyboardPage.cs" t="Include" />
+              <e p="KeyboardRow.cs" t="Include" />
+              <e p="ReplyMarkupKeyboard.cs" t="Include" />
+            </e>
+            <e p="PhotoAttachment.cs" t="Include" />
+          </e>
+          <e p="Interfaces" t="Include">
+            <e p="IAttachment.cs" t="Include" />
+          </e>
+          <e p="Message.cs" t="Include" />
+        </e>
+        <e p="Updates" t="Include">
+          <e p="IUpdateContent.cs" t="Include" />
+          <e p="Types" t="Include">
+            <e p="MessageNewContent.cs" t="Include" />
+          </e>
+          <e p="UpdateInfo.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Jubi.ConsoleApp" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Executors" t="Include">
+          <e p="HelloExecutor.cs" t="Include" />
+        </e>
+        <e p="Jubi.ConsoleApp.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Program.cs" t="Include" />
+      </e>
+      <e p="Jubi.sln" t="IncludeFlat" />
+      <e p="Jubi.Telegram" t="IncludeRecursive">
+        <e p="Api" t="Include">
+          <e p="TelegramApiProvider.cs" t="Include" />
+          <e p="Types" t="Include">
+            <e p="TelegramMessageApiProvider.cs" t="Include" />
+            <e p="TelegramUpdateApiProvider.cs" t="Include" />
+          </e>
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Exceptions" t="Include">
+          <e p="TelegramErrorException.cs" t="Include" />
+          <e p="TelegramProviderException.cs" t="Include" />
+        </e>
+        <e p="Jubi.Telegram.csproj" t="IncludeRecursive" />
+        <e p="Models" t="Include">
+          <e p="Interfaces" t="Include" />
+          <e p="TelegramMediaGroup.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="TelegramProvider.cs" t="Include" />
+        <e p="TelegramUser.cs" t="Include" />
+      </e>
+      <e p="Jubi.VKontakte" t="IncludeRecursive">
+        <e p="Api" t="Include">
+          <e p="Content" t="Include" />
+          <e p="Types" t="Include">
+            <e p="VKontakteGroupApiProvider.cs" t="Include" />
+            <e p="VKontakteMessageApiProvider.cs" t="Include" />
+            <e p="VKontaktePhotoApiProvider.cs" t="Include" />
+            <e p="VKontakteUpdateApiProvider.cs" t="Include" />
+          </e>
+          <e p="VKontakteApiProvider.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Exceptions" t="Include">
+          <e p="VKontakteErrorException.cs" t="Include" />
+          <e p="VKontakteProviderException.cs" t="Include" />
+        </e>
+        <e p="Jubi.VKontakte.csproj" t="IncludeRecursive" />
+        <e p="Models" t="Include">
+          <e p="Enums" t="Include">
+            <e p="DeactivatedType.cs" t="Include" />
+            <e p="GroupType.cs" t="Include" />
+            <e p="VisibilityGroupType.cs" t="Include" />
+          </e>
+          <e p="VKontakteGroupInfo.cs" t="Include" />
+          <e p="VKontakteLongPollResponse.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="VKontakteProvider.cs" t="Include" />
+        <e p="VKontakteUser.cs" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
