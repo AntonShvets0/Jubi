@@ -20,9 +20,9 @@ namespace Jubi.Abstracts
         public int KeyboardPage = 0;
 
         public bool Send(Message message)
-            => Api.Messages.Send(message, this);
+            => Provider.Api.Messages.Send(message, this);
 
-        public IApiProvider Api;
+        public SiteProvider Provider;
 
         internal bool IsWaitingResponse;
         internal string ResponseLine;

@@ -22,7 +22,7 @@ namespace Jubi.Abstracts
         /// <summary>
         /// Contains Api current serivce
         /// </summary>
-        protected abstract IApiProvider Api { get; set; }
+        public abstract IApiProvider Api { get; set; }
         
         /// <summary>
         /// Type of user. Need, because is not generic class. Type used for create user instance in CreateInstance() 
@@ -87,7 +87,7 @@ namespace Jubi.Abstracts
         protected User CreateUserInstance()
         {
             var user = Activator.CreateInstance(_user) as User;
-            if (user != null) user.Api = Api;
+            if (user != null) user.Provider = this;
             
             return user;
         }
@@ -306,7 +306,7 @@ namespace Jubi.Abstracts
         private new T CreateUserInstance()
         { 
             var user = Activator.CreateInstance<T>();
-            user.Api = Api;
+            user.Provider = this;
 
             return user;
         }

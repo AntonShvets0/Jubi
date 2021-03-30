@@ -7,7 +7,7 @@ namespace Jubi.Telegram
 {
     public class TelegramProvider : SiteProvider<TelegramUser>
     {
-        protected override IApiProvider Api { get; set; }
+        public override IApiProvider Api { get; set; }
         public override string Id { get; set; } = "telegram";
 
         public override void OnInit()

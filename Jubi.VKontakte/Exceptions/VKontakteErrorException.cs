@@ -5,13 +5,13 @@ namespace Jubi.VKontakte.Exceptions
     internal class VKontakteErrorException : Exception
     {
         public int Code;
-        public string Message;
+        public string ErrorMessage;
 
         public VKontakteErrorException(int code, string message) 
             : base($"{code}: {message}")
         {
             Code = code;
-            Message = message;
+            ErrorMessage = message;
         }
     }
 }
