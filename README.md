@@ -43,7 +43,7 @@ namespace Example.Executors
 This code start bot in Telegram and VKontakte with one command /start, who send "Hello world!" to user.
 
 
-###Keyboards
+### Keyboards
 ```C#
 
 var keyboard = new ReplyMarkupKeyboard();
@@ -58,7 +58,7 @@ return new Message("This message delete keyboard", new [] { new ReplyMarkupKeybo
 
 ```
 
-###Attachments
+### Attachments
 Jubi currently only supports images as attachments. In the future, I will created classes for other attachments.
 ```C#
 return new Message("Photo", new [] { new PhotoAttachment("link to photo, or path") });
