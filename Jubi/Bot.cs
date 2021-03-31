@@ -16,9 +16,9 @@ namespace Jubi
     {
         public readonly Ini Configuration;
         
-        private readonly HashSet<SiteProvider> Providers;
-        internal HashSet<CommandExecutor> CommandExecutors;
-        internal object CommandExecutorsLock = new object();
+        public readonly HashSet<SiteProvider> Providers;
+        public HashSet<CommandExecutor> CommandExecutors;
+        public object CommandExecutorsLock = new object();
 
         /// <summary>
         /// Logs. Contains exception, which throwed in Executors.

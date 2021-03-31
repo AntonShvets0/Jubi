@@ -25,6 +25,11 @@ namespace Jubi.Abstracts
         public abstract IApiProvider Api { get; set; }
         
         /// <summary>
+        /// Identifier service
+        /// </summary>
+        public abstract string Id { get; set; }
+
+        /// <summary>
         /// Type of user. Need, because is not generic class. Type used for create user instance in CreateInstance() 
         /// </summary>
         private Type _user;
@@ -95,9 +100,21 @@ namespace Jubi.Abstracts
         /// <summary>
         /// Call in loop Bot, which call Start() 
         /// </summary>
-        public virtual void OnInit()
-        {
-        }
+        public virtual void OnInit() { }
+
+        /// <summary>
+        /// Emulate sendind message from user
+        /// </summary>
+        /// <param name="user">User</param>
+        /// <param name="str">Message</param>
+        public abstract void EmulateExecute(User user, string str);
+
+        /// <summary>
+        /// Creating and return user, or get user from list and return his.
+        /// </summary>
+        /// <param name="id">Id user</param>
+        /// <returns>User instance</returns>
+        public abstract User GetOrCreateUser(ulong id);
     }
     
     public abstract class SiteProvider<T> : SiteProvider 
@@ -117,11 +134,6 @@ namespace Jubi.Abstracts
         /// </summary>
         public object ThreadLockUsers = new object();
         
-        /// <summary>
-        /// Identifier service
-        /// </summary>
-        public abstract string Id { get; set; }
-
         protected SiteProvider() : base(typeof(T))
         {
             EventHandlers.Add(typeof(MessageNewContent), OnMessage);
@@ -148,15 +160,10 @@ namespace Jubi.Abstracts
 
             return null;
         }
-
-        /// <summary>
-        /// Emulate sendind message from user
-        /// </summary>
-        /// <param name="user">User</param>
-        /// <param name="str">Message</param>
-        public void EmulateExecute(T user, string str)
+        
+        public override void EmulateExecute(User user, string str)
         {
-            OnMessage(user, new MessageNewContent
+            OnMessage(user as T, new MessageNewContent
             {
                 Text = str
             });
@@ -241,13 +248,13 @@ namespace Jubi.Abstracts
                     {
                         try
                         {
-                            EventHandlers[content.GetType()]?.Invoke(user, content);
+                            EventHandlers[content.GetType()]?.Invoke(user as T, content);
                         }
                         catch (Exception ex)
                         {
                             lock (Bot.LogsLock)
                             {
-                                HandleError(ex, user);
+                                HandleError(ex, user as T);
                             }
                         }
                     }
@@ -282,13 +289,8 @@ namespace Jubi.Abstracts
             }
             catch (Exception) { }
         }
-
-        /// <summary>
-        /// Creating and return user, or get user from list and return his.
-        /// </summary>
-        /// <param name="id">Id user</param>
-        /// <returns>User instance</returns>
-        private T GetOrCreateUser(ulong id)
+        
+        public override User GetOrCreateUser(ulong id)
         {
             lock (ThreadLockUsers)
             {

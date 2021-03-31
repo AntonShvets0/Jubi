@@ -77,7 +77,7 @@ namespace Jubi.Telegram.Api.Types
                 } 
                 
                 args.Add("text", response.Text);
-                tgUser.LastMessageId = GetMessageId(Provider.SendRequest("sendMessage", args));
+                Provider.SendRequest("sendMessage", args);
                 return true;
             }
 
@@ -98,14 +98,14 @@ namespace Jubi.Telegram.Api.Types
                 }
                 
                 args.Add("media", jArray.ToString());
-                tgUser.LastMessageId = GetMessageId(Provider.SendRequest("sendMediaGroup", args));
+                Provider.SendRequest("sendMediaGroup", args);
                 return true;
             }
 
             args.Add(media.ParameterText, response.Text);
             args.Add(attachments[0].Item1, attachments[0].Item2);
-            tgUser.LastMessageId = GetMessageId(Provider.SendRequest($"send{media.Type}", args));
-
+            Provider.SendRequest($"send{media.Type}", args);
+            
             return true;
         }
 
@@ -141,11 +141,6 @@ namespace Jubi.Telegram.Api.Types
             if (type == typeof(PhotoAttachment)) return "caption";
 
             return "text";
-        }
-
-        private ulong GetMessageId(JToken response)
-        {
-            return (ulong) response["message_id"];
         }
     }
 }

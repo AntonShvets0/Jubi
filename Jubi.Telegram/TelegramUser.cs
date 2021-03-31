@@ -4,6 +4,5 @@ namespace Jubi.Telegram
 {
     public class TelegramUser : User
     {
-        public ulong LastMessageId;
     }
 }

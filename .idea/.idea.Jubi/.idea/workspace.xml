@@ -22,13 +22,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="Add GetError(), GetSyntaxError(). Error command is required">
-      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Exceptions/TelegramErrorException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Exceptions/TelegramErrorException.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/TelegramProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/TelegramProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Exceptions/VKontakteErrorException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Exceptions/VKontakteErrorException.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/VKontakteProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/VKontakteProvider.cs" afterDir="false" />
+    <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="Update version SimpleIni, &quot;Api&quot; in User class changed to &quot;Provider&quot;">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/TelegramUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/TelegramUser.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Bot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Bot.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,8 +87,6 @@
         <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/VKontakteApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/Api/TelegramApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramUpdateApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi.Telegram/TelegramUser.cs" />
-        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/KeyboardAction.cs" />
         <option value="$PROJECT_DIR$/Jubi/Executors/PageExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs" />
@@ -99,14 +96,16 @@
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Program.cs" />
         <option value="$PROJECT_DIR$/Jubi/Exceptions/JubiException.cs" />
         <option value="$PROJECT_DIR$/Jubi/Abstracts/CommandExecutor.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Bot.cs" />
         <option value="$PROJECT_DIR$/Jubi.VKontakte/Exceptions/VKontakteErrorException.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/Exceptions/TelegramErrorException.cs" />
         <option value="$PROJECT_DIR$/Jubi/Abstracts/User.cs" />
         <option value="$PROJECT_DIR$/Jubi.VKontakte/VKontakteProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/TelegramProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/Jubi/Bot.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Telegram/TelegramUser.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" />
       </list>
     </option>
   </component>
@@ -158,7 +157,7 @@
       <workItem from="1617047258692" duration="9480000" />
       <workItem from="1617061325304" duration="20336000" />
       <workItem from="1617141007953" duration="883000" />
-      <workItem from="1617144612412" duration="2363000" />
+      <workItem from="1617144612412" duration="4285000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1617136135398</created>
@@ -181,7 +180,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617146789672</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Update version SimpleIni, &quot;Api&quot; in User class changed to &quot;Provider&quot;">
+      <created>1617147188680</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1617147188680</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,7 +211,8 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="fix README.md" />
     <MESSAGE value="Add GetError(), GetSyntaxError(). Error command is required" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add GetError(), GetSyntaxError(). Error command is required" />
+    <MESSAGE value="Update version SimpleIni, &quot;Api&quot; in User class changed to &quot;Provider&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update version SimpleIni, &quot;Api&quot; in User class changed to &quot;Provider&quot;" />
   </component>
   <component name="WindowStateProjectService">
     <state width="466" height="464" key="DebuggerActiveHint" timestamp="1617105292848">
@@ -300,10 +307,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="144" key="Rider.ProjectTemplateDialog.Size/0.0.1536.824@0.0.1536.824" timestamp="1617143330719" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1617146792362">
+    <state x="100" y="100" width="1336" height="624" key="VCS.FileHistoryDialog" timestamp="1617147800746">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1617146792362" />
+    <state x="100" y="100" width="1336" height="624" key="VCS.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1617147800746" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1617147195255">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1617147195255" />
     <state width="775" height="419" key="XDebugger.FullValuePopup" timestamp="1617059697060">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
