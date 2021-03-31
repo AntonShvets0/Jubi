@@ -58,7 +58,7 @@ namespace Jubi.Telegram.Api.Types
                 }      
             }
 
-            if (keyboard == null)
+            if (keyboard == null && user.Keyboard.Count != 0)
             {
                 keyboard = Provider.BuildKeyboard(user.Keyboard[user.KeyboardPage]).ToString();
             }

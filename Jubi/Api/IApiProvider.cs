@@ -15,6 +15,6 @@ namespace Jubi.Api
 
         JToken SendRequest(string method, NameValueCollection args);
 
-        JObject BuildKeyboard(KeyboardPage keyboard, bool inline = false);
+        JObject BuildKeyboard(KeyboardPage keyboard, bool isOneTime = false);
     }
 }

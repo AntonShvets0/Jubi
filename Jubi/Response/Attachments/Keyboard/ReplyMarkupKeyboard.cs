@@ -12,10 +12,13 @@ namespace Jubi.Response.Attachments.Keyboard
         public int MaxInRows = 4;
         public int MaxRows = 6;
 
+        public bool IsOneTime;
+
         public static string PreviousButtonText;
         public static string NextButtonText;
 
-        public bool IsEmpty => Pages.Count == 0;
+        public bool IsEmpty => 
+            Pages.First()?.Rows?.First()?.Buttons.Count == 0;
 
         private List<KeyboardPage> Pages = new List<KeyboardPage>
         {
@@ -23,17 +26,21 @@ namespace Jubi.Response.Attachments.Keyboard
             {
                 Rows = new List<KeyboardRow>
                 {
-                    new KeyboardRow()
+                    new ()
                 }
             }
         };
 
         private readonly int PageIndex;
 
-        public ReplyMarkupKeyboard() {}
-        
-        public ReplyMarkupKeyboard(List<KeyboardPage> pages, int index)
+        public ReplyMarkupKeyboard(bool isOneTime = false)
         {
+            IsOneTime = isOneTime;
+        }
+        
+        public ReplyMarkupKeyboard(List<KeyboardPage> pages, int index, bool isOneTime = false)
+        {
+            IsOneTime = isOneTime;
             Pages = pages;
             PageIndex = index;
         }
@@ -68,7 +75,7 @@ namespace Jubi.Response.Attachments.Keyboard
                 {
                     Buttons = new List<KeyboardAction>
                     {
-                        new KeyboardAction
+                        new()
                         {
                             Name = PreviousButtonText, 
                             Color = KeyboardColor.Primary, 
@@ -113,7 +120,9 @@ namespace Jubi.Response.Attachments.Keyboard
 
         public string ToString(User user, IApiProvider site)
         {
-            if (Pages.Count > 0 && Pages.Last().Rows.Last().Buttons.Last().Executor != "page previous")
+            if (IsEmpty) return null;
+
+            if (Pages.Last().Rows.Last().Buttons.Last().Executor != "page previous")
             {
                 AddPage();
                 Pages.RemoveAt(Pages.Count - 1);
@@ -123,8 +132,9 @@ namespace Jubi.Response.Attachments.Keyboard
             
             user.KeyboardPage = PageIndex;
             user.Keyboard = Pages;
+            user.KeyboardIsOneTime = IsOneTime;
             
-            return site.BuildKeyboard(Pages[PageIndex]).ToString();
+            return site.BuildKeyboard(Pages[PageIndex], IsOneTime).ToString();
         }
     }
 }

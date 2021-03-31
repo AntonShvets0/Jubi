@@ -18,6 +18,15 @@ namespace Jubi.Abstracts
 
         public List<KeyboardPage> Keyboard = new List<KeyboardPage>();
         public int KeyboardPage = 0;
+        public bool? KeyboardIsOneTime;
+
+        public void KeyboardReset()
+        {
+            KeyboardIsOneTime = null;
+            KeyboardPage = 0;
+            Keyboard.Clear();
+        }
+        
 
         public bool Send(Message message)
             => Provider.Api.Messages.Send(message, this);
@@ -35,9 +44,11 @@ namespace Jubi.Abstracts
             while (ResponseLine == null) {}
 
             IsWaitingResponse = false;
+
+            var tmp = ResponseLine;
             ResponseLine = null;
             
-            return ResponseLine;
+            return tmp;
         }
 
         public string ReadLine(Message message)

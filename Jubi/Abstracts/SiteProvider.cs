@@ -183,11 +183,24 @@ namespace Jubi.Abstracts
             if (user.Keyboard.Count != 0)
             {
                 var btn = FindButton(messageContent.Text, user.Keyboard);
-                btn?.Action?.Invoke();
-
-                if (btn?.Executor == null) return;
+                if (btn == null)
+                {
+                    user.Send(new Message(null,
+                        new ReplyMarkupKeyboard(user.Keyboard, user.KeyboardPage, (bool) user.KeyboardIsOneTime)));
+                    return;
+                }
                 
-                message = "/" + btn?.Executor;
+
+                if ((bool)user.KeyboardIsOneTime)
+                {
+                    user.KeyboardReset();
+                }
+                
+                btn.Action?.Invoke();
+                
+                if (btn.Executor == null) return;
+
+                message = btn.Executor;
                 isFromKeyboard = true;
             }
             

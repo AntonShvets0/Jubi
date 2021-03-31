@@ -62,7 +62,7 @@ namespace Jubi.VKontakte.Api
         public JToken SendRequest(string group, string method, NameValueCollection args)
             => SendRequest($"{group}.{method}", args);
 
-        public JObject BuildKeyboard(KeyboardPage keyboard, bool inline = false)
+        public JObject BuildKeyboard(KeyboardPage keyboard, bool isOneTime = false)
         {
             var buttons = new JArray();
             foreach (var row in keyboard.Rows)
@@ -96,7 +96,7 @@ namespace Jubi.VKontakte.Api
             
             return new JObject
             {
-                {"one_time", false},
+                {"one_time", isOneTime},
                 {"buttons", buttons},
                 {"inline", false}
             };

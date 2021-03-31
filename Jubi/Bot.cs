@@ -33,7 +33,7 @@ namespace Jubi
         public Bot(string config, IEnumerable<SiteProvider> siteProviders, ExecutorInformation executorInformation)
         {
             if (!File.Exists(config)) Configuration = CreateDefaultIniConfiguration(config);
-            else Configuration = Ini.FromFile(File.ReadAllText(config));
+            else Configuration = Ini.FromFile(config);
 
             Providers = siteProviders.ToHashSet();
 
@@ -91,10 +91,11 @@ namespace Jubi
                 .Select(GetCommandExecutor);
         }
 
-        private CommandExecutor GetCommandExecutor(object obj)
+        private CommandExecutor GetCommandExecutor(Type type)
         {
+            var obj = Activator.CreateInstance(type);
             var executor = obj as CommandExecutor;
-            executor.BotInstance = this;
+            if (executor != null) executor.BotInstance = this;
             
             return executor;
         }

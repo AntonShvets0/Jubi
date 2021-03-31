@@ -15,6 +15,12 @@ namespace Jubi.Response
             Attachments = attachments;
         }
 
+        public Message(string text, IAttachment attachment)
+        {
+            Text = text;
+            Attachments = new[] {attachment};
+        }
+
         public static implicit operator Message(string message) 
             => new Message { Text = message };
     }

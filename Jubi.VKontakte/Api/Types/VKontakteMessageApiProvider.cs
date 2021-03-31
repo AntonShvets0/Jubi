@@ -46,6 +46,7 @@ namespace Jubi.VKontakte.Api.Types
                             keyboard = markupKeyboard.ToString(user, Provider);
                             continue;
                         }
+                        
                         keyboard = new JObject
                         {
                             {"buttons", new JArray()},
@@ -61,7 +62,7 @@ namespace Jubi.VKontakte.Api.Types
                 }      
             }
 
-            if (keyboard == null)
+            if (keyboard == null && user.Keyboard.Count != 0)
             {
                 keyboard = Provider.BuildKeyboard(user.Keyboard[user.KeyboardPage]).ToString();
             }

@@ -14,8 +14,4 @@
       </Reference>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Api\Content" />
-    </ItemGroup>
-
 </Project>

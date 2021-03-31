@@ -34,7 +34,7 @@ namespace Jubi.Telegram.Api
             return response["result"];
         }
 
-        public JObject BuildKeyboard(KeyboardPage keyboard, bool inline = false)
+        public JObject BuildKeyboard(KeyboardPage keyboard, bool isOneTime = false)
         {
             var buttons = new JArray();
             foreach (var row in keyboard.Rows)
@@ -49,7 +49,7 @@ namespace Jubi.Telegram.Api
             
             return new JObject
             {
-                {"one_time_keyboard", false},
+                {"one_time_keyboard", isOneTime},
                 {"resize_keyboard", true},
                 {"keyboard", buttons}
             };

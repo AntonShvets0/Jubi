@@ -49,7 +49,7 @@ namespace Jubi.Abstracts
         
         public Message? GetSyntaxError(string error)
         {
-            return BotInstance.Configuration["prefix_error"]["syntax"] +  $"/{Alias} " + error;
+            return BotInstance.Configuration["prefix_error"]["syntax"] +  $" /{Alias} " + error;
         }
     }
 }

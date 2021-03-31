@@ -27,7 +27,7 @@ namespace Jubi.Executors
             }
 
             return new Message(null, 
-                new IAttachment[] { new ReplyMarkupKeyboard(user.Keyboard, user.KeyboardPage) });
+                new ReplyMarkupKeyboard(user.Keyboard, user.KeyboardPage, (bool)user.KeyboardIsOneTime));
         }
     }
 }
