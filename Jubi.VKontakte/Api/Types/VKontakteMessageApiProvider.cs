@@ -62,21 +62,19 @@ namespace Jubi.VKontakte.Api.Types
                 }      
             }
 
-            if (keyboard == null && user.Keyboard.Count != 0)
+            if (keyboard == null && user.Keyboard?.Pages?.Count != null)
             {
-                keyboard = Provider.BuildKeyboard(user.Keyboard[user.KeyboardPage]).ToString();
+                keyboard = Provider.BuildKeyboard(user.Keyboard.Menu, user.Keyboard.Pages[user.KeyboardPage]).ToString();
             }
 
-            Provider.SendRequest("messages.send", new NameValueCollection
+            return Provider.SendRequest("messages.send", new NameValueCollection
             {
                 {"user_id", user.Id.ToString()},
                 {"message", response.Text},
                 {"keyboard", keyboard},
                 {"random_id", new Random().Next(1, 10000).ToString()},
                 {"attachment", string.Join(",", attachments)}
-            });
-
-            return true;
+            }, false) != null;
         }
 
         private string HandleAttachment(User user, IAttachment attachment)

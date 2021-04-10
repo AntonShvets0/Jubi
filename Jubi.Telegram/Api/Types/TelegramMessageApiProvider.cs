@@ -58,9 +58,11 @@ namespace Jubi.Telegram.Api.Types
                 }      
             }
 
-            if (keyboard == null && user.Keyboard.Count != 0)
+            if (keyboard == null && user.Keyboard?.Pages?.Count != null)
             {
-                keyboard = Provider.BuildKeyboard(user.Keyboard[user.KeyboardPage]).ToString();
+                keyboard = Provider.BuildKeyboard(
+                    user.Keyboard.Menu, 
+                    user.Keyboard.Pages[user.KeyboardPage]).ToString();
             }
             
             var args = new NameValueCollection
@@ -77,8 +79,8 @@ namespace Jubi.Telegram.Api.Types
                 } 
                 
                 args.Add("text", response.Text);
-                Provider.SendRequest("sendMessage", args);
-                return true;
+                
+                return Provider.SendRequest("sendMessage", args, false) != null;
             }
 
             var media = GetMediaGroup(typeAttachment);
@@ -98,15 +100,14 @@ namespace Jubi.Telegram.Api.Types
                 }
                 
                 args.Add("media", jArray.ToString());
-                Provider.SendRequest("sendMediaGroup", args);
-                return true;
+                
+                return Provider.SendRequest("sendMediaGroup", args, false) != null;
             }
 
             args.Add(media.ParameterText, response.Text);
             args.Add(attachments[0].Item1, attachments[0].Item2);
-            Provider.SendRequest($"send{media.Type}", args);
             
-            return true;
+            return Provider.SendRequest($"send{media.Type}", args, false) != null;
         }
 
 

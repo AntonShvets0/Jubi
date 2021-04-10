@@ -16,18 +16,18 @@ namespace Jubi.Executors
             {
                 if (args[0] == "next")
                 {
-                    if (user.Keyboard.Count - 1 < user.KeyboardPage + 1) return null;
+                    if (user.Keyboard.Pages.Count - 1 < user.KeyboardPage + 1) return null;
                     user.KeyboardPage++;
                 }
                 else
                 {
-                    if (user.Keyboard.Count == 1) return null;
+                    if (user.Keyboard.Pages.Count == 1) return null;
                     user.KeyboardPage--;
                 }
             }
 
             return new Message(null, 
-                new ReplyMarkupKeyboard(user.Keyboard, user.KeyboardPage, (bool)user.KeyboardIsOneTime));
+                new ReplyMarkupKeyboard(user.Keyboard, user.KeyboardPage));
         }
     }
 }

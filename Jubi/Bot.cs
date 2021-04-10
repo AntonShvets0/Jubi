@@ -39,7 +39,8 @@ namespace Jubi
 
             ReplyMarkupKeyboard.PreviousButtonText = Configuration["buttons"]["previous"];
             ReplyMarkupKeyboard.NextButtonText = Configuration["buttons"]["next"];
-            
+            ReplyMarkupKeyboard.MenuText = Configuration["buttons"]["menu"];
+
             LoadExecutors(executorInformation);
         }
 
@@ -110,6 +111,7 @@ namespace Jubi
             var content = "[buttons]\n" +
                           "previous = Previous page\n" +
                           "next = Next page\n" +
+                          "menu = Back to menu\n" +
                           "[apiKeys]\n" +
                           "; put here api keys for Jubi providers\n" +
                           "; field for api should be called like the provider with a lowercase letter " +

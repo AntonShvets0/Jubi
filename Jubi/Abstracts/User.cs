@@ -16,15 +16,13 @@ namespace Jubi.Abstracts
         
         public object ThreadLockUser = new object();
 
-        public List<KeyboardPage> Keyboard = new List<KeyboardPage>();
+        public ReplyMarkupKeyboard Keyboard;
         public int KeyboardPage = 0;
-        public bool? KeyboardIsOneTime;
 
         public void KeyboardReset()
         {
-            KeyboardIsOneTime = null;
             KeyboardPage = 0;
-            Keyboard.Clear();
+            Keyboard = null;
         }
         
 

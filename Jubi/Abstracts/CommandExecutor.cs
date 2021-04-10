@@ -29,8 +29,8 @@ namespace Jubi.Abstracts
         /// Ways, which bot passes, before call Execute method
         /// If way returned not null - send returned Message and break
         /// </summary>
-        public virtual List<ExecutorDelegate> Middlewares { get; set; }
-            = new List<ExecutorDelegate>();
+        public virtual ExecutorDelegate[] Middlewares { get; set; }
+            = Array.Empty<ExecutorDelegate>();
 
         /// <summary>
         /// Calling, while user send messae with prefix and aliase this Executor.

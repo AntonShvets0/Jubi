@@ -115,6 +115,11 @@ namespace Jubi.Abstracts
         /// <param name="id">Id user</param>
         /// <returns>User instance</returns>
         public abstract User GetOrCreateUser(ulong id);
+        
+        /// <summary>
+        /// Contains all users, who handled SiteProvider
+        /// </summary>
+        public readonly HashSet<User> Users = new HashSet<User>();
     }
     
     public abstract class SiteProvider<T> : SiteProvider 
@@ -124,10 +129,7 @@ namespace Jubi.Abstracts
         protected new Dictionary<Type, Action<T, IUpdateContent>> EventHandlers 
             = new Dictionary<Type, Action<T, IUpdateContent>>();
         
-        /// <summary>
-        /// Contains all users, who handled SiteProvider
-        /// </summary>
-        public HashSet<T> Users = new HashSet<T>();
+        public new readonly HashSet<T> Users = new HashSet<T>();
         
         /// <summary>
         /// This object need to lock() block, because Users get in others threads. This object sync them
@@ -143,10 +145,13 @@ namespace Jubi.Abstracts
         /// Find button with Text in keyboard user
         /// </summary>
         /// <param name="text">Need element</param>
+        /// <param name="menu">Menu</param>
         /// <param name="pages">Keyboard user</param>
         /// <returns>Button or null</returns>
-        private KeyboardAction FindButton(string text, List<KeyboardPage> pages)
+        private KeyboardAction FindButton(string text, KeyboardAction menu, List<KeyboardPage> pages)
         {
+            if (menu?.Name == text) return menu;
+            
             foreach (var page in pages)
             {
                 foreach (var row in page.Rows)
@@ -180,18 +185,18 @@ namespace Jubi.Abstracts
             var message = messageContent.Text;
             var isFromKeyboard = false;
 
-            if (user.Keyboard.Count != 0)
+            if (user.Keyboard?.Pages.Count != null)
             {
-                var btn = FindButton(messageContent.Text, user.Keyboard);
+                var btn = FindButton(messageContent.Text, user.Keyboard.Menu, user.Keyboard.Pages);
                 if (btn == null)
                 {
                     user.Send(new Message(null,
-                        new ReplyMarkupKeyboard(user.Keyboard, user.KeyboardPage, (bool) user.KeyboardIsOneTime)));
+                        new ReplyMarkupKeyboard(user.Keyboard)));
                     return;
                 }
                 
 
-                if ((bool)user.KeyboardIsOneTime)
+                if (user.Keyboard.IsOneTime)
                 {
                     user.KeyboardReset();
                 }
@@ -253,7 +258,10 @@ namespace Jubi.Abstracts
 
                     if (content is MessageNewContent messageNew && user.IsWaitingResponse)
                     {
-                        user.ResponseLine = messageNew.Text;
+                        user.ResponseLine = user.Keyboard != null 
+                            ? (FindButton(messageNew.Text, user.Keyboard.Menu, user.Keyboard.Pages).Executor 
+                               ?? messageNew.Text) 
+                            : messageNew.Text;
                         return;
                     }
                     
@@ -322,7 +330,7 @@ namespace Jubi.Abstracts
         { 
             var user = Activator.CreateInstance<T>();
             user.Provider = this;
-
+ 
             return user;
         }
 

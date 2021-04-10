@@ -12,37 +12,63 @@ namespace Jubi.Response.Attachments.Keyboard
         public int MaxInRows = 4;
         public int MaxRows = 6;
 
+        public KeyboardAction Menu;
         public bool IsOneTime;
 
         public static string PreviousButtonText;
         public static string NextButtonText;
+        public static string MenuText;
+
 
         public bool IsEmpty => 
             Pages.First()?.Rows?.First()?.Buttons.Count == 0;
 
-        private List<KeyboardPage> Pages = new List<KeyboardPage>
+        public List<KeyboardPage> Pages = new List<KeyboardPage>
         {
             new KeyboardPage
             {
                 Rows = new List<KeyboardRow>
                 {
-                    new ()
+                    new KeyboardRow()
                 }
             }
         };
 
         private readonly int PageIndex;
-
-        public ReplyMarkupKeyboard(bool isOneTime = false)
+        
+        public ReplyMarkupKeyboard(bool isOneTime = false, KeyboardAction keyboard = null)
         {
             IsOneTime = isOneTime;
+            Menu = keyboard;
+        }
+
+        public ReplyMarkupKeyboard(bool isOneTime, Action action)
+        {
+            IsOneTime = isOneTime;
+            Menu = new KeyboardAction
+            {
+                Name = MenuText,
+                Action = action
+            };
         }
         
-        public ReplyMarkupKeyboard(List<KeyboardPage> pages, int index, bool isOneTime = false)
+        public ReplyMarkupKeyboard(bool isOneTime, string executor)
         {
             IsOneTime = isOneTime;
-            Pages = pages;
-            PageIndex = index;
+            Menu = new KeyboardAction
+            {
+                Name = MenuText,
+                Executor = executor
+            };
+        }
+        
+        public ReplyMarkupKeyboard(ReplyMarkupKeyboard copy, int pageIndex = 0)
+        {
+            IsOneTime = copy.IsOneTime;
+            Pages = copy.Pages;
+            Menu = copy.Menu;
+
+            PageIndex = pageIndex;
         }
 
         public void AddButton(string name, string executor, KeyboardColor color = KeyboardColor.Default)
@@ -75,11 +101,11 @@ namespace Jubi.Response.Attachments.Keyboard
                 {
                     Buttons = new List<KeyboardAction>
                     {
-                        new()
+                        new KeyboardAction()
                         {
                             Name = PreviousButtonText, 
                             Color = KeyboardColor.Primary, 
-                            Executor = "page previous"
+                            Executor = "/page previous"
                         }
                     }
                 });
@@ -87,14 +113,14 @@ namespace Jubi.Response.Attachments.Keyboard
             
             if (Pages.Count >= 2)
             {
-                if (Pages[Pages.Count - 2].Rows.Last().Buttons.Last().Executor != "page previous")
+                if (Pages[Pages.Count - 2].Rows.Last().Buttons.Last().Executor != "/page previous")
                 {
                     Pages[Pages.Count - 2].Rows.Add(new KeyboardRow());
                 }
                 
                 Pages[Pages.Count - 2].Rows.Last().Buttons.Add(new KeyboardAction
                 {
-                    Name = NextButtonText, Color = KeyboardColor.Primary, Executor = "page next"
+                    Name = NextButtonText, Color = KeyboardColor.Primary, Executor = "/page next"
                 });
             }
 
@@ -122,19 +148,20 @@ namespace Jubi.Response.Attachments.Keyboard
         {
             if (IsEmpty) return null;
 
-            if (Pages.Last().Rows.Last().Buttons.Last().Executor != "page previous")
+            if (
+                Pages.Last().Rows.Last().Buttons.Last().Executor != "/page previous"
+                )
             {
                 AddPage();
                 Pages.RemoveAt(Pages.Count - 1);
             }
-            
+
             if (PageIndex > Pages.Count - 1 || PageIndex < 0) return null;
             
             user.KeyboardPage = PageIndex;
-            user.Keyboard = Pages;
-            user.KeyboardIsOneTime = IsOneTime;
+            user.Keyboard = this;
             
-            return site.BuildKeyboard(Pages[PageIndex], IsOneTime).ToString();
+            return site.BuildKeyboard(Menu, Pages[PageIndex], IsOneTime).ToString();
         }
     }
 }

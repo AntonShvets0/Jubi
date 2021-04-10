@@ -28,19 +28,24 @@ namespace Jubi.VKontakte.Api
             AccessToken = token;
         }
 
-        public JToken SendRequest(string method, NameValueCollection args)
+        public JToken SendRequest(string method, NameValueCollection args, bool throwException = true)
         {
             args.Add("access_token", AccessToken);
             args.Add("v", API_VERSION);
 
             var response = WebProvider.SendRequestAndGetJson($"https://api.vk.com/method/{method}", args);
 
-            if (response.ContainsKey("error")) 
-                throw new VKontakteErrorException(
-                    int.Parse(response["error"]["error_code"].ToString()), 
-                    response["error"]["error_msg"].ToString()
-                );
-            
+            if (response.ContainsKey("error"))
+            {
+                if (throwException)
+                    throw new VKontakteErrorException(
+                        int.Parse(response["error"]["error_code"].ToString()), 
+                        response["error"]["error_msg"].ToString()
+                    );
+
+                return null;
+            }
+
             return response["response"];
         }
 
@@ -62,7 +67,34 @@ namespace Jubi.VKontakte.Api
         public JToken SendRequest(string group, string method, NameValueCollection args)
             => SendRequest($"{group}.{method}", args);
 
-        public JObject BuildKeyboard(KeyboardPage keyboard, bool isOneTime = false)
+        private JObject GetButton(KeyboardAction button) =>
+            new JObject
+            {
+                {
+                    "action", new JObject
+                    {
+                        {"type", "text"},
+                        {"label", button.Name},
+                        {
+                            "payload", new JObject
+                            {
+                                {"command", button.Executor}
+                            }.ToString()
+                        }
+                    }
+                },
+                {
+                    "color", button.Color switch
+                    {
+                        KeyboardColor.Green => "positive",
+                        KeyboardColor.Red => "negative",
+                        KeyboardColor.Primary => "primary",
+                        _ => "secondary"
+                    }
+                }
+            };
+        
+        public JObject BuildKeyboard(KeyboardAction menu, KeyboardPage keyboard, bool isOneTime = false)
         {
             var buttons = new JArray();
             foreach (var row in keyboard.Rows)
@@ -71,27 +103,16 @@ namespace Jubi.VKontakte.Api
                 
                 foreach (var button in row.Buttons)
                 {
-                    (buttons[buttons.Count - 1] as JArray).Add(new JObject
-                    {
-                        {"action", new JObject
-                        {
-                            {"type", "text"},
-                            {"label", button.Name},
-                            {"payload", new JObject
-                                {
-                                    {"command", button.Executor}
-                                }.ToString()
-                            }
-                        }},
-                        {"color", button.Color switch
-                        {
-                            KeyboardColor.Green => "positive",
-                            KeyboardColor.Red => "negative",
-                            KeyboardColor.Primary => "primary",
-                            _ => "secondary"
-                        }}
-                    });
+                    (buttons[buttons.Count - 1] as JArray).Add(GetButton(button));
                 }
+            }
+
+            if (menu != null)
+            {
+                buttons.Add(new JArray
+                {
+                    GetButton(menu)
+                });
             }
             
             return new JObject

@@ -20,21 +20,25 @@ namespace Jubi.Telegram.Api
             AccessToken = token;
         }
 
-        public JToken SendRequest(string method, NameValueCollection args)
+        public JToken SendRequest(string method, NameValueCollection args, bool throwException = false)
         {
             var response =
                 WebProvider.SendRequestAndGetJson($"https://api.telegram.org/bot{AccessToken}/{method}", args);
-            
-            if (!((bool)response["ok"]))
-                throw new TelegramErrorException(
+
+            if (!(bool) response["ok"])
+            {
+                if (throwException) throw new TelegramErrorException(
                     int.Parse(response["error_code"].ToString()), 
                     response["description"].ToString()
                 );
-            
+
+                return null;
+            }
+
             return response["result"];
         }
 
-        public JObject BuildKeyboard(KeyboardPage keyboard, bool isOneTime = false)
+        public JObject BuildKeyboard(KeyboardAction menu, KeyboardPage keyboard, bool isOneTime = false)
         {
             var buttons = new JArray();
             foreach (var row in keyboard.Rows)
@@ -45,6 +49,14 @@ namespace Jubi.Telegram.Api
                 {
                     (buttons[buttons.Count - 1] as JArray).Add(button.Name);
                 }
+            }
+
+            if (menu != null)
+            {
+                buttons.Add(new JArray
+                {
+                    {menu.Name}
+                });
             }
             
             return new JObject
