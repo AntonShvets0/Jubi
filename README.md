@@ -55,6 +55,8 @@ keyboard.AddLine(); // Add new line
 
 return new Message("Text for user", new [] { keyboard }); // send message with keyboard
 return new Message("This message delete keyboard", new [] { new ReplyMarkupKeyboard() });
+return keyboard; // send keyboard without text
+
 
 ```
 
@@ -63,6 +65,32 @@ Jubi currently only supports images as attachments. In the future, I will create
 ```C#
 return new Message("Photo", new [] { new PhotoAttachment("link to photo, or path") });
 
-return new Message("Photo", new [] { new PhotoAttachment(bytes) });
+return new Message("Photo", new PhotoAttachment(bytes));
 
+return new PhotoAttachment("implicit convert");
+
+```
+
+
+### Read string
+You can read future string from user using ReadString () and other similar methods.
+```C#
+var name = user.ReadString("Send your name");
+var age = user.ReadInt("Send your age");
+var balance = user.ReadDouble("Send your balance");
+var isAdmin = user.ReadBoolean("You're admin?");
+
+
+var markup = new ReplyKeyboardMarkup();
+markup.AddButton("Item 1", "0");
+markup.AddButton("Item 2", "1");
+
+// if user select Item 1 ReadInt return 0, else method return 1
+var item = user.ReadInt(new Message("Select item", markup));
+
+var customConvert = user.ReadAndConvertToType<DateTime>(
+    "Send your date of birth",
+    DateTime.TryParse,
+    "Error: Wrong date format"
+);
 ```

@@ -44,12 +44,12 @@ namespace Jubi.Abstracts
 
         public Message? GetError(string error)
         {
-            return BotInstance.Configuration["prefix_error"]["default"] + " " + error;
+            return BotInstance.Configuration["error"]["default"] + " " + error;
         } 
         
         public Message? GetSyntaxError(string error)
         {
-            return BotInstance.Configuration["prefix_error"]["syntax"] +  $" /{Alias} " + error;
+            return BotInstance.Configuration["error"]["syntax"] +  $" /{Alias} " + error;
         }
     }
 }

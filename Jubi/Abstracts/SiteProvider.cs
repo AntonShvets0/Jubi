@@ -129,8 +129,6 @@ namespace Jubi.Abstracts
         protected new Dictionary<Type, Action<T, IUpdateContent>> EventHandlers 
             = new Dictionary<Type, Action<T, IUpdateContent>>();
         
-        public new readonly HashSet<T> Users = new HashSet<T>();
-        
         /// <summary>
         /// This object need to lock() block, because Users get in others threads. This object sync them
         /// </summary>
@@ -258,10 +256,26 @@ namespace Jubi.Abstracts
 
                     if (content is MessageNewContent messageNew && user.IsWaitingResponse)
                     {
-                        user.ResponseLine = user.Keyboard != null 
-                            ? (FindButton(messageNew.Text, user.Keyboard.Menu, user.Keyboard.Pages).Executor 
-                               ?? messageNew.Text) 
-                            : messageNew.Text;
+                        if (user.Keyboard != null)
+                        {
+                            var btn = FindButton(messageNew.Text, user.Keyboard.Menu, user.Keyboard.Pages);
+                            if (btn == null)
+                            {
+                                user.ResponseLine = messageNew.Text;
+                                return;
+                            }
+
+                            if (btn.Action != null)
+                            {
+                                btn.Action.Invoke();
+                                return;
+                            }
+
+                            user.ResponseLine = btn.Executor;
+                            return;
+                        }
+                        
+                        user.ResponseLine = messageNew.Text;
                         return;
                     }
                     

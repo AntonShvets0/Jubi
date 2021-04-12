@@ -117,9 +117,11 @@ namespace Jubi
                           "; field for api should be called like the provider with a lowercase letter " +
                           "(TelegramProvider -> telegram, VKontakteProvider -> vkontakte)\n" +
                           "exampleService = api_key\n" +
-                          "[prefix_error]\n" +
+                          "[error]\n" +
                           "default = Error:\n" +
-                          "syntax = Syntax error! True syntax:";
+                          "syntax = Syntax error! True syntax:" +
+                          "int_convert = Error: You must write number!" +
+                          "bool_convert = Error: You must write \"false\" or \"true\"!";
             var ini = new Ini(content);
             
             File.WriteAllText(pathToFile, content);
