@@ -73,7 +73,7 @@ return new PhotoAttachment("implicit convert");
 
 
 ### Read string
-You can read future string from user using ReadString () and other similar methods.
+You can get future message from user using ReadString() and other similar methods.
 ```C#
 var name = user.ReadString("Send your name");
 var age = user.ReadInt("Send your age");
