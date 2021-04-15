@@ -209,7 +209,7 @@ public class SubcommandExecutor : CommandExecutor
 {
     public override Message? Execute()
     {
-        return "Hello world!"
+        return "Hello world!";
     }
 }
 
@@ -219,7 +219,7 @@ public class Subcommand2Executor : CommandExecutor
 {
     public override Message? Execute()
     {
-        return "Hello universe!"
+        return "Hello universe!";
     }
 }
 
