@@ -52,6 +52,8 @@ namespace Jubi.VKontakte.Api.Types
                             {"buttons", new JArray()},
                             {"one_time", true}
                         }.ToString();
+
+                        user.KeyboardReset();
                         continue;
                     }
                     

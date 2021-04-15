@@ -43,6 +43,8 @@ namespace Jubi.Telegram.Api.Types
                         {
                             {"remove_keyboard", true}
                         }.ToString();
+                        
+                        user.KeyboardReset();
                         continue;
                     }
                     

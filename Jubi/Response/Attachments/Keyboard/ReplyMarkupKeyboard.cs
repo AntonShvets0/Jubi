@@ -20,8 +20,7 @@ namespace Jubi.Response.Attachments.Keyboard
         public static string MenuText;
 
 
-        public bool IsEmpty => 
-            Pages.First()?.Rows?.First()?.Buttons.Count == 0;
+        public virtual bool IsEmpty { get; protected set; } = false;
 
         public List<KeyboardPage> Pages = new List<KeyboardPage>
         {

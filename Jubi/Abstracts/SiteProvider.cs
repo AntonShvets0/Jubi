@@ -192,55 +192,71 @@ namespace Jubi.Abstracts
                         new ReplyMarkupKeyboard(user.Keyboard)));
                     return;
                 }
-                
+
 
                 if (user.Keyboard.IsOneTime)
                 {
                     user.KeyboardReset();
                 }
-                
+
                 btn.Action?.Invoke();
-                
+
                 if (btn.Executor == null) return;
 
                 message = btn.Executor;
                 isFromKeyboard = true;
             }
-            
+
             if (!message.StartsWith("/")) return;
             message = message.Substring(1);
-            
+
             var args = message.Split(' ').ToList();
-            
+
             var command = args[0];
             args.RemoveAt(0);
 
-            var commandExecutor = 
-                BotInstance.CommandExecutors.FirstOrDefault(c => c.Alias == command);
+            var type = BotInstance.CommandExecutors.ContainsKey(command) ? BotInstance.CommandExecutors[command] : null;
+
+            var commandExecutor = type != null ? BotInstance.GetCommandExecutor(type) : null;
             var arrayArgs = args.ToArray();
 
-            if (commandExecutor == null || (commandExecutor.IsHidden && !isFromKeyboard))
+            if (commandExecutor == null || commandExecutor.IsHidden && !isFromKeyboard)
             {
-                if (message != "error unknown_command") EmulateExecute(user, "/error unknown_command");
+                if (message != "error unknown_command")
+                    EmulateExecute(user, "/error unknown_command");
                 return;
             }
 
-            foreach (var middleware in commandExecutor.Middlewares)
+            try
             {
-                var responseMiddleware = middleware(user, arrayArgs);
-                if (responseMiddleware != null)
+                commandExecutor.User = user;
+                commandExecutor.Args = arrayArgs;
+                
+                foreach (var middleware in commandExecutor.Middlewares)
                 {
-                    user.Send((Message) responseMiddleware);
-                    return;
+                    var responseMiddleware = middleware(commandExecutor);
+                    if (responseMiddleware == false)
+                        return;
                 }
-            }
-            
-            var response = commandExecutor.Execute(user, arrayArgs);
-            if (response == null) return;
+                
+                if (!commandExecutor.PreProcessData()) return;
+                
+                var response = commandExecutor.Execute();
+                if (response == null) return;
 
-            user.Send((Message) response);
+                user.Send((Message) response);
+            }
+            catch (SyntaxErrorException ex)
+            {
+                user.Send(Error.FromConfig(BotInstance, "syntax") + 
+                          $" /{commandExecutor.FullAlias} {ex.Message}");
+            }
+            catch (ErrorException ex)
+            {
+                user.Send(Error.FromConfig(BotInstance, "default") + $" {ex.Message}");
+            }
         }
-        
+
         /// <summary>
         /// Call event with UpdateInfo
         /// </summary>
@@ -288,9 +304,7 @@ namespace Jubi.Abstracts
                         catch (Exception ex)
                         {
                             lock (Bot.LogsLock)
-                            {
                                 HandleError(ex, user as T);
-                            }
                         }
                     }
                 }).Start();
@@ -319,8 +333,19 @@ namespace Jubi.Abstracts
 
             try
             {
+                var keyboard = user.Keyboard;
+                var page = user.KeyboardPage;
+                
+                user.KeyboardReset();
+
                 EmulateExecute(user, "/error exception");
-                Api.Messages.Send((string) BotInstance.Configuration["errors"]["exception"], user);
+                Api.Messages.Send(Error.FromConfig(BotInstance, "internal_error"), user);
+
+                if (user.Keyboard == null)
+                {
+                    user.Keyboard = keyboard;
+                    user.KeyboardPage = page;
+                }
             }
             catch (Exception) { }
         }
@@ -352,7 +377,7 @@ namespace Jubi.Abstracts
 
         public override void OnInit()
         {
-            if (BotInstance.Configuration["apiKeys"]?["vkontakte"] == null)
+            if (BotInstance.Configuration["apiKeys"]?[Id] == null)
                 throw new JubiException($"{Id} api key not found");
             
             AccessToken = BotInstance.Configuration["apiKeys"][Id];

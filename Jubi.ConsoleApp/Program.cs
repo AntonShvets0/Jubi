@@ -16,7 +16,7 @@ namespace Jubi.ConsoleApp
         {
             var bot = new Bot(
                 "config.ini", 
-                new SiteProvider[]{ new VKontakteProvider(), new TelegramProvider() }, 
+                new SiteProvider[]{ new TelegramProvider() }, 
                 new ExecutorInformation
                 {
                     Namespace = "Jubi.ConsoleApp.Executors",

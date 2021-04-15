@@ -7,7 +7,11 @@
     <e p="C:\Users\lordoverlord0\RiderProjects\Jubi" t="IncludeFlat">
       <e p="Jubi" t="IncludeRecursive">
         <e p="Abstracts" t="Include">
-          <e p="CommandExecutor.cs" t="Include" />
+          <e p="Executors" t="Include">
+            <e p="CommandExecutor.cs" t="Include" />
+            <e p="MenuCommandExecutor.cs" t="Include" />
+            <e p="StrictCommandExecutor.cs" t="Include" />
+          </e>
           <e p="SiteProvider.cs" t="Include" />
           <e p="User.cs" t="Include" />
         </e>
@@ -21,12 +25,20 @@
           <e p="WebMultipartContent.cs" t="Include" />
           <e p="WebProvider.cs" t="Include" />
         </e>
+        <e p="Attributes" t="Include">
+          <e p="CommandAttribute.cs" t="Include" />
+          <e p="IgnoreAttribute.cs" t="Include" />
+        </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="Bot.cs" t="Include" />
+        <e p="Error.cs" t="Include" />
         <e p="Exceptions" t="Include">
+          <e p="ErrorException.cs" t="Include" />
           <e p="JubiException.cs" t="Include" />
+          <e p="SyntaxErrorException.cs" t="Include" />
         </e>
         <e p="Executors" t="Include">
+          <e p="ErrorExecutor.cs" t="Include" />
           <e p="PageExecutor.cs" t="Include" />
         </e>
         <e p="Jubi.csproj" t="IncludeRecursive" />
@@ -47,6 +59,7 @@
               <e p="KeyboardColor.cs" t="Include" />
               <e p="KeyboardPage.cs" t="Include" />
               <e p="KeyboardRow.cs" t="Include" />
+              <e p="RemoveReplyMarkupKeyboard.cs" t="Include" />
               <e p="ReplyMarkupKeyboard.cs" t="Include" />
             </e>
             <e p="PhotoAttachment.cs" t="Include" />
@@ -68,6 +81,15 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Executors" t="Include">
           <e p="HelloExecutor.cs" t="Include" />
+          <e p="MenuExecutor.cs" t="Include" />
+          <e p="StrictExecutor.cs" t="Include" />
+          <e p="Subcommands" t="Include">
+            <e p="Hello2Executor.cs" t="Include" />
+            <e p="Menu" t="Include">
+              <e p="Test2Executor.cs" t="Include" />
+              <e p="TestExecutor.cs" t="Include" />
+            </e>
+          </e>
         </e>
         <e p="Jubi.ConsoleApp.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
