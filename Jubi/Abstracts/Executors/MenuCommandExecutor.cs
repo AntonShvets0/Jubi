@@ -22,12 +22,27 @@ namespace Jubi.Abstracts.Executors
                 executor.User = User;
                 executor.Parent = this;
                 executor.Args = Array.Empty<object>();
+
+                var isMiddlewaresReturnError = false;
                 
                 foreach (var middleware in executor.Middlewares)
                 {
-                    if (!middleware(executor)) continue;
+                    try
+                    {
+                        if (!middleware(executor))
+                        {
+                            isMiddlewaresReturnError = true;
+                            break;
+                        }
+                    }
+                    catch (JubiException)
+                    {
+                        isMiddlewaresReturnError = true;
+                        break;
+                    }
                 }
 
+                if (isMiddlewaresReturnError) continue;
                 markup.AddButton(executor.Alias, () => ExecuteMarkup(executor));
             }
 
