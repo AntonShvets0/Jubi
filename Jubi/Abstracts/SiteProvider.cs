@@ -56,7 +56,7 @@ namespace Jubi.Abstracts
         /// <summary>
         /// Start listening updates service
         /// </summary>
-        public void Start()
+        public void Run()
         {
             SetProviderRefToMethod();
             
@@ -215,9 +215,7 @@ namespace Jubi.Abstracts
             var command = args[0];
             args.RemoveAt(0);
 
-            var type = BotInstance.CommandExecutors.ContainsKey(command) ? BotInstance.CommandExecutors[command] : null;
-
-            var commandExecutor = type != null ? BotInstance.GetCommandExecutor(type) : null;
+            var commandExecutor = BotInstance.GetCommandExecutor(command);
             var arrayArgs = args.ToArray();
 
             if (commandExecutor == null || commandExecutor.IsHidden && !isFromKeyboard)

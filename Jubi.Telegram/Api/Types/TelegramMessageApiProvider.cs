@@ -67,7 +67,7 @@ namespace Jubi.Telegram.Api.Types
                     user.Keyboard.Pages[user.KeyboardPage]).ToString();
             }
             
-            var args = new NameValueCollection
+            var args = new Dictionary<string, string>
             {
                 {"chat_id", user.Id.ToString()},
                 {"reply_markup", keyboard}

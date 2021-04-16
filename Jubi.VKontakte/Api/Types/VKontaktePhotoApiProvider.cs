@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using Jubi.Api;
 using Jubi.Api.Types;
 using Newtonsoft.Json.Linq;
@@ -15,7 +16,7 @@ namespace Jubi.VKontakte.Api.Types
 
         public string GetMessagesUploadServer(ulong peerId)
         {
-            return Provider.SendRequest("photos.getMessagesUploadServer", new NameValueCollection
+            return Provider.SendRequest("photos.getMessagesUploadServer", new Dictionary<string, string>
             {
                 {"peer_id", peerId.ToString()}
             })["upload_url"]?.ToString();
@@ -23,7 +24,7 @@ namespace Jubi.VKontakte.Api.Types
 
         public string SaveMessagesPhoto(string photo, string server, string hash)
         {
-            var jObject = Provider.SendRequest("photos.saveMessagesPhoto", new NameValueCollection
+            var jObject = Provider.SendRequest("photos.saveMessagesPhoto", new Dictionary<string, string>
             {
                 {"server", server},
                 {"photo", photo},

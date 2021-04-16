@@ -30,7 +30,7 @@ namespace Jubi.VKontakte.Api.Types
             var longPollServer = (Provider as VKontakteApiProvider).Groups.GetLongPollServer();
             var response = WebProvider.SendRequestAndGetJson(
                 $"{longPollServer.Server}?act=a_check&key={longPollServer.Key}&ts={longPollServer.TimeStamp}&wait=25", 
-                new NameValueCollection()
+                new Dictionary<string, string>()
                 );
             
             foreach (var eventKeyValuePair in response)

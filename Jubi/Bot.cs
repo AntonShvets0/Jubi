@@ -19,8 +19,8 @@ namespace Jubi
         public readonly Ini Configuration;
         
         public readonly HashSet<SiteProvider> Providers;
-        public Dictionary<string, Type> CommandExecutors;
-        public object CommandExecutorsLock = new object();
+        private Dictionary<string, Type> _commandExecutors;
+        private object _commandExecutorsLock = new object();
 
         /// <summary>
         /// Logs. Contains exception, which throwed in Executors.
@@ -32,11 +32,9 @@ namespace Jubi
         /// </summary>
         public static readonly object LogsLock = new object();
         
-        public Bot(string config, IEnumerable<SiteProvider> siteProviders, ExecutorInformation executorInformation)
+        internal Bot(Ini config, IEnumerable<SiteProvider> siteProviders, ExecutorInformation executorInformation)
         {
-            if (!File.Exists(config)) Configuration = CreateDefaultIniConfiguration(config);
-            else Configuration = Ini.FromFile(config);
-
+            Configuration = config;
             Providers = siteProviders.ToHashSet();
 
             ReplyMarkupKeyboard.PreviousButtonText = Configuration["buttons"]["previous"];
@@ -49,7 +47,7 @@ namespace Jubi
         /// <summary>
         /// Start all providers
         /// </summary>
-        public void Start()
+        public void Run()
         {
             foreach (var provider in Providers)
             {
@@ -58,7 +56,7 @@ namespace Jubi
 
                 new Thread(() =>
                 {
-                    provider.Start();
+                    provider.Run();
                 }).Start();
             }
         }
@@ -68,16 +66,19 @@ namespace Jubi
         /// </summary>
         private void LoadExecutors(ExecutorInformation executorInformation)
         {
-            CommandExecutors =
-                GetCommandExecutorsViaReflection(executorInformation.Assembly, executorInformation.Namespace);
-            
-            foreach (var command in 
-                GetCommandExecutorsViaReflection(Assembly.GetExecutingAssembly(), "Jubi.Executors"))
+            lock (_commandExecutorsLock)
             {
-                if (CommandExecutors.ContainsKey(command.Key))
-                    CommandExecutors[command.Key] = command.Value;
-                else
-                    CommandExecutors.Add(command.Key, command.Value);
+                _commandExecutors =
+                    GetCommandExecutorsViaReflection(executorInformation.Assembly, executorInformation.Namespace);
+            
+                foreach (var command in 
+                    GetCommandExecutorsViaReflection(Assembly.GetExecutingAssembly(), "Jubi.Executors"))
+                {
+                    if (_commandExecutors.ContainsKey(command.Key))
+                        _commandExecutors[command.Key] = command.Value;
+                    else
+                        _commandExecutors.Add(command.Key, command.Value);
+                }
             }
         }
 
@@ -99,51 +100,18 @@ namespace Jubi
             
         }
 
-        internal CommandExecutor GetCommandExecutor(Type type)
+        public CommandExecutor GetCommandExecutor(string alias)
         {
-            var obj = Activator.CreateInstance(type);
-            var executor = obj as CommandExecutor;
-            if (executor != null) executor.BotInstance = this;
+            lock (_commandExecutorsLock)
+            {
+                if (!_commandExecutors.ContainsKey(alias)) return null;
+                var obj = Activator.CreateInstance(_commandExecutors[alias]);
+                
+                var executor = obj as CommandExecutor;
+                if (executor != null) executor.BotInstance = this;
             
-            return executor;
-        }
-
-        /// <summary>
-        /// Create default ini configuration for bot, and return Ini class
-        /// </summary>
-        /// <param name="pathToFile">Path to future configuration file</param>
-        /// <returns>Ini</returns>
-        public static Ini CreateDefaultIniConfiguration(string pathToFile)
-        {
-            var content = "[buttons]\n" +
-                          "previous = Previous page\n" +
-                          "next = Next page\n" +
-                          "menu = Back to menu\n" +
-                          "[apiKeys]\n" +
-                          "; put here api keys for Jubi providers\n" +
-                          "; field for api should be called like the provider with a lowercase letter" +
-                          "(TelegramProvider -> telegram, VKontakteProvider -> vkontakte)\n" +
-                          "exampleService = api_key\n" +
-                          "[errors]\n" +
-                          "default = Error:\n" +
-                          "syntax = Syntax error! True syntax:\n" +
-                          "int_convert = Error: You must write number!\n" +
-                          "bool_convert = Error: You must write \"false\" or \"true\"!\n" +
-                          "internal_error = Error: Internal error while executing command\n" +
-                          "unknown_command = Error: Unknown command\n\n" +
-                          "[types]\n" +
-                          "System.Int32 = number\n" +
-                          "System.Int64 = number\n" + 
-                          "System.Decimal = number\n" + 
-                          "System.Char = symbol\n" + 
-                          "System.UInt32 = positive number\n" +
-                          "System.UInt64 = positive number\n" + 
-                          "System.Boolean = false/true\n" + 
-                          "System.String = string";
-            var ini = new Ini(content);
-            
-            File.WriteAllText(pathToFile, content);
-            return ini;
+                return executor;
+            }
         }
     }
 }

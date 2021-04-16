@@ -12,14 +12,14 @@ Jubi - library for creating multiplatform bots in C#. Two platforms are now avai
 Program.cs:
 ```C#
 
-var bot = new Bot("path to config.ini", new SiteProvider[] {
+var bot = BotBuilder.Create("path to config.ini", new SiteProvider[] {
 new VKontakteProvider(), new TelegramProvider() // what platforms should be connected
 }, new ExecutorInformation {
     Namespace = "Example.Executors", // where commands for the bot are stored (Jubi creates class instances through reflection)
     Assembly = Assembly.GetExecutingAssembly()
 });
 
-bot.Start();
+bot.Run();
 
 ```
 

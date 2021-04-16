@@ -31,6 +31,7 @@
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="Bot.cs" t="Include" />
+        <e p="BotBuilder.cs" t="Include" />
         <e p="Error.cs" t="Include" />
         <e p="Exceptions" t="Include">
           <e p="ErrorException.cs" t="Include" />

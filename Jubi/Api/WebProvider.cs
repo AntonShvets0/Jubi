@@ -14,12 +14,14 @@ namespace Jubi.Api
 {
     public class WebProvider
     {
-        public static JObject SendRequestAndGetJson(string url, NameValueCollection args)
+        private static HttpClient _httpClient = new HttpClient();
+        public static JObject SendRequestAndGetJson(string url, Dictionary<string, string> args)
         {
             try
             {
-                var client = new WebClient();
-                return JObject.Parse(Encoding.UTF8.GetString(client.UploadValues(url, args)));
+                return JObject.Parse(
+                    _httpClient.PostAsync(url, new FormUrlEncodedContent(args)).Result.Content.ReadAsStringAsync().Result
+                    );
             }
             catch (WebException webException)
             {
@@ -36,15 +38,14 @@ namespace Jubi.Api
 
         public static string SendMultipartRequest(string url, IEnumerable<WebMultipartContent> args)
         {
-            var client = new HttpClient();
             var multipart = new MultipartFormDataContent();
 
             foreach (var arg in args)
             {
-                multipart.Add(arg.Content, arg.Name, "test.jpg");
+                multipart.Add(arg.Content, arg.Name, "image.jpg");
             }
 
-            var task = client.PostAsync(url, multipart);
+            var task = _httpClient.PostAsync(url, multipart);
             return new StreamReader(task.Result.Content.ReadAsStreamAsync().Result).ReadToEnd();
         }
     }

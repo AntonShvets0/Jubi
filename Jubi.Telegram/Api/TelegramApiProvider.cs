@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using Jubi.Api;
 using Jubi.Api.Types;
 using Jubi.Response.Attachments.Keyboard;
@@ -20,7 +21,7 @@ namespace Jubi.Telegram.Api
             AccessToken = token;
         }
 
-        public JToken SendRequest(string method, NameValueCollection args, bool throwException = false)
+        public JToken SendRequest(string method, Dictionary<string, string> args, bool throwException = false)
         {
             var response =
                 WebProvider.SendRequestAndGetJson($"https://api.telegram.org/bot{AccessToken}/{method}", args);

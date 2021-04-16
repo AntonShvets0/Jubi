@@ -28,7 +28,7 @@ namespace Jubi.VKontakte.Api
             AccessToken = token;
         }
 
-        public JToken SendRequest(string method, NameValueCollection args, bool throwException = true)
+        public JToken SendRequest(string method, Dictionary<string, string> args, bool throwException = true)
         {
             args.Add("access_token", AccessToken);
             args.Add("v", API_VERSION);
@@ -64,7 +64,7 @@ namespace Jubi.VKontakte.Api
             return covers.ToArray();
         }
         
-        public JToken SendRequest(string group, string method, NameValueCollection args)
+        public JToken SendRequest(string group, string method, Dictionary<string, string> args)
             => SendRequest($"{group}.{method}", args);
 
         private JObject GetButton(KeyboardAction button) =>

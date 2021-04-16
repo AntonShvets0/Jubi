@@ -18,7 +18,7 @@ namespace Jubi.Telegram.Api.Types
 
         public IEnumerable<UpdateInfo> Get()
         {
-            var array = Provider.SendRequest("getUpdates", new NameValueCollection
+            var array = Provider.SendRequest("getUpdates", new Dictionary<string, string>()
             {
                 {"offset", TimeStamp.ToString()}
             }) as JArray;

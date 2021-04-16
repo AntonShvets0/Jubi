@@ -22,15 +22,23 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="Fix code in README.md">
+    <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="Update version">
+      <change afterPath="$PROJECT_DIR$/Jubi/BotBuilder.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Jubi.Telegram.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Jubi.Telegram.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.ConsoleApp/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.ConsoleApp/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Api/TelegramApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Api/TelegramApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramUpdateApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramUpdateApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontaktePhotoApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontaktePhotoApiProvider.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Jubi.VKontakte.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Jubi.VKontakte.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/VKontakteApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/VKontakteApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Api/IApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Api/IApiProvider.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi/Api/WebProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Api/WebProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/Jubi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Jubi.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Bot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Bot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,10 +73,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/Models/VKontakteLongPollResponse.cs" />
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKMessageApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontaktePhotoApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/Models/TelegramMessageType.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/Models/Interfaces/ITelegramAttachment.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/Models/TelegramMediaGroup.cs" />
@@ -81,14 +86,8 @@
         <option value="$PROJECT_DIR$/Jubi.VKontakte/VKontakteProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/TelegramProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/TelegramUser.cs" />
-        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramUpdateApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Api/IApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/TelegramApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/VKontakteApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi/Response/Message.cs" />
         <option value="$PROJECT_DIR$/Jubi/Abstracts/User.cs" />
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/EmptyReplyMarkupKeyboard.cs" />
         <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/ReplyMarkupKeyboard.cs" />
         <option value="$PROJECT_DIR$/Jubi/Attributes/NotCommandAttribute.cs" />
@@ -100,22 +99,31 @@
         <option value="$PROJECT_DIR$/Jubi/Abstracts/CommandExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi/Executors/PageExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi/Executors/ErrorExecutor.cs" />
-        <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Program.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/MenuExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/Subcommands/Menu/TestExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/Subcommands/Menu/Test2Executor.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/StrictExecutor.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/Subcommands/Hello2Executor.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Bot.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/RemoveReplyMarkupKeyboard.cs" />
         <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/StrictCommandExecutor.cs" />
-        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi/Api/WebProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/TelegramApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Api/IApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramUpdateApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/VKontakteApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontaktePhotoApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi/BotBuilder.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Bot.cs" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Program.cs" />
       </list>
     </option>
   </component>
@@ -173,7 +181,7 @@
       <workItem from="1617304115183" duration="10352000" />
       <workItem from="1618085819180" duration="638000" />
       <workItem from="1618245146785" duration="13152000" />
-      <workItem from="1618511711815" duration="20414000" />
+      <workItem from="1618511711815" duration="24539000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1617136135398</created>
@@ -238,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618530971120</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Update version">
+      <created>1618537801835</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1618537801835</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,7 +284,8 @@
     <MESSAGE value="Second version" />
     <MESSAGE value="Bug fixes" />
     <MESSAGE value="Fix code in README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix code in README.md" />
+    <MESSAGE value="Update version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update version" />
   </component>
   <component name="WindowStateProjectService">
     <state width="466" height="464" key="DebuggerActiveHint" timestamp="1618525053954">
@@ -280,86 +296,86 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="647" y="310" key="Github.ShareDialog/0.0.1536.824@0.0.1536.824" timestamp="1617136190013" />
-    <state width="1493" height="288" key="GridCell.Tab.0.bottom" timestamp="1618527372774">
+    <state width="1493" height="288" key="GridCell.Tab.0.bottom" timestamp="1618578831801">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618527372774" />
-    <state width="1493" height="288" key="GridCell.Tab.0.center" timestamp="1618527372774">
+    <state width="1493" height="288" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
+    <state width="1493" height="288" key="GridCell.Tab.0.center" timestamp="1618578831801">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1618527372774" />
-    <state width="1493" height="288" key="GridCell.Tab.0.left" timestamp="1618527372773">
+    <state width="1493" height="288" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
+    <state width="1493" height="288" key="GridCell.Tab.0.left" timestamp="1618578831801">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1618527372773" />
-    <state width="1493" height="288" key="GridCell.Tab.0.right" timestamp="1618527372774">
+    <state width="1493" height="288" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
+    <state width="1493" height="288" key="GridCell.Tab.0.right" timestamp="1618578831801">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1618527372774" />
-    <state width="1493" height="288" key="GridCell.Tab.1.bottom" timestamp="1618527372775">
+    <state width="1493" height="288" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
+    <state width="1493" height="288" key="GridCell.Tab.1.bottom" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618527372775" />
-    <state width="1493" height="288" key="GridCell.Tab.1.center" timestamp="1618527372775">
+    <state width="1493" height="288" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
+    <state width="1493" height="288" key="GridCell.Tab.1.center" timestamp="1618578831801">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1618527372775" />
-    <state width="1493" height="288" key="GridCell.Tab.1.left" timestamp="1618527372775">
+    <state width="1493" height="288" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
+    <state width="1493" height="288" key="GridCell.Tab.1.left" timestamp="1618578831801">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1618527372775" />
-    <state width="1493" height="288" key="GridCell.Tab.1.right" timestamp="1618527372775">
+    <state width="1493" height="288" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
+    <state width="1493" height="288" key="GridCell.Tab.1.right" timestamp="1618578831801">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1618527372775" />
-    <state width="1493" height="288" key="GridCell.Tab.2.bottom" timestamp="1618527372775">
+    <state width="1493" height="288" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
+    <state width="1493" height="288" key="GridCell.Tab.2.bottom" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618527372775" />
-    <state width="1493" height="288" key="GridCell.Tab.2.center" timestamp="1618527372775">
+    <state width="1493" height="288" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
+    <state width="1493" height="288" key="GridCell.Tab.2.center" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1618527372775" />
-    <state width="1493" height="288" key="GridCell.Tab.2.left" timestamp="1618527372775">
+    <state width="1493" height="288" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
+    <state width="1493" height="288" key="GridCell.Tab.2.left" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1618527372775" />
-    <state width="1493" height="288" key="GridCell.Tab.2.right" timestamp="1618527372775">
+    <state width="1493" height="288" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
+    <state width="1493" height="288" key="GridCell.Tab.2.right" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1618527372775" />
-    <state width="1493" height="288" key="GridCell.Tab.3.bottom" timestamp="1618527372776">
+    <state width="1493" height="288" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
+    <state width="1493" height="288" key="GridCell.Tab.3.bottom" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.3.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618527372776" />
-    <state width="1493" height="288" key="GridCell.Tab.3.center" timestamp="1618527372775">
+    <state width="1493" height="288" key="GridCell.Tab.3.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
+    <state width="1493" height="288" key="GridCell.Tab.3.center" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.3.center/0.0.1536.824@0.0.1536.824" timestamp="1618527372775" />
-    <state width="1493" height="288" key="GridCell.Tab.3.left" timestamp="1618527372775">
+    <state width="1493" height="288" key="GridCell.Tab.3.center/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
+    <state width="1493" height="288" key="GridCell.Tab.3.left" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.3.left/0.0.1536.824@0.0.1536.824" timestamp="1618527372775" />
-    <state width="1493" height="288" key="GridCell.Tab.3.right" timestamp="1618527372775">
+    <state width="1493" height="288" key="GridCell.Tab.3.left/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
+    <state width="1493" height="288" key="GridCell.Tab.3.right" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.3.right/0.0.1536.824@0.0.1536.824" timestamp="1618527372775" />
-    <state width="1493" height="288" key="GridCell.Tab.4.bottom" timestamp="1618527372776">
+    <state width="1493" height="288" key="GridCell.Tab.3.right/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
+    <state width="1493" height="288" key="GridCell.Tab.4.bottom" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.4.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618527372776" />
-    <state width="1493" height="288" key="GridCell.Tab.4.center" timestamp="1618527372776">
+    <state width="1493" height="288" key="GridCell.Tab.4.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
+    <state width="1493" height="288" key="GridCell.Tab.4.center" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.4.center/0.0.1536.824@0.0.1536.824" timestamp="1618527372776" />
-    <state width="1493" height="288" key="GridCell.Tab.4.left" timestamp="1618527372776">
+    <state width="1493" height="288" key="GridCell.Tab.4.center/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
+    <state width="1493" height="288" key="GridCell.Tab.4.left" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.4.left/0.0.1536.824@0.0.1536.824" timestamp="1618527372776" />
-    <state width="1493" height="288" key="GridCell.Tab.4.right" timestamp="1618527372776">
+    <state width="1493" height="288" key="GridCell.Tab.4.left/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
+    <state width="1493" height="288" key="GridCell.Tab.4.right" timestamp="1618578831802">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.4.right/0.0.1536.824@0.0.1536.824" timestamp="1618527372776" />
+    <state width="1493" height="288" key="GridCell.Tab.4.right/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
     <state x="361" y="144" key="Rider.ProjectTemplateDialog.Size" timestamp="1617143330719">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -368,14 +384,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1618524883345" />
-    <state x="100" y="100" width="1336" height="624" key="VCS.FileHistoryDialog" timestamp="1617147800746">
+    <state x="100" y="100" width="1336" height="624" key="VCS.FileHistoryDialog" timestamp="1618577228367">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="100" y="100" width="1336" height="624" key="VCS.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1617147800746" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1618530974012">
+    <state x="100" y="100" width="1336" height="624" key="VCS.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1618577228367" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1618537806083">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1618530974012" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1618537806083" />
     <state width="775" height="419" key="XDebugger.FullValuePopup" timestamp="1618526292376">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

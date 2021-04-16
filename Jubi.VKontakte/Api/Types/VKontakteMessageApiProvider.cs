@@ -69,7 +69,7 @@ namespace Jubi.VKontakte.Api.Types
                 keyboard = Provider.BuildKeyboard(user.Keyboard.Menu, user.Keyboard.Pages[user.KeyboardPage]).ToString();
             }
 
-            return Provider.SendRequest("messages.send", new NameValueCollection
+            return Provider.SendRequest("messages.send", new Dictionary<string, string>
             {
                 {"user_id", user.Id.ToString()},
                 {"message", response.Text},

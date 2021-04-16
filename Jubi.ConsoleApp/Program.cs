@@ -14,7 +14,7 @@ namespace Jubi.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var bot = new Bot(
+            var bot = BotBuilder.Create(
                 "config.ini", 
                 new SiteProvider[]{ new TelegramProvider() }, 
                 new ExecutorInformation
@@ -23,7 +23,7 @@ namespace Jubi.ConsoleApp
                     Assembly = Assembly.GetExecutingAssembly()
                 });
             
-            bot.Start();
+            bot.Run();
         }
     }
 }

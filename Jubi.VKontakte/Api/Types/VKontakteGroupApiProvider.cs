@@ -22,7 +22,7 @@ namespace Jubi.VKontakte.Api.Types
 
         public VKontakteLongPollResponse GetLongPollServer()
         {
-            var response = Provider.SendRequest("groups.getLongPollServer", new NameValueCollection
+            var response = Provider.SendRequest("groups.getLongPollServer", new Dictionary<string, string> 
             {
                 {"group_id", (Provider as VKontakteApiProvider)?.GroupInfo?.Id.ToString()}
             });
@@ -40,7 +40,7 @@ namespace Jubi.VKontakte.Api.Types
             if (ids.Length == 1 && ids[0] == "0") ids = Array.Empty<string>();
 
             var array = Provider.SendRequest("groups.getById",
-                new NameValueCollection
+                new Dictionary<string, string>
                     {{"group_ids", string.Join(",", ids)}}) as JArray;
             if (array == null) yield break;
             
