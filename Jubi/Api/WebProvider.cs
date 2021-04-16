@@ -45,7 +45,7 @@ namespace Jubi.Api
             }
 
             var task = client.PostAsync(url, multipart);
-            return new StreamReader(task.Result.Content.ReadAsStream()).ReadToEnd();
+            return new StreamReader(task.Result.Content.ReadAsStreamAsync().Result).ReadToEnd();
         }
     }
 }

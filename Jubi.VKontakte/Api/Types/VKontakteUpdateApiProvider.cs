@@ -35,7 +35,7 @@ namespace Jubi.VKontakte.Api.Types
             
             foreach (var eventKeyValuePair in response)
             {
-                if (eventKeyValuePair.Value is not JArray) continue;
+                if (!(eventKeyValuePair.Value is JArray)) continue;
                 var array = eventKeyValuePair.Value as JArray;
                 foreach (var ev in array)
                 {

@@ -3,8 +3,8 @@ Jubi - library for creating multiplatform bots in C#. Two platforms are now avai
 
 
 ## Requirements
-* .NET Core 5.0
-* SimpleIni 1.2
+* .NETStandard 2.1
+* SimpleIni 3.0.1
 * NewtonSoft.Json 13.0.1
 
 ## Hello World in Jubi

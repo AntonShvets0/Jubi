@@ -25,7 +25,7 @@ namespace Jubi.Abstracts.Executors
                 
                 foreach (var middleware in executor.Middlewares)
                 {
-                    if (!middleware(executor)) ;
+                    if (!middleware(executor)) continue;
                 }
 
                 markup.AddButton(executor.Alias, () => ExecuteMarkup(executor));

@@ -1,17 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Title>Jubi</Title>
+        <Authors>AntonShvets0</Authors>
+        <Description>Library for creating multiplatform bot</Description>
+        <RepositoryUrl>https://github.com/AntonShvets0/Jubi</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="SimpleIni, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>..\..\SimpleIni\SimpleIni\bin\Release\net5.0\SimpleIni.dll</HintPath>
-      </Reference>
+      <PackageReference Include="SimpleIni" Version="3.0.1" />
     </ItemGroup>
 
 </Project>

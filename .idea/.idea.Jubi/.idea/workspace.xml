@@ -22,7 +22,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="Bug fixes" />
+    <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="Fix code in README.md">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Jubi.Telegram.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Jubi.Telegram.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Jubi.VKontakte.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Jubi.VKontakte.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Api/WebProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Api/WebProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Jubi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Jubi.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,12 +65,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/Models/VKontakteGroupInfo.cs" />
         <option value="$PROJECT_DIR$/Jubi.VKontakte/Models/VKontakteLongPollResponse.cs" />
         <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKMessageApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontaktePhotoApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/Models/TelegramMessageType.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/Models/Interfaces/ITelegramAttachment.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/Models/TelegramMediaGroup.cs" />
@@ -96,16 +104,18 @@
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/MenuExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/Subcommands/Menu/TestExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/Subcommands/Menu/Test2Executor.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/StrictExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/Subcommands/Hello2Executor.cs" />
         <option value="$PROJECT_DIR$/Jubi/Bot.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/RemoveReplyMarkupKeyboard.cs" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/StrictCommandExecutor.cs" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/Jubi/Api/WebProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" />
       </list>
     </option>
   </component>
@@ -120,6 +130,7 @@
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.3002736" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="SolutionBuilderGeneralOptionsPageId" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -162,7 +173,7 @@
       <workItem from="1617304115183" duration="10352000" />
       <workItem from="1618085819180" duration="638000" />
       <workItem from="1618245146785" duration="13152000" />
-      <workItem from="1618511711815" duration="17992000" />
+      <workItem from="1618511711815" duration="20414000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1617136135398</created>
@@ -220,7 +231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618530712526</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fix code in README.md">
+      <created>1618530971120</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1618530971120</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,7 +268,8 @@
     <MESSAGE value="Edit README.md" />
     <MESSAGE value="Second version" />
     <MESSAGE value="Bug fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug fixes" />
+    <MESSAGE value="Fix code in README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix code in README.md" />
   </component>
   <component name="WindowStateProjectService">
     <state width="466" height="464" key="DebuggerActiveHint" timestamp="1618525053954">
@@ -353,10 +372,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="100" y="100" width="1336" height="624" key="VCS.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1617147800746" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1618530718260">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1618530974012">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1618530718260" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1618530974012" />
     <state width="775" height="419" key="XDebugger.FullValuePopup" timestamp="1618526292376">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
