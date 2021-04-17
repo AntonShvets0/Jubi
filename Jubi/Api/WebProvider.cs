@@ -17,19 +17,22 @@ namespace Jubi.Api
         private static HttpClient _httpClient = new HttpClient();
         public static JObject SendRequestAndGetJson(string url, Dictionary<string, string> args)
         {
-            try
+            while (true)
             {
-                return JObject.Parse(
-                    _httpClient.PostAsync(url, new FormUrlEncodedContent(args)).Result.Content.ReadAsStringAsync().Result
+                try
+                {
+                    return JObject.Parse(
+                        _httpClient.PostAsync(url, new FormUrlEncodedContent(args)).Result.Content.ReadAsStringAsync().Result
                     );
-            }
-            catch (WebException webException)
-            {
-                var stream = webException.Response?.GetResponseStream();
-                if (stream == null) throw;
+                }
+                catch (WebException webException)
+                {
+                    var stream = webException.Response?.GetResponseStream();
+                    if (stream == null) continue;
 
-                var content = new StreamReader(stream).ReadToEnd();
-                return JObject.Parse(content);
+                    var content = new StreamReader(stream).ReadToEnd();
+                    return JObject.Parse(content);
+                }
             }
         }
 

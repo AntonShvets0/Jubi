@@ -12,15 +12,14 @@ namespace Jubi.Response.Attachments.Keyboard
         public int MaxInRows = 4;
         public int MaxRows = 6;
 
-        public KeyboardAction Menu;
-        public bool IsOneTime;
+        public readonly KeyboardAction Menu;
+        public readonly bool IsOneTime;
 
         public static string PreviousButtonText;
         public static string NextButtonText;
         public static string MenuText;
-
-
-        public virtual bool IsEmpty { get; protected set; } = false;
+        
+        public virtual bool IsEmpty { get; } = false;
 
         public List<KeyboardPage> Pages = new List<KeyboardPage>
         {
@@ -100,7 +99,7 @@ namespace Jubi.Response.Attachments.Keyboard
                 {
                     Buttons = new List<KeyboardAction>
                     {
-                        new KeyboardAction()
+                        new KeyboardAction
                         {
                             Name = PreviousButtonText, 
                             Color = KeyboardColor.Primary, 
@@ -147,9 +146,7 @@ namespace Jubi.Response.Attachments.Keyboard
         {
             if (IsEmpty) return null;
 
-            if (
-                Pages.Last().Rows.Last().Buttons.Last().Executor != "/page previous"
-                )
+            if (Pages.LastOrDefault()?.Rows?.LastOrDefault()?.Buttons?.LastOrDefault()?.Executor != "/page previous")
             {
                 AddPage();
                 Pages.RemoveAt(Pages.Count - 1);

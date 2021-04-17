@@ -279,6 +279,14 @@ namespace Jubi.Abstracts
                                 return;
                             }
 
+                            if (btn.Executor == "/page next" || btn.Executor == "/page previous")
+                            {
+                                btn.Action = () =>
+                                {
+                                    EmulateExecute(user, btn.Executor);
+                                };
+                            }
+
                             if (btn.Action != null)
                             {
                                 btn.Action.Invoke();

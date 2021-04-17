@@ -45,6 +45,7 @@ namespace Jubi
                           "default = Error:\n" +
                           "syntax = Syntax error! True syntax:\n" +
                           "int_convert = Error: You must write number!\n" +
+                          "uint_convert = Error: You must write positive number!\n" +
                           "bool_convert = Error: You must write \"false\" or \"true\"!\n" +
                           "internal_error = Error: Internal error while executing command\n" +
                           "unknown_command = Error: Unknown command\n\n" +

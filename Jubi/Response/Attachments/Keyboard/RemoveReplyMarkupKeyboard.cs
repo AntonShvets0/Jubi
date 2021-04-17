@@ -2,6 +2,6 @@
 {
     public class RemoveReplyMarkupKeyboard : ReplyMarkupKeyboard
     {
-        public override bool IsEmpty { get; protected set; } = true;
+        public override bool IsEmpty { get; } = true;
     }
 }

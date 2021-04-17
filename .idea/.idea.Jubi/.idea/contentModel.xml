@@ -45,9 +45,10 @@
         <e p="Jubi.csproj" t="IncludeRecursive" />
         <e p="Models" t="Include">
           <e p="ExecutorInformation.cs" t="Include" />
+          <e p="ReadMessageData.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
-          <e p="Release" t="Include">
+          <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
               <e p="Jubi.AssemblyInfo.cs" t="Include" />
             </e>
@@ -94,7 +95,7 @@
         </e>
         <e p="Jubi.ConsoleApp.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Release" t="Include">
+          <e p="Debug" t="Include">
             <e p="net5.0" t="Include">
               <e p="Jubi.ConsoleApp.AssemblyInfo.cs" t="Include" />
             </e>
@@ -122,7 +123,7 @@
           <e p="TelegramMediaGroup.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
-          <e p="Release" t="Include">
+          <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
               <e p="Jubi.Telegram.AssemblyInfo.cs" t="Include" />
             </e>
@@ -157,7 +158,7 @@
           <e p="VKontakteLongPollResponse.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
-          <e p="Release" t="Include">
+          <e p="Debug" t="Include">
             <e p="netstandard2.1" t="Include">
               <e p="Jubi.VKontakte.AssemblyInfo.cs" t="Include" />
             </e>

@@ -170,13 +170,12 @@ return new PhotoAttachment("implicit convert");
 
 
 ### Read string
-You can get future message from user using ReadString() and other similar methods.
+You can get future message from user using Read() or Read<T>()
 ```C#
-var name = User.ReadString("Send your name");
-var age = User.ReadInt("Send your age");
-var balance = User.ReadDouble("Send your balance");
-var isAdmin = User.ReadBoolean("You're admin?");
-
+var name = User.Read("Send your name");
+var age = User.Read<int>("Send your age");
+var balance = User.Read<double>("Send your balance");
+var isAdmin = User.Read<bool>("You're admin?");
 
 var markup = new ReplyKeyboardMarkup();
 markup.AddButton("Item 1", "0");
@@ -185,10 +184,9 @@ markup.AddButton("Item 2", "1");
 // if user select Item 1 ReadInt return 0, else method return 1
 var item = user.ReadInt(new Message("Select item", markup));
 
-var customConvert = user.ReadAndConvertToType<DateTime>(
+var customConvert = user.Read<DateTime>(
     "Send your date of birth",
-    DateTime.TryParse,
-    "Error: Wrong date format"
+    new ReadMessageData<DateTime>("Error: Wrong date format", DateTime.TryParse)
 );
 ```
 
