@@ -16,6 +16,8 @@ namespace Jubi.Telegram.Api
         public IMessageApiProvider Messages { get; } = new TelegramMessageApiProvider();
         public IUpdateApiProvider Updates { get; } = new TelegramUpdateApiProvider();
 
+        public TelegramChannelApiProvider Channels { get; } = new TelegramChannelApiProvider();
+
         public TelegramApiProvider(string token)
         {
             AccessToken = token;
@@ -25,6 +27,24 @@ namespace Jubi.Telegram.Api
         {
             var response =
                 WebProvider.SendRequestAndGetJson($"https://api.telegram.org/bot{AccessToken}/{method}", args);
+
+            if (!(bool) response["ok"])
+            {
+                if (throwException) throw new TelegramErrorException(
+                    int.Parse(response["error_code"].ToString()), 
+                    response["description"].ToString()
+                );
+
+                return null;
+            }
+
+            return response["result"];
+        }
+
+        public JToken SendMultipartRequest(string method, List<WebMultipartContent> args, bool throwException = false)
+        {
+            var response =
+                WebProvider.SendMultipartRequestAndGetJson($"https://api.telegram.org/bot{AccessToken}/{method}", args);
 
             if (!(bool) response["ok"])
             {

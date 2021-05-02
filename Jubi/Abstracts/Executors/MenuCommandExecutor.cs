@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Jubi.Abstracts.MenuControlExecutors;
 using Jubi.Attributes;
 using Jubi.Exceptions;
 using Jubi.Response;
@@ -10,15 +11,23 @@ namespace Jubi.Abstracts.Executors
 {
     public abstract class MenuCommandExecutor : CommandExecutor
     {
+        protected virtual int MaxButtonsInRow { get; } = 1;
+
         public override Message? Execute()
         {
             var markup = Parent == null
-                ? new ReplyMarkupKeyboard(true)
-                : new ReplyMarkupKeyboard(true, () => ExecuteMarkup(Parent));
-            markup.MaxInRows = 1;
+                ? new ReplyMarkupKeyboard()
+                : new ReplyMarkupKeyboard(false, () => ExecuteMarkup(Parent));
+            markup.MaxInRows = MaxButtonsInRow;
 
             foreach (var executor in Subcommands)
             {
+                if (executor is NewLine)
+                {
+                    markup.AddLine();
+                    continue;
+                }
+                
                 executor.User = User;
                 executor.Parent = this;
                 executor.Args = Array.Empty<object>();

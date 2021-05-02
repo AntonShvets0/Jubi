@@ -4,5 +4,6 @@ namespace Jubi.Telegram
 {
     public class TelegramUser : User
     {
+        
     }
 }

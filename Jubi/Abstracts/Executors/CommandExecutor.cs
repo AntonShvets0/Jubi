@@ -33,7 +33,7 @@ namespace Jubi.Abstracts.Executors
         
         public User User { get; set; }
 
-        public string Alias => GetType().GetCustomAttribute<CommandAttribute>()?.Alias;
+        public virtual string Alias => GetType().GetCustomAttribute<CommandAttribute>()?.Alias;
         
         public string FullAlias => Parent == null ?
             Alias : Parent.FullAlias + " " + Alias;
@@ -51,12 +51,13 @@ namespace Jubi.Abstracts.Executors
         {
             if (PatternArgs == null) return true;
             if (PatternArgs.Length != Args.Length) 
-                throw new SyntaxErrorException(Syntax);
+                throw new SyntaxErrorException(this, Syntax);
 
             var args = new List<object>();
             for (int i = 0; i < Args.Length; i++)
             {
-                if (!TryParse((string)Args[i], PatternArgs[i], out object arg)) throw new SyntaxErrorException(Syntax);
+                if (!TryParse((string)Args[i], PatternArgs[i], out object arg)) 
+                    throw new SyntaxErrorException(this, Syntax);
                 args.Add(arg);
             }
 
@@ -107,7 +108,7 @@ namespace Jubi.Abstracts.Executors
                 v => v);
             
             if (Args.Length < 1 || !dict.ContainsKey(Get<string>(0)))
-                throw new SyntaxErrorException($"<{string.Join("/", dict.Keys)}>");
+                throw new SyntaxErrorException(this, $"<{string.Join("/", dict.Keys)}>");
                     
             var executor = dict[Get<string>(0)];
             executor.User = User;

@@ -16,17 +16,17 @@ namespace Jubi.Abstracts
         public ulong Id;
         public int Page = 0;
         
-        public object ThreadLockUser = new object();
+        public List<Action> ThreadPoolActions = new List<Action>();
+        public bool IsExecuting = false;
+
+        public object ThreadPoolLock = new object();
 
         public ReplyMarkupKeyboard Keyboard;
         public int KeyboardPage = 0;
         
-        private static Dictionary<Type, ReadMessageData> _readMessageData;
+        protected static Dictionary<Type, ReadMessageData> _readMessageData;
 
         public SiteProvider Provider;
-
-        internal bool IsWaitingResponse;
-        internal string ResponseLine;
 
         public void KeyboardReset()
         {
@@ -34,26 +34,18 @@ namespace Jubi.Abstracts
             Keyboard = null;
         }
 
-        public bool Send(Message message)
+        public virtual bool Send(Message message)
             => Provider.Api.Messages.Send(message, this);
+
+        public Action<string> NewMessageAction;
         
-        public T Read<T>(ReadMessageData messageData = null)
+        public void Read<T>(Action<T> newMessage, ReadMessageData messageData = null)
         {
-            if (_readMessageData == null) 
+            if (_readMessageData == null)
                 FillReadMessageData(Provider.BotInstance);
 
-            while (true)
+            NewMessageAction = message =>
             {
-                IsWaitingResponse = true;
-                ResponseLine = null;
-            
-                while (ResponseLine == null) {}
-
-                IsWaitingResponse = false;
-
-                var tmp = ResponseLine;
-                ResponseLine = null;
-                
                 ReadMessageData data;
 
                 if (messageData != null)
@@ -63,27 +55,35 @@ namespace Jubi.Abstracts
                 else
                     throw new InvalidCastException("Unknown type");
 
-                if (!data.TryParse(tmp, out object result))
-                    Send(messageData.Error);
+                if (!data.TryParse(message, out object result))
+                {
+                    Send(data.Error);
+                    Read(newMessage, messageData);
+                    return;
+                }
 
-                return (T) result;
-            }
+                NewMessageAction = null;
+                newMessage?.Invoke((T) result);
+            };
         }
 
-        public T Read<T>(Message message, ReadMessageData messageData = null)
+        public void Read<T>(Message message, Action<T> newMessage, ReadMessageData messageData = null)
         {
             Send(message);
-            return Read<T>(messageData);
+            Read<T>(newMessage, messageData);
         }
 
-        public string Read(Message? message = null)
+        public void Read(Message message, Action<string> newMessage)
         {
-            if (message.HasValue) return Read<string>(message.Value);
-
-            return Read<string>();
+            Read<string>(message, newMessage);
         }
 
-        private static void FillReadMessageData(Bot bot)
+        public void Read(Action<string> newMessage)
+        {
+            Read<string>(newMessage);
+        }
+
+        protected virtual void FillReadMessageData(Bot bot)
         {
             _readMessageData = new Dictionary<Type, ReadMessageData>
             {

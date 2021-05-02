@@ -3,5 +3,7 @@
     public class MessageNewContent : IUpdateContent
     {
         public string Text;
+
+        public string Payload;
     }
 }

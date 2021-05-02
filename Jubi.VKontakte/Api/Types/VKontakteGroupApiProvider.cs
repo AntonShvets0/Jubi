@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using Jubi.Abstracts;
 using Jubi.Api;
 using Jubi.Api.Types;
 using Jubi.VKontakte.Models;
@@ -34,6 +35,17 @@ namespace Jubi.VKontakte.Api.Types
                 Server = response["server"]?.ToString()
             };
         }
+        
+        public bool IsMember(User user)
+        {
+            return Provider.SendRequest("groups.isMember", new Dictionary<string, string>
+            {
+                {"group_id", (Provider as VKontakteApiProvider)?.GroupInfo?.Id.ToString()},
+                {"user_id", user.Id.ToString()}
+            })?.ToString() == "1";
+        }
+        
+        
 
         public IEnumerable<VKontakteGroupInfo> GetById(params string[] ids)
         {

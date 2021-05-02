@@ -1,4 +1,5 @@
-﻿using Jubi.Abstracts;
+﻿using System;
+using Jubi.Abstracts;
 using Jubi.Abstracts.Executors;
 using Jubi.Attributes;
 using Jubi.ConsoleApp.Executors.Subcommands;
@@ -12,6 +13,19 @@ namespace Jubi.ConsoleApp.Executors
     [Command("hello")]
     public class HelloExecutor : CommandExecutor
     {
-        public override CommandExecutor[] Subcommands { get; set; } = { new Hello2Executor() };
+        public override Message? Execute()
+        {
+            var reply = new ReplyMarkupKeyboard(false, () =>
+            {
+                User.Send("OK");
+            });
+            
+            User.Read<int>(new Message("Введите int", reply), result =>
+            {
+                User.Send(result.ToString());
+            });
+
+            return null;
+        }
     }
 }

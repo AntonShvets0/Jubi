@@ -9,6 +9,7 @@ using Jubi.Response;
 using Jubi.Response.Attachments.Keyboard;
 using Jubi.Updates;
 using Jubi.Updates.Types;
+using Newtonsoft.Json.Linq;
 using SimpleIni;
 
 namespace Jubi.Abstracts
@@ -62,9 +63,16 @@ namespace Jubi.Abstracts
             
             while (true)
             {
-                foreach (var updateInfo in Api.Updates.Get())
+                try
                 {
-                    CallEvent(updateInfo);
+                    foreach (var updateInfo in Api.Updates.Get())
+                    {
+                        CallEvent(updateInfo);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
                 }
             }
         }
@@ -125,6 +133,8 @@ namespace Jubi.Abstracts
     public abstract class SiteProvider<T> : SiteProvider 
         where T : User
     {
+        protected string AccessToken;
+        
         // New, because old field has type User
         protected new Dictionary<Type, Action<T, IUpdateContent>> EventHandlers 
             = new Dictionary<Type, Action<T, IUpdateContent>>();
@@ -171,6 +181,14 @@ namespace Jubi.Abstracts
                 Text = str
             });
         }
+        
+        public override void OnInit()
+        {
+            if (BotInstance.Configuration["apiKeys"]?[Id] == null)
+                throw new JubiException($"{Id} api key not found");
+            
+            AccessToken = BotInstance.Configuration["apiKeys"][Id];
+        }
 
         /// <summary>
         /// When user send message
@@ -180,7 +198,45 @@ namespace Jubi.Abstracts
         protected virtual void OnMessage(T user, IUpdateContent content)
         {
             var messageContent = content as MessageNewContent;
+
+            if (user.NewMessageAction != null)
+            {
+                var btn = user.Keyboard == null 
+                    ? null 
+                    : FindButton(messageContent.Text, user.Keyboard.Menu, user.Keyboard.Pages);
+                    
+                if (btn == null)
+                {
+                    user.NewMessageAction?.Invoke(messageContent.Text);
+                    return;
+                }
+                    
+                if (btn.Executor.StartsWith("/page "))
+                    btn.Action = () =>
+                    {
+                        EmulateExecute(user, btn.Executor);
+                    };
+                else if (btn.Action == user.Keyboard.Menu.Action)
+                {
+                    user.NewMessageAction = null;
+                }
+
+                if (btn.Action != null)
+                {
+                    btn.Action.Invoke();
+                    return;
+                }
+
+                user.NewMessageAction?.Invoke(btn.Executor);
+                return;
+            }
+            
             var message = messageContent.Text;
+            if (messageContent.Payload != null)
+            {
+                message = "/" + JObject.Parse(messageContent.Payload)["command"];
+            }
+            
             var isFromKeyboard = false;
 
             if (user.Keyboard?.Pages.Count != null)
@@ -188,26 +244,31 @@ namespace Jubi.Abstracts
                 var btn = FindButton(messageContent.Text, user.Keyboard.Menu, user.Keyboard.Pages);
                 if (btn == null)
                 {
-                    user.Send(new Message(null,
-                        new ReplyMarkupKeyboard(user.Keyboard)));
+                    user.Send(new ReplyMarkupKeyboard(user.Keyboard));
                     return;
                 }
 
-
-                if (user.Keyboard.IsOneTime)
-                {
+                var oldKeyboard = user.Keyboard;
+                
+                if (user.Keyboard != null && oldKeyboard == user.Keyboard 
+                                          && user.Keyboard.IsOneTime && 
+                                          !(btn.Executor?.StartsWith("/page ") ?? false))
                     user.KeyboardReset();
-                }
 
                 btn.Action?.Invoke();
-
+                
                 if (btn.Executor == null) return;
 
                 message = btn.Executor;
                 isFromKeyboard = true;
             }
 
-            if (!message.StartsWith("/")) return;
+            if (!message.StartsWith("/"))
+            {
+                EmulateExecute(user, "/error unknown_command");
+                return;
+            }
+            
             message = message.Substring(1);
 
             var args = message.Split(' ').ToList();
@@ -225,34 +286,22 @@ namespace Jubi.Abstracts
                 return;
             }
 
-            try
-            {
-                commandExecutor.User = user;
-                commandExecutor.Args = arrayArgs;
+            commandExecutor.User = user;
+            commandExecutor.Args = arrayArgs;
                 
-                foreach (var middleware in commandExecutor.Middlewares)
-                {
-                    var responseMiddleware = middleware(commandExecutor);
-                    if (responseMiddleware == false)
-                        return;
-                }
-                
-                if (!commandExecutor.PreProcessData()) return;
-                
-                var response = commandExecutor.Execute();
-                if (response == null) return;
-
-                user.Send((Message) response);
-            }
-            catch (SyntaxErrorException ex)
+            foreach (var middleware in commandExecutor.Middlewares)
             {
-                user.Send(Error.FromConfig(BotInstance, "syntax") + 
-                          $" /{commandExecutor.FullAlias} {ex.Message}");
+                var responseMiddleware = middleware(commandExecutor);
+                
+                if (!responseMiddleware)
+                    return;
             }
-            catch (ErrorException ex)
-            {
-                user.Send(Error.FromConfig(BotInstance, "default") + $" {ex.Message}");
-            }
+                
+            if (!commandExecutor.PreProcessData()) return;
+                
+            var response = commandExecutor.Execute();
+            if (response == null) return;
+            user.Send(response.Value);
         }
 
         /// <summary>
@@ -264,56 +313,61 @@ namespace Jubi.Abstracts
             var content = updateInfo.UpdateContent;
 
             if (EventHandlers.ContainsKey(content.GetType())) {
-                new Thread(() =>
+                var user = GetOrCreateUser(updateInfo.Initiator);
+                lock (user.ThreadPoolLock)
                 {
-                    var user = GetOrCreateUser(updateInfo.Initiator);
-
-                    if (content is MessageNewContent messageNew && user.IsWaitingResponse)
+                    if (user.IsExecuting || user.ThreadPoolActions.Count > 0)
                     {
-                        if (user.Keyboard != null)
+                        user.ThreadPoolActions.Add(() =>
                         {
-                            var btn = FindButton(messageNew.Text, user.Keyboard.Menu, user.Keyboard.Pages);
-                            if (btn == null)
-                            {
-                                user.ResponseLine = messageNew.Text;
-                                return;
-                            }
-
-                            if (btn.Executor == "/page next" || btn.Executor == "/page previous")
-                            {
-                                btn.Action = () =>
-                                {
-                                    EmulateExecute(user, btn.Executor);
-                                };
-                            }
-
-                            if (btn.Action != null)
-                            {
-                                btn.Action.Invoke();
-                                return;
-                            }
-
-                            user.ResponseLine = btn.Executor;
-                            return;
-                        }
-                        
-                        user.ResponseLine = messageNew.Text;
+                            ThreadPool.QueueUserWorkItem(state => HandleEvent(user, content));
+                        });
                         return;
                     }
-                    
-                    lock (user.ThreadLockUser)
+
+                    user.IsExecuting = true;
+                    ThreadPool.QueueUserWorkItem(state =>
                     {
-                        try
-                        {
-                            EventHandlers[content.GetType()]?.Invoke(user as T, content);
-                        }
-                        catch (Exception ex)
-                        {
-                            lock (Bot.LogsLock)
-                                HandleError(ex, user as T);
-                        }
-                    }
-                }).Start();
+                        HandleEvent(user, content);
+                    });
+                }
+            }
+        }
+
+        private void HandleEvent(User user, IUpdateContent content)
+        {
+            user.IsExecuting = true;
+
+            if (user.ThreadPoolActions.Count != 0) 
+                lock (user.ThreadPoolLock) user.ThreadPoolActions.RemoveAt(0);
+            try
+            {
+                var ev = EventHandlers[content.GetType()];
+                ev.Invoke(user as T, content);
+            }
+            catch (ErrorException ex)
+            {
+                user.Send(Error.FromConfig(BotInstance, "default") + $" {ex.Message}");
+            }
+            catch (SyntaxErrorException ex)
+            {
+                user.Send(Error.FromConfig(BotInstance, "syntax") +
+                          $" /{ex.Alias} {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                lock (Bot.LogsLock)
+                    HandleError(ex, user as T);
+            }
+            finally
+            {
+                if (user.ThreadPoolActions.Count == 0) user.IsExecuting = false;
+            }
+
+            if (user.ThreadPoolActions.Count != 0)
+            {
+                var action = user.ThreadPoolActions[0];
+                ThreadPool.QueueUserWorkItem(state => action());
             }
         }
 
@@ -341,11 +395,9 @@ namespace Jubi.Abstracts
             {
                 var keyboard = user.Keyboard;
                 var page = user.KeyboardPage;
-                
                 user.KeyboardReset();
 
                 EmulateExecute(user, "/error exception");
-                Api.Messages.Send(Error.FromConfig(BotInstance, "internal_error"), user);
 
                 if (user.Keyboard == null)
                 {
@@ -377,16 +429,6 @@ namespace Jubi.Abstracts
             user.Provider = this;
  
             return user;
-        }
-
-        protected string AccessToken;
-
-        public override void OnInit()
-        {
-            if (BotInstance.Configuration["apiKeys"]?[Id] == null)
-                throw new JubiException($"{Id} api key not found");
-            
-            AccessToken = BotInstance.Configuration["apiKeys"][Id];
         }
     }
 }

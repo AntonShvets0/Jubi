@@ -99,6 +99,8 @@ namespace Jubi.VKontakte.Api
             var buttons = new JArray();
             foreach (var row in keyboard.Rows)
             {
+                if (row.Buttons.Count < 1) continue;
+                
                 buttons.Add(new JArray());
                 
                 foreach (var button in row.Buttons)

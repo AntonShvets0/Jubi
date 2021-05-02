@@ -22,17 +22,55 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="Fix MenuCommandExecutor.cs">
-      <change afterPath="$PROJECT_DIR$/Jubi/Models/ReadMessageData.cs" afterDir="false" />
+    <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="New Read() algorithm in User">
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/Api/ConsoleApiProvider.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/Api/Types/ConsoleMessageApiProvider.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/Api/Types/ConsoleUpdateApiProvider.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/ConsoleProvider.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/ConsoleUser.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/Jubi.Console.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/bin/Debug/netstandard2.1/Jubi.Console.deps.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/bin/Debug/netstandard2.1/Jubi.Console.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/bin/Debug/netstandard2.1/Jubi.Console.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/bin/Debug/netstandard2.1/Jubi.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/bin/Debug/netstandard2.1/Jubi.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Debug/netstandard2.1/.NETStandard,Version=v2.1.AssemblyAttributes.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Debug/netstandard2.1/Jubi.Console.AssemblyInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Debug/netstandard2.1/Jubi.Console.AssemblyInfoInputs.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Debug/netstandard2.1/Jubi.Console.assets.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Debug/netstandard2.1/Jubi.Console.csproj.CopyComplete" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Debug/netstandard2.1/Jubi.Console.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Debug/netstandard2.1/Jubi.Console.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Debug/netstandard2.1/Jubi.Console.csprojAssemblyReference.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Debug/netstandard2.1/Jubi.Console.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Debug/netstandard2.1/Jubi.Console.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Jubi.Console.csproj.nuget.dgspec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Jubi.Console.csproj.nuget.g.props" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/Jubi.Console.csproj.nuget.g.targets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/project.assets.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/project.nuget.cache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/project.packagespec.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Console/obj/rider.project.restore.info" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramChannelApiProvider.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Jubi/Abstracts/MenuControlExecutors/NewLine.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Api/TelegramApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Api/TelegramApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/TelegramUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/TelegramUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/VKontakteApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/VKontakteApiProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi/Api/WebProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Api/WebProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/BotBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/BotBuilder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/RemoveReplyMarkupKeyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/RemoveReplyMarkupKeyboard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/ReplyMarkupKeyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/ReplyMarkupKeyboard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Bot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Bot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Exceptions/SyntaxErrorException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Exceptions/SyntaxErrorException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Updates/Types/MessageNewContent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Updates/Types/MessageNewContent.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,10 +78,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Users/lordoverlord0/RiderProjects/Jubi/Jubi/Abstracts/Executors/StrictCommandExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7CA8898B-690A-4181-A32A-9CF767CEDB1E/50/JObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs" root0="FORCE_HIGHLIGHTING" />
@@ -66,22 +108,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Jubi.Telegram/Models/Interfaces/ITelegramAttachment.cs" />
-        <option value="$PROJECT_DIR$/Jubi.Telegram/Models/TelegramMediaGroup.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/KeyboardAction.cs" />
-        <option value="$PROJECT_DIR$/Jubi.Telegram/Exceptions/TelegramProviderException.cs" />
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/Exceptions/VKontakteProviderException.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Exceptions/JubiException.cs" />
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/Exceptions/VKontakteErrorException.cs" />
-        <option value="$PROJECT_DIR$/Jubi.Telegram/Exceptions/TelegramErrorException.cs" />
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/VKontakteProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi.Telegram/TelegramProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi.Telegram/TelegramUser.cs" />
         <option value="$PROJECT_DIR$/Jubi/Response/Message.cs" />
         <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/EmptyReplyMarkupKeyboard.cs" />
         <option value="$PROJECT_DIR$/Jubi/Attributes/NotCommandAttribute.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Attributes/CommandAttribute.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Exceptions/SyntaxErrorException.cs" />
         <option value="$PROJECT_DIR$/Jubi/Exceptions/ErrorException.cs" />
         <option value="$PROJECT_DIR$/Jubi/Error.cs" />
         <option value="$PROJECT_DIR$/Jubi/Attributes/IgnoreAttribute.cs" />
@@ -93,30 +122,43 @@
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/Subcommands/Menu/Test2Executor.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/StrictExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/Subcommands/Hello2Executor.cs" />
-        <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/StrictCommandExecutor.cs" />
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/TelegramApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi/Api/IApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramUpdateApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/VKontakteApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontaktePhotoApiProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Bot.cs" />
         <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Program.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" />
         <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/ReplyMarkupKeyboard.cs" />
         <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/RemoveReplyMarkupKeyboard.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" />
-        <option value="$PROJECT_DIR$/Jubi/Api/WebProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi/Models/ReadMesageData.cs" />
         <option value="$PROJECT_DIR$/Jubi/Models/ReadMessageData.cs" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/Jubi/BotBuilder.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Exceptions/SyntaxErrorException.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Updates/Types/MessageNewContent.cs" />
+        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/VKontakteApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Abstracts/MenuControlExecutors/NewLine.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Bot.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Attributes/CommandAttribute.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramGroupApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Telegram/TelegramUser.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramChannelApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/TelegramApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Api/WebProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" />
         <option value="$PROJECT_DIR$/Jubi/Abstracts/User.cs" />
+        <option value="$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Console/Class1.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Console/ConsoleUser.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Console/Api/Types/ConsoleMessageApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Console/Api/ConsoleApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Console/ConsoleProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi.Console/Api/Types/ConsoleUpdateApiProvider.cs" />
+        <option value="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" />
       </list>
     </option>
   </component>
@@ -127,6 +169,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
     <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.3502052" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.3002736" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -174,7 +217,10 @@
       <workItem from="1617304115183" duration="10352000" />
       <workItem from="1618085819180" duration="638000" />
       <workItem from="1618245146785" duration="13152000" />
-      <workItem from="1618511711815" duration="31083000" />
+      <workItem from="1618511711815" duration="40415000" />
+      <workItem from="1618856352545" duration="13183000" />
+      <workItem from="1618994386237" duration="21541000" />
+      <workItem from="1619622279947" duration="28219000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1617136135398</created>
@@ -260,7 +306,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618604422131</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="New Read() algorithm in User">
+      <created>1618681250956</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1618681250957</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -294,124 +347,217 @@
     <MESSAGE value="Update version" />
     <MESSAGE value="fix architecture" />
     <MESSAGE value="Fix MenuCommandExecutor.cs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix MenuCommandExecutor.cs" />
+    <MESSAGE value="New Read() algorithm in User" />
+    <option name="LAST_COMMIT_MESSAGE" value="New Read() algorithm in User" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="466" height="464" key="DebuggerActiveHint" timestamp="1618525053954">
+    <state x="361" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1618997530683">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="466" height="464" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1618525053954" />
+    <state x="361" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1618997530683" />
+    <state width="466" height="464" key="DebuggerActiveHint" timestamp="1619812511181">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="466" height="464" key="DebuggerActiveHint/0.0.1536.824@0.0.1536.824" timestamp="1619812511181" />
     <state x="647" y="310" key="Github.ShareDialog" timestamp="1617136190013">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="647" y="310" key="Github.ShareDialog/0.0.1536.824@0.0.1536.824" timestamp="1617136190013" />
-    <state width="1493" height="288" key="GridCell.Tab.0.bottom" timestamp="1618578831801">
+    <state width="1493" height="288" key="GridCell.Tab.0.bottom" timestamp="1619890918327">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
-    <state width="1493" height="288" key="GridCell.Tab.0.center" timestamp="1618578831801">
+    <state width="1493" height="288" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619890918327" />
+    <state width="1493" height="288" key="GridCell.Tab.0.center" timestamp="1619890918327">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
-    <state width="1493" height="288" key="GridCell.Tab.0.left" timestamp="1618578831801">
+    <state width="1493" height="288" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1619890918327" />
+    <state width="1493" height="288" key="GridCell.Tab.0.left" timestamp="1619890918326">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
-    <state width="1493" height="288" key="GridCell.Tab.0.right" timestamp="1618578831801">
+    <state width="1493" height="288" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1619890918326" />
+    <state width="1493" height="288" key="GridCell.Tab.0.right" timestamp="1619890918327">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
-    <state width="1493" height="288" key="GridCell.Tab.1.bottom" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1619890918327" />
+    <state width="1493" height="288" key="GridCell.Tab.1.bottom" timestamp="1619890918328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state width="1493" height="288" key="GridCell.Tab.1.center" timestamp="1618578831801">
+    <state width="1493" height="288" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619890918328" />
+    <state width="1493" height="288" key="GridCell.Tab.1.center" timestamp="1619890918328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
-    <state width="1493" height="288" key="GridCell.Tab.1.left" timestamp="1618578831801">
+    <state width="1493" height="288" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1619890918328" />
+    <state width="1493" height="288" key="GridCell.Tab.1.left" timestamp="1619890918327">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
-    <state width="1493" height="288" key="GridCell.Tab.1.right" timestamp="1618578831801">
+    <state width="1493" height="288" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1619890918327" />
+    <state width="1493" height="288" key="GridCell.Tab.1.right" timestamp="1619890918328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1618578831801" />
-    <state width="1493" height="288" key="GridCell.Tab.2.bottom" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1619890918328" />
+    <state width="1493" height="288" key="GridCell.Tab.2.bottom" timestamp="1619890918328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state width="1493" height="288" key="GridCell.Tab.2.center" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619890918328" />
+    <state width="1493" height="288" key="GridCell.Tab.2.center" timestamp="1619890918328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state width="1493" height="288" key="GridCell.Tab.2.left" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1619890918328" />
+    <state width="1493" height="288" key="GridCell.Tab.2.left" timestamp="1619890918328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state width="1493" height="288" key="GridCell.Tab.2.right" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1619890918328" />
+    <state width="1493" height="288" key="GridCell.Tab.2.right" timestamp="1619890918328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state width="1493" height="288" key="GridCell.Tab.3.bottom" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1619890918328" />
+    <state width="1493" height="288" key="GridCell.Tab.3.bottom" timestamp="1619890918329">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.3.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state width="1493" height="288" key="GridCell.Tab.3.center" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.3.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619890918329" />
+    <state width="1493" height="288" key="GridCell.Tab.3.center" timestamp="1619890918328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.3.center/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state width="1493" height="288" key="GridCell.Tab.3.left" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.3.center/0.0.1536.824@0.0.1536.824" timestamp="1619890918328" />
+    <state width="1493" height="288" key="GridCell.Tab.3.left" timestamp="1619890918328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.3.left/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state width="1493" height="288" key="GridCell.Tab.3.right" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.3.left/0.0.1536.824@0.0.1536.824" timestamp="1619890918328" />
+    <state width="1493" height="288" key="GridCell.Tab.3.right" timestamp="1619890918328">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.3.right/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state width="1493" height="288" key="GridCell.Tab.4.bottom" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.3.right/0.0.1536.824@0.0.1536.824" timestamp="1619890918328" />
+    <state width="1493" height="288" key="GridCell.Tab.4.bottom" timestamp="1619890918329">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.4.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state width="1493" height="288" key="GridCell.Tab.4.center" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.4.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619890918329" />
+    <state width="1493" height="288" key="GridCell.Tab.4.center" timestamp="1619890918329">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.4.center/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state width="1493" height="288" key="GridCell.Tab.4.left" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.4.center/0.0.1536.824@0.0.1536.824" timestamp="1619890918329" />
+    <state width="1493" height="288" key="GridCell.Tab.4.left" timestamp="1619890918329">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.4.left/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state width="1493" height="288" key="GridCell.Tab.4.right" timestamp="1618578831802">
+    <state width="1493" height="288" key="GridCell.Tab.4.left/0.0.1536.824@0.0.1536.824" timestamp="1619890918329" />
+    <state width="1493" height="288" key="GridCell.Tab.4.right" timestamp="1619890918329">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="288" key="GridCell.Tab.4.right/0.0.1536.824@0.0.1536.824" timestamp="1618578831802" />
-    <state x="361" y="144" key="Rider.ProjectTemplateDialog.Size" timestamp="1617143330719">
+    <state width="1493" height="288" key="GridCell.Tab.4.right/0.0.1536.824@0.0.1536.824" timestamp="1619890918329" />
+    <state x="361" y="144" key="Rider.ProjectTemplateDialog.Size" timestamp="1619894696417">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="144" key="Rider.ProjectTemplateDialog.Size/0.0.1536.824@0.0.1536.824" timestamp="1617143330719" />
+    <state x="361" y="144" key="Rider.ProjectTemplateDialog.Size/0.0.1536.824@0.0.1536.824" timestamp="1619894696417" />
     <state x="277" y="57" key="SettingsEditor" timestamp="1618524883370">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1618524883345" />
-    <state x="100" y="100" width="1336" height="624" key="VCS.FileHistoryDialog" timestamp="1618679484207">
+    <state x="100" y="100" width="1336" height="624" key="VCS.FileHistoryDialog" timestamp="1619667435502">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="100" y="100" width="1336" height="624" key="VCS.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1618679484207" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1618604425992">
+    <state x="100" y="100" width="1336" height="624" key="VCS.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1619667435502" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1618681253252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1618604425992" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1618681253252" />
     <state width="775" height="419" key="XDebugger.FullValuePopup" timestamp="1618526292376">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="775" height="419" key="XDebugger.FullValuePopup/0.0.1536.824@0.0.1536.824" timestamp="1618526292376" />
+    <state x="607" y="37" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1618997577799">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="607" y="37" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1536.824@0.0.1536.824" timestamp="1618997577799" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1617131816259">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1617131816259" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1618604378066">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1619895316981">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1618604378066" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1619895316981" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs</url>
+          <line>24</line>
+          <properties documentPath="C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.ConsoleApp\Executors\HelloExecutor.cs" initialLine="18">
+            <startOffsets>
+              <option value="673" />
+            </startOffsets>
+            <endOffsets>
+              <option value="702" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Jubi/Abstracts/User.cs</url>
+          <line>48</line>
+          <properties documentPath="C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi\Abstracts\User.cs" initialLine="48">
+            <startOffsets>
+              <option value="1305" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1326" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Jubi/Abstracts/User.cs</url>
+          <line>46</line>
+          <properties documentPath="C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi\Abstracts\User.cs" initialLine="46">
+            <startOffsets>
+              <option value="1245" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1942" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Jubi/Abstracts/User.cs</url>
+          <line>71</line>
+          <properties documentPath="C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi\Abstracts\User.cs" initialLine="71">
+            <startOffsets>
+              <option value="2079" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2093" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Jubi/Abstracts/User.cs</url>
+          <line>43</line>
+          <properties documentPath="C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi\Abstracts\User.cs" initialLine="43">
+            <startOffsets>
+              <option value="1143" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1172" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Jubi/Abstracts/User.cs</url>
+          <line>44</line>
+          <properties documentPath="C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi\Abstracts\User.cs" initialLine="44">
+            <startOffsets>
+              <option value="1189" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1231" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

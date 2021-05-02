@@ -1,0 +1,12 @@
+C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.Console\bin\Debug\netstandard2.1\Jubi.Console.deps.json
+C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.Console\bin\Debug\netstandard2.1\Jubi.Console.dll
+C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.Console\bin\Debug\netstandard2.1\Jubi.Console.pdb
+C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.Console\bin\Debug\netstandard2.1\Jubi.dll
+C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.Console\bin\Debug\netstandard2.1\Jubi.pdb
+C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.Console\obj\Debug\netstandard2.1\Jubi.Console.csprojAssemblyReference.cache
+C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.Console\obj\Debug\netstandard2.1\Jubi.Console.AssemblyInfoInputs.cache
+C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.Console\obj\Debug\netstandard2.1\Jubi.Console.AssemblyInfo.cs
+C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.Console\obj\Debug\netstandard2.1\Jubi.Console.csproj.CoreCompileInputs.cache
+C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.Console\obj\Debug\netstandard2.1\Jubi.Console.csproj.CopyComplete
+C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.Console\obj\Debug\netstandard2.1\Jubi.Console.dll
+C:\Users\lordoverlord0\RiderProjects\Jubi\Jubi.Console\obj\Debug\netstandard2.1\Jubi.Console.pdb

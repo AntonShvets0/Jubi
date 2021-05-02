@@ -22,7 +22,8 @@ namespace Jubi.Api
                 try
                 {
                     return JObject.Parse(
-                        _httpClient.PostAsync(url, new FormUrlEncodedContent(args)).Result.Content.ReadAsStringAsync().Result
+                        _httpClient.PostAsync(url, new FormUrlEncodedContent(args)).Result.Content.ReadAsStringAsync()
+                            .Result
                     );
                 }
                 catch (WebException webException)
@@ -32,6 +33,10 @@ namespace Jubi.Api
 
                     var content = new StreamReader(stream).ReadToEnd();
                     return JObject.Parse(content);
+                }
+                catch
+                {
+                    continue;
                 }
             }
         }
@@ -45,7 +50,10 @@ namespace Jubi.Api
 
             foreach (var arg in args)
             {
-                multipart.Add(arg.Content, arg.Name, "image.jpg");
+                if (arg.Content is StringContent)
+                    multipart.Add(arg.Content, arg.Name);
+                else
+                    multipart.Add(arg.Content, arg.Name, "image.jpg");
             }
 
             var task = _httpClient.PostAsync(url, multipart);

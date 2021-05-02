@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using Jubi.Abstracts;
 using Jubi.Api;
 using Jubi.Api.Types;
@@ -21,10 +23,8 @@ namespace Jubi.Telegram.Api.Types
         public void OnInit() { }
 
         public bool Send(Message response, User user)
-        {
-            var tgUser = user as TelegramUser;
-            
-            var attachments = new List<Tuple<string, string>>();
+        {            
+            var attachments = new List<Tuple<string, object>>();
             string keyboard = null;
             Type typeAttachment = null;
 
@@ -67,12 +67,14 @@ namespace Jubi.Telegram.Api.Types
                     user.Keyboard.Pages[user.KeyboardPage]).ToString();
             }
             
-            var args = new Dictionary<string, string>
+            var args = new List<WebMultipartContent>()
             {
-                {"chat_id", user.Id.ToString()},
-                {"reply_markup", keyboard}
+                new WebMultipartContent("chat_id", new StringContent(user.Id.ToString()))
             };
-            
+
+            if (keyboard != null)
+                args.Add(new WebMultipartContent("reply_markup", new StringContent(keyboard)));
+
             if (attachments.Count == 0)
             {
                 if (string.IsNullOrEmpty(response.Text))
@@ -80,9 +82,9 @@ namespace Jubi.Telegram.Api.Types
                     response.Text = "\u2062";
                 } 
                 
-                args.Add("text", response.Text);
+                args.Add(new WebMultipartContent("text", new StringContent(response.Text)));
                 
-                return Provider.SendRequest("sendMessage", args, false) != null;
+                return (Provider as TelegramApiProvider).SendMultipartRequest("sendMessage", args, false) != null;
             }
 
             var media = GetMediaGroup(typeAttachment);
@@ -95,33 +97,46 @@ namespace Jubi.Telegram.Api.Types
                     {
                         {"type", media.Type.ToLower()},
                         {media.ParameterText, response.Text},
-                        {"media", attachment.Item2}
                     };
-                    
+
+                    if (attachment.Item2 is byte[] bytes)
+                        obj.Add("media", bytes);
+                    else
+                        obj.Add("media", attachment.Item2.ToString());
+
                     jArray.Add(obj);
                 }
                 
-                args.Add("media", jArray.ToString());
+                args.Add(new WebMultipartContent("media", new StringContent(jArray.ToString())));
                 
-                return Provider.SendRequest("sendMediaGroup", args, false) != null;
+                return (Provider as TelegramApiProvider).SendMultipartRequest("sendMediaGroup", args, false) != null;
             }
 
-            args.Add(media.ParameterText, response.Text);
-            args.Add(attachments[0].Item1, attachments[0].Item2);
+            if (!string.IsNullOrEmpty(response.Text))
+                args.Add(new WebMultipartContent(media.ParameterText, new StringContent(response.Text)));
             
-            return Provider.SendRequest($"send{media.Type}", args, false) != null;
+            if (attachments[0].Item2 is byte[] bytesAttachment)
+                args.Add(new WebMultipartContent(
+                    attachments[0].Item1, new StreamContent(new MemoryStream(bytesAttachment))));
+            else
+                args.Add(new WebMultipartContent(
+                    attachments[0].Item1, new StringContent(attachments[0].Item2.ToString())));                
+
+            return (Provider as TelegramApiProvider).SendMultipartRequest($"send{media.Type}", args, false) != null;
         }
 
 
-        private Tuple<string, string> HandleAttachment(User user, IAttachment attachment)
+        private Tuple<string, object> HandleAttachment(User user, IAttachment attachment)
         {
             if (attachment is PhotoAttachment photoAttachment)
             {
-                // TODO: загрузка по потоку байтов
-                if (photoAttachment.Url != null)
+                if (photoAttachment.Url != null 
+                    && (photoAttachment.Url.StartsWith("https://") || photoAttachment.Url.StartsWith("http://")))
                 {
-                    return new Tuple<string, string>("photo", photoAttachment.Url);
+                    return new Tuple<string, object>("photo", photoAttachment.Url);
                 }
+                
+                return new Tuple<string, object>("photo", photoAttachment.Content ?? File.ReadAllBytes(photoAttachment.Url));
             }
 
             return null;

@@ -1,0 +1,71 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.1/",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.1": {},
+    ".NETStandard,Version=v2.1/": {
+      "Jubi.Console/1.0.0": {
+        "dependencies": {
+          "Jubi": "1.0.0"
+        },
+        "runtime": {
+          "Jubi.Console.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.1.25517"
+          }
+        }
+      },
+      "SimpleIni/3.0.1": {
+        "runtime": {
+          "lib/netstandard2.1/SimpleIni.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Jubi/1.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "SimpleIni": "3.0.1"
+        },
+        "runtime": {
+          "Jubi.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Jubi.Console/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "path": "newtonsoft.json/13.0.1",
+      "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
+    },
+    "SimpleIni/3.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fexGZfsOQ6qoWejU5r2nH7tWA6EapHXD6xIDbJFvVlTcDddjgvl7qMyYS5vpz5P4B5/9N6rDZ0BaPeDWLEDnvQ==",
+      "path": "simpleini/3.0.1",
+      "hashPath": "simpleini.3.0.1.nupkg.sha512"
+    },
+    "Jubi/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -69,10 +69,10 @@ namespace Jubi
             lock (_commandExecutorsLock)
             {
                 _commandExecutors =
-                    GetCommandExecutorsViaReflection(executorInformation.Assembly, executorInformation.Namespace);
+                    GetCommandExecutorsViaReflection(Assembly.GetExecutingAssembly(), "Jubi.Executors");
             
                 foreach (var command in 
-                    GetCommandExecutorsViaReflection(Assembly.GetExecutingAssembly(), "Jubi.Executors"))
+                    GetCommandExecutorsViaReflection(executorInformation.Assembly, executorInformation.Namespace))
                 {
                     if (_commandExecutors.ContainsKey(command.Key))
                         _commandExecutors[command.Key] = command.Value;
@@ -106,6 +106,7 @@ namespace Jubi
             {
                 if (!_commandExecutors.ContainsKey(alias)) return null;
                 var obj = Activator.CreateInstance(_commandExecutors[alias]);
+                if (!(obj is CommandExecutor)) return null;
                 
                 var executor = obj as CommandExecutor;
                 if (executor != null) executor.BotInstance = this;
