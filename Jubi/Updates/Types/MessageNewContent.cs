@@ -2,8 +2,12 @@
 {
     public class MessageNewContent : IUpdateContent
     {
-        public string Text;
+        public long PeerId { get; set; }
+        
+        public string Text { get; set; }
 
-        public string Payload;
+        public string Payload { get; set; }
+        
+        public string QueryData { get; set; } 
     }
 }

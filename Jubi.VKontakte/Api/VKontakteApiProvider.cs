@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
+using Jubi.Abstracts;
 using Jubi.Api;
 using Jubi.Api.Types;
 using Jubi.Response.Attachments.Keyboard;
+using Jubi.Response.Attachments.Keyboard.Models;
 using Jubi.VKontakte.Api.Types;
 using Jubi.VKontakte.Exceptions;
 using Jubi.VKontakte.Models;
 using Newtonsoft.Json.Linq;
+using Jubi.Response.Attachments.Keyboard.Parameters;
 
 namespace Jubi.VKontakte.Api
 {
@@ -19,7 +22,12 @@ namespace Jubi.VKontakte.Api
         public IUpdateApiProvider Updates { get; } = new VKontakteUpdateApiProvider();
         public VKontakteGroupApiProvider Groups { get; } = new VKontakteGroupApiProvider();
         public VKontaktePhotoApiProvider Photos { get; } = new VKontaktePhotoApiProvider();
-        
+
+        public VKontakteWidgetApiProvider Widget { get; } = new VKontakteWidgetApiProvider();
+
+        public IKeyboardApiProvider Keyboard { get; } = new VKonakteKeyboardApiProvider();
+
+        public SiteProvider Provider { get; set; }
 
         public const string API_VERSION = "5.130";
         
@@ -30,9 +38,12 @@ namespace Jubi.VKontakte.Api
 
         public JToken SendRequest(string method, Dictionary<string, string> args, bool throwException = true)
         {
-            args.Add("access_token", AccessToken);
-            args.Add("v", API_VERSION);
-
+            if (!args.ContainsKey("access_token")) 
+                args.Add("access_token", AccessToken);
+            
+            if (!args.ContainsKey("v")) 
+                args.Add("v", API_VERSION);
+            
             var response = WebProvider.SendRequestAndGetJson($"https://api.vk.com/method/{method}", args);
 
             if (response.ContainsKey("error"))
@@ -66,63 +77,5 @@ namespace Jubi.VKontakte.Api
         
         public JToken SendRequest(string group, string method, Dictionary<string, string> args)
             => SendRequest($"{group}.{method}", args);
-
-        private JObject GetButton(KeyboardAction button) =>
-            new JObject
-            {
-                {
-                    "action", new JObject
-                    {
-                        {"type", "text"},
-                        {"label", button.Name},
-                        {
-                            "payload", new JObject
-                            {
-                                {"command", button.Executor}
-                            }.ToString()
-                        }
-                    }
-                },
-                {
-                    "color", button.Color switch
-                    {
-                        KeyboardColor.Green => "positive",
-                        KeyboardColor.Red => "negative",
-                        KeyboardColor.Primary => "primary",
-                        _ => "secondary"
-                    }
-                }
-            };
-        
-        public JObject BuildKeyboard(KeyboardAction menu, KeyboardPage keyboard, bool isOneTime = false)
-        {
-            var buttons = new JArray();
-            foreach (var row in keyboard.Rows)
-            {
-                if (row.Buttons.Count < 1) continue;
-                
-                buttons.Add(new JArray());
-                
-                foreach (var button in row.Buttons)
-                {
-                    (buttons[buttons.Count - 1] as JArray).Add(GetButton(button));
-                }
-            }
-
-            if (menu != null)
-            {
-                buttons.Add(new JArray
-                {
-                    GetButton(menu)
-                });
-            }
-            
-            return new JObject
-            {
-                {"one_time", isOneTime},
-                {"buttons", buttons},
-                {"inline", false}
-            };
-        }
     }
 }

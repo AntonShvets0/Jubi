@@ -1,4 +1,4 @@
-﻿namespace Jubi.Response.Attachments.Keyboard
+﻿namespace Jubi.Response.Attachments.Keyboard.Parameters
 {
     public enum KeyboardColor
     {

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using Jubi.Api;
 using Jubi.Api.Types;
+using Jubi.Attributes;
+using Jubi.EventHandlers;
 using Jubi.Exceptions;
 using Jubi.Response;
 using Jubi.Response.Attachments.Keyboard;
@@ -20,6 +23,8 @@ namespace Jubi.Abstracts
     /// </summary>
     public abstract class SiteProvider
     {
+        public abstract EventHandler[] EventHandlers { get; }
+
         /// <summary>
         /// Contains Api current serivce
         /// </summary>
@@ -39,7 +44,7 @@ namespace Jubi.Abstracts
         /// Instance of main class library
         /// </summary>
         public Bot BotInstance;
-
+        
         internal SiteProvider(Type user)
         {
             if (user == typeof(User))
@@ -48,12 +53,6 @@ namespace Jubi.Abstracts
             _user = user;
         }
         
-        /// <summary>
-        /// Contains Action delegate handlers for others received events.
-        /// </summary>
-        protected Dictionary<Type, Action<User, IUpdateContent>> EventHandlers 
-            = new Dictionary<Type, Action<User, IUpdateContent>>();
-
         /// <summary>
         /// Start listening updates service
         /// </summary>
@@ -67,6 +66,9 @@ namespace Jubi.Abstracts
                 {
                     foreach (var updateInfo in Api.Updates.Get())
                     {
+                        if (updateInfo == null) continue;
+                        
+                        
                         CallEvent(updateInfo);
                     }
                 }
@@ -93,6 +95,25 @@ namespace Jubi.Abstracts
                 method.Provider = Api;
                 method.OnInit();
             }
+            
+            var eventMethods = Api.Updates.GetType().GetMethods()
+                .Where(a => a.GetCustomAttribute<EventAttribute>()?.Event != null);
+            foreach (var eventMethod in eventMethods)
+            {
+                _events.Add(eventMethod.GetCustomAttribute<EventAttribute>().Event, 
+                    (EventDelegate)Delegate.CreateDelegate(typeof(EventDelegate), Api.Updates, eventMethod));
+            }
+        }
+
+        private Dictionary<string, EventDelegate> _events = new Dictionary<string, EventDelegate>();
+        
+        public delegate UpdateInfo EventDelegate(JObject updateData);
+
+        public UpdateInfo CallEvent(string type, JObject updateData)
+        {
+            if (!_events.ContainsKey(type)) return null;
+
+            return _events[type](updateData);
         }
 
         protected abstract void CallEvent(UpdateInfo updateInfo);
@@ -115,7 +136,7 @@ namespace Jubi.Abstracts
         /// </summary>
         /// <param name="user">User</param>
         /// <param name="str">Message</param>
-        public abstract void EmulateExecute(User user, string str);
+        public abstract void EmulateExecute(User user, string str, long peerId = 0);
 
         /// <summary>
         /// Creating and return user, or get user from list and return his.
@@ -135,10 +156,6 @@ namespace Jubi.Abstracts
     {
         protected string AccessToken;
         
-        // New, because old field has type User
-        protected new Dictionary<Type, Action<T, IUpdateContent>> EventHandlers 
-            = new Dictionary<Type, Action<T, IUpdateContent>>();
-        
         /// <summary>
         /// This object need to lock() block, because Users get in others threads. This object sync them
         /// </summary>
@@ -146,39 +163,19 @@ namespace Jubi.Abstracts
         
         protected SiteProvider() : base(typeof(T))
         {
-            EventHandlers.Add(typeof(MessageNewContent), OnMessage);
         }
 
-        /// <summary>
-        /// Find button with Text in keyboard user
-        /// </summary>
-        /// <param name="text">Need element</param>
-        /// <param name="menu">Menu</param>
-        /// <param name="pages">Keyboard user</param>
-        /// <returns>Button or null</returns>
-        private KeyboardAction FindButton(string text, KeyboardAction menu, List<KeyboardPage> pages)
+        public override void EmulateExecute(User user, string str, long peerId = 0)
         {
-            if (menu?.Name == text) return menu;
-            
-            foreach (var page in pages)
+            HandleEvent(EventHandlers.OfType<MessageEventHandler>().FirstOrDefault(), new UpdateInfo
             {
-                foreach (var row in page.Rows)
+                Initiator = user,
+                UpdateContent = new MessageNewContent
                 {
-                    foreach (var button in row.Buttons)
-                    {
-                        if (button.Name == text) return button;
-                    }
+                    Payload = null,
+                    Text = str,
+                    PeerId = peerId == 0 ? (long)user.Id : peerId
                 }
-            }
-
-            return null;
-        }
-        
-        public override void EmulateExecute(User user, string str)
-        {
-            OnMessage(user as T, new MessageNewContent
-            {
-                Text = str
             });
         }
         
@@ -188,121 +185,12 @@ namespace Jubi.Abstracts
                 throw new JubiException($"{Id} api key not found");
             
             AccessToken = BotInstance.Configuration["apiKeys"][Id];
+            foreach (var eventHandler in EventHandlers)
+            {
+                eventHandler.SiteProvider = this;
+            }
         }
-
-        /// <summary>
-        /// When user send message
-        /// </summary>
-        /// <param name="user">User</param>
-        /// <param name="content">Update content</param>
-        protected virtual void OnMessage(T user, IUpdateContent content)
-        {
-            var messageContent = content as MessageNewContent;
-
-            if (user.NewMessageAction != null)
-            {
-                var btn = user.Keyboard == null 
-                    ? null 
-                    : FindButton(messageContent.Text, user.Keyboard.Menu, user.Keyboard.Pages);
-                    
-                if (btn == null)
-                {
-                    user.NewMessageAction?.Invoke(messageContent.Text);
-                    return;
-                }
-                    
-                if (btn.Executor.StartsWith("/page "))
-                    btn.Action = () =>
-                    {
-                        EmulateExecute(user, btn.Executor);
-                    };
-                else if (btn.Action == user.Keyboard.Menu.Action)
-                {
-                    user.NewMessageAction = null;
-                }
-
-                if (btn.Action != null)
-                {
-                    btn.Action.Invoke();
-                    return;
-                }
-
-                user.NewMessageAction?.Invoke(btn.Executor);
-                return;
-            }
-            
-            var message = messageContent.Text;
-            if (messageContent.Payload != null)
-            {
-                message = "/" + JObject.Parse(messageContent.Payload)["command"];
-            }
-            
-            var isFromKeyboard = false;
-
-            if (user.Keyboard?.Pages.Count != null)
-            {
-                var btn = FindButton(messageContent.Text, user.Keyboard.Menu, user.Keyboard.Pages);
-                if (btn == null)
-                {
-                    user.Send(new ReplyMarkupKeyboard(user.Keyboard));
-                    return;
-                }
-
-                var oldKeyboard = user.Keyboard;
-                
-                if (user.Keyboard != null && oldKeyboard == user.Keyboard 
-                                          && user.Keyboard.IsOneTime && 
-                                          !(btn.Executor?.StartsWith("/page ") ?? false))
-                    user.KeyboardReset();
-
-                btn.Action?.Invoke();
-                
-                if (btn.Executor == null) return;
-
-                message = btn.Executor;
-                isFromKeyboard = true;
-            }
-
-            if (!message.StartsWith("/"))
-            {
-                EmulateExecute(user, "/error unknown_command");
-                return;
-            }
-            
-            message = message.Substring(1);
-
-            var args = message.Split(' ').ToList();
-
-            var command = args[0];
-            args.RemoveAt(0);
-
-            var commandExecutor = BotInstance.GetCommandExecutor(command);
-            var arrayArgs = args.ToArray();
-
-            if (commandExecutor == null || commandExecutor.IsHidden && !isFromKeyboard)
-            {
-                if (message != "error unknown_command")
-                    EmulateExecute(user, "/error unknown_command");
-                return;
-            }
-
-            commandExecutor.User = user;
-            commandExecutor.Args = arrayArgs;
-                
-            foreach (var middleware in commandExecutor.Middlewares)
-            {
-                var responseMiddleware = middleware(commandExecutor);
-                
-                if (!responseMiddleware)
-                    return;
-            }
-                
-            if (!commandExecutor.PreProcessData()) return;
-                
-            var response = commandExecutor.Execute();
-            if (response == null) return;
-            user.Send(response.Value);
-        }
+        
 
         /// <summary>
         /// Call event with UpdateInfo
@@ -310,65 +198,95 @@ namespace Jubi.Abstracts
         /// <param name="updateInfo">Update content</param>
         protected override void CallEvent(UpdateInfo updateInfo)
         {
-            var content = updateInfo.UpdateContent;
-
-            if (EventHandlers.ContainsKey(content.GetType())) {
-                var user = GetOrCreateUser(updateInfo.Initiator);
-                lock (user.ThreadPoolLock)
+            var eventHandler = EventHandlers.FirstOrDefault(f => f.IsAvailable(updateInfo.UpdateContent));
+            if (eventHandler == null) return;
+            
+            lock (updateInfo.Initiator.ThreadPoolLock)
+            {
+                if (updateInfo.Initiator.IsExecuting || updateInfo.Initiator.ThreadPoolActions.Count > 0)
                 {
-                    if (user.IsExecuting || user.ThreadPoolActions.Count > 0)
+                    updateInfo.Initiator.ThreadPoolActions.Add(() =>
                     {
-                        user.ThreadPoolActions.Add(() =>
-                        {
-                            ThreadPool.QueueUserWorkItem(state => HandleEvent(user, content));
-                        });
-                        return;
-                    }
-
-                    user.IsExecuting = true;
-                    ThreadPool.QueueUserWorkItem(state =>
-                    {
-                        HandleEvent(user, content);
+                        ThreadPool.QueueUserWorkItem(state => HandleEvent(eventHandler, updateInfo));
                     });
+                    return;
                 }
+
+                updateInfo.Initiator.IsExecuting = true;
+                ThreadPool.QueueUserWorkItem(state =>
+                {
+                    HandleEvent(eventHandler, updateInfo);
+                });
             }
+
         }
 
-        private void HandleEvent(User user, IUpdateContent content)
+        private void HandleEvent(EventHandler eventHandler, UpdateInfo updateInfo)
         {
+            if (eventHandler == null) return;
+            var user = updateInfo.Initiator;
+            var content = updateInfo.UpdateContent;
+            
             user.IsExecuting = true;
 
-            if (user.ThreadPoolActions.Count != 0) 
-                lock (user.ThreadPoolLock) user.ThreadPoolActions.RemoveAt(0);
-            try
+            if (BotInstance.IsThrowExceptions)
             {
-                var ev = EventHandlers[content.GetType()];
-                ev.Invoke(user as T, content);
+                try
+                {
+                    if (user.ThreadPoolActions.Count != 0) 
+                        lock (user.ThreadPoolLock) user.ThreadPoolActions.RemoveAt(0);
+
+                    eventHandler.Handle(user as T, content);
+                }
+                catch (ErrorException ex)
+                {
+                    user.Send(Error.FromConfig(BotInstance, "default") + $" {ex.Message}");
+                }
+                catch (SyntaxErrorException ex)
+                {
+                    user.Send(Error.FromConfig(BotInstance, "syntax") +
+                              $" /{ex.Alias} {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    if (!(updateInfo.UpdateContent is MessageNewContent {Text: "/error exception"}))
+                    {
+                        lock (Bot.LogsLock)
+                            HandleError(ex, user as T);
+                    }
+                }
+                finally
+                {
+                    if (user.ThreadPoolActions.Count == 0) user.IsExecuting = false;
+                }
             }
-            catch (ErrorException ex)
+            else
             {
-                user.Send(Error.FromConfig(BotInstance, "default") + $" {ex.Message}");
-            }
-            catch (SyntaxErrorException ex)
-            {
-                user.Send(Error.FromConfig(BotInstance, "syntax") +
-                          $" /{ex.Alias} {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                lock (Bot.LogsLock)
-                    HandleError(ex, user as T);
-            }
-            finally
-            {
-                if (user.ThreadPoolActions.Count == 0) user.IsExecuting = false;
+                try
+                {
+                    if (user.ThreadPoolActions.Count != 0) 
+                        lock (user.ThreadPoolLock) user.ThreadPoolActions.RemoveAt(0);
+
+                    eventHandler.Handle(user as T, content);
+                }
+                catch (ErrorException ex)
+                {
+                    user.Send(Error.FromConfig(BotInstance, "default") + $" {ex.Message}");
+                }
+                catch (SyntaxErrorException ex)
+                {
+                    user.Send(Error.FromConfig(BotInstance, "syntax") +
+                              $" /{ex.Alias} {ex.Message}");
+                }
+                finally
+                {
+                    if (user.ThreadPoolActions.Count == 0) user.IsExecuting = false;
+                }
             }
 
-            if (user.ThreadPoolActions.Count != 0)
-            {
-                var action = user.ThreadPoolActions[0];
-                ThreadPool.QueueUserWorkItem(state => action());
-            }
+            if (user.ThreadPoolActions.Count == 0) return;
+            var action = user.ThreadPoolActions[0];
+            ThreadPool.QueueUserWorkItem(state => action());
         }
 
         /// <summary>
@@ -393,16 +311,17 @@ namespace Jubi.Abstracts
 
             try
             {
-                var keyboard = user.Keyboard;
-                var page = user.KeyboardPage;
-                user.KeyboardReset();
+                var chat = user.GetChat();
+                var keyboard = chat.ReplyMarkupKeyboard;
+                var page = chat.KeyboardPage;
+                chat.KeyboardReset();
 
                 EmulateExecute(user, "/error exception");
 
-                if (user.Keyboard == null)
+                if (chat.ReplyMarkupKeyboard == null)
                 {
-                    user.Keyboard = keyboard;
-                    user.KeyboardPage = page;
+                    chat.ReplyMarkupKeyboard = keyboard;
+                    chat.KeyboardPage = page;
                 }
             }
             catch (Exception) { }

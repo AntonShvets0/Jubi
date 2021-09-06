@@ -14,19 +14,20 @@ namespace Jubi.Executors
 
         public override Message? Execute()
         {
+            var chat = User.GetChat();
             if (Get<string>(0) == "next")
             {
-                if (User.Keyboard.Pages.Count - 1 < User.KeyboardPage + 1) return null;
-                User.KeyboardPage++;
+                if (chat.ReplyMarkupKeyboard.Pages.Count - 1 < chat.KeyboardPage + 1) return null;
+                chat.KeyboardPage++;
             }
             else
             {
-                if (User.Keyboard.Pages.Count == 1) return null;
-                User.KeyboardPage--;
+                if (chat.KeyboardPage - 1 < 0) return null;
+                chat.KeyboardPage--;
             }
 
             return new Message(null, 
-                new ReplyMarkupKeyboard(User.Keyboard, User.KeyboardPage));
+                new ReplyMarkupKeyboard(chat.ReplyMarkupKeyboard as ReplyMarkupKeyboard, chat.KeyboardPage));
         }
     }
 }

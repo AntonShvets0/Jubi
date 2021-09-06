@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Jubi.Attributes;
+using Jubi.Enums;
 using Jubi.Exceptions;
 using Jubi.Response;
 
@@ -34,6 +35,10 @@ namespace Jubi.Abstracts.Executors
         public User User { get; set; }
 
         public virtual string Alias => GetType().GetCustomAttribute<CommandAttribute>()?.Alias;
+        
+        public string QueryData { get; set; }
+
+        public virtual CommandScope Scope { get; set; } = CommandScope.PrivateChat;
         
         public string FullAlias => Parent == null ?
             Alias : Parent.FullAlias + " " + Alias;
@@ -114,8 +119,12 @@ namespace Jubi.Abstracts.Executors
             executor.User = User;
             executor.Parent = this;
 
-            var args = new object[Args.Length - 1];
-            Array.Copy(Args, args, Args.Length -1);
+            var args = new object[Args.Length - 2 < 0 ? 0 : Args.Length - 2];
+            for (var i = 1; i < Args.Length - 1; i++)
+            {
+                args[i - 1] = Args[i];
+            }
+
             executor.Args = args;
 
             foreach (var middleware in executor.Middlewares)

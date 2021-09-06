@@ -22,21 +22,36 @@ namespace Jubi.Telegram.Api.Types
 
         public void OnInit() { }
 
-        public bool Send(Message response, User user)
+        public int Send(Message response, User user, long peerId = 0) => Send(response, user, peerId, "HTML");
+
+        public int Send(Message response, User user, long peerId, string parseMode)
         {            
             var attachments = new List<Tuple<string, object>>();
             string keyboard = null;
             Type typeAttachment = null;
 
+            var chat = user.GetChat(peerId);
             if (response.Attachments != null)
             {
+                if (response.Attachments.OfType<AbstractKeyboard>().Count() == 2)
+                {
+                    var inline = response.Attachments.First(a => a is ReplyMarkupKeyboard) as ReplyMarkupKeyboard;
+                    var id = Send(new Message(null, inline), user);
+                        /* if (id != 0)
+                        Delete(id, user);*/
+
+                    var tmpAttachments = response.Attachments.ToList();
+                    tmpAttachments.Remove(inline);
+                    response.Attachments = tmpAttachments.ToArray();
+                }
+
                 foreach (var attachment in response.Attachments)
                 {
                     if (attachment is ReplyMarkupKeyboard markupKeyboard)
                     {
                         if (!markupKeyboard.IsEmpty) 
                         {
-                            keyboard = markupKeyboard.ToString(user, Provider);
+                            keyboard = markupKeyboard.ToString(user, response.Text, Provider);
                             continue;
                         }
                         keyboard = new JObject
@@ -44,10 +59,16 @@ namespace Jubi.Telegram.Api.Types
                             {"remove_keyboard", true}
                         }.ToString();
                         
-                        user.KeyboardReset();
+                        chat.KeyboardReset();
                         continue;
                     }
                     
+                    if (attachment is InlineMarkupKeyboard inlineMarkupKeyboard)
+                    {
+                        keyboard = inlineMarkupKeyboard.ToString(user, response.Text, Provider);
+                        continue;
+                    }
+
                     if (typeAttachment != null && attachment.GetType() != typeAttachment) 
                         throw new InvalidCastException("Attachment is must be only one type");
 
@@ -60,21 +81,27 @@ namespace Jubi.Telegram.Api.Types
                 }      
             }
 
-            if (keyboard == null && user.Keyboard?.Pages?.Count != null)
+            if (keyboard == null && chat.ReplyMarkupKeyboard?.Pages?.Count != null)
             {
-                keyboard = Provider.BuildKeyboard(
-                    user.Keyboard.Menu, 
-                    user.Keyboard.Pages[user.KeyboardPage]).ToString();
+                keyboard = Provider.Keyboard.BuildReplyMarkupKeyboard(
+                    chat.ReplyMarkupKeyboard.Menu, 
+                    chat.ReplyMarkupKeyboard.Pages[chat.KeyboardPage]).ToString();
             }
-            
+
+            if (peerId == 0) peerId = (long)user.Id;
             var args = new List<WebMultipartContent>()
             {
-                new WebMultipartContent("chat_id", new StringContent(user.Id.ToString()))
+                new WebMultipartContent("chat_id", new StringContent(peerId.ToString())),
             };
+
+            if (parseMode != null)
+                args.Add(new WebMultipartContent("parse_mode", new StringContent(parseMode)));
 
             if (keyboard != null)
                 args.Add(new WebMultipartContent("reply_markup", new StringContent(keyboard)));
 
+            JToken request;
+            
             if (attachments.Count == 0)
             {
                 if (string.IsNullOrEmpty(response.Text))
@@ -84,34 +111,47 @@ namespace Jubi.Telegram.Api.Types
                 
                 args.Add(new WebMultipartContent("text", new StringContent(response.Text)));
                 
-                return (Provider as TelegramApiProvider).SendMultipartRequest("sendMessage", args, false) != null;
+                request = (Provider as TelegramApiProvider).SendMultipartRequest("sendMessage", args, false);
+                if (request == null) return 0;
+
+                return (int) request["message_id"];
             }
 
             var media = GetMediaGroup(typeAttachment);
             if (attachments.Count >= 2)
             {
                 var jArray = new JArray();
+                var i = 0;
+                
                 foreach (var attachment in attachments)
                 {
                     var obj = new JObject
                     {
                         {"type", media.Type.ToLower()},
-                        {media.ParameterText, response.Text},
                     };
+                    if (i == 0) obj.Add(media.ParameterText, response.Text);
 
                     if (attachment.Item2 is byte[] bytes)
-                        obj.Add("media", bytes);
+                    {
+                        args.Add(new WebMultipartContent($"photo{i}", new StreamContent(new MemoryStream(bytes))));
+                        obj.Add("media", $"attach://photo{i}");
+                    }
                     else
                         obj.Add("media", attachment.Item2.ToString());
 
                     jArray.Add(obj);
+                    i++;
                 }
                 
                 args.Add(new WebMultipartContent("media", new StringContent(jArray.ToString())));
-                
-                return (Provider as TelegramApiProvider).SendMultipartRequest("sendMediaGroup", args, false) != null;
-            }
 
+                request = (Provider as TelegramApiProvider).SendMultipartRequest("sendMediaGroup", args, false);
+                if (request == null) return 0;
+                else if (!((request as JObject)?.ContainsKey("message_id") ?? false)) return 0;
+
+                return (int) request["message_id"];
+            }
+            
             if (!string.IsNullOrEmpty(response.Text))
                 args.Add(new WebMultipartContent(media.ParameterText, new StringContent(response.Text)));
             
@@ -120,11 +160,34 @@ namespace Jubi.Telegram.Api.Types
                     attachments[0].Item1, new StreamContent(new MemoryStream(bytesAttachment))));
             else
                 args.Add(new WebMultipartContent(
-                    attachments[0].Item1, new StringContent(attachments[0].Item2.ToString())));                
+                    attachments[0].Item1, new StringContent(attachments[0].Item2.ToString())));
 
-            return (Provider as TelegramApiProvider).SendMultipartRequest($"send{media.Type}", args, false) != null;
+            request = (Provider as TelegramApiProvider).SendMultipartRequest($"send{media.Type}", args, false);
+            if (request == null) return 0;
+
+            return (int)request["message_id"];
+        }
+        
+        public bool AnswerCallbackQuery(string id, string message = null)
+        {
+            var args = new Dictionary<string, string>
+            {
+                {"callback_query_id", id}
+            };
+                
+            if (message != null) args.Add("text", message);
+                
+            return Provider.SendRequest("answerCallbackQuery", args, false) != null;
         }
 
+        public bool Delete(int messageId, User user)
+        {
+            return Provider.SendRequest("deleteMessage", new Dictionary<string, string>
+            {
+                {"chat_id", user.Id.ToString()},
+                {"message_id", messageId.ToString()}
+            }, false) != null;
+        }
 
         private Tuple<string, object> HandleAttachment(User user, IAttachment attachment)
         {

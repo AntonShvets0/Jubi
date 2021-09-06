@@ -14,13 +14,13 @@ namespace Jubi.Telegram.Api.Types
         {
             try
             {
-                Provider.SendRequest("getChatMember", new Dictionary<string, string>
+                var response = Provider.SendRequest("getChatMember", new Dictionary<string, string>
                 {
                     {"chat_id", chatId},
                     {"user_id", member.ToString()}
                 }, true);
 
-                return true;
+                return response["status"]?.ToString() != "left";
             }
             catch
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using Jubi.Abstracts;
@@ -25,7 +26,16 @@ namespace Jubi.VKontakte.Api.Types
             
         }
 
-        public bool Send(Message response, User user)
+        public bool Delete(int messageId, User user)
+        {
+            return Provider.SendRequest("messages.delete", new Dictionary<string, string>
+            {
+                {"message_ids", messageId.ToString()},
+                {"delete_for_all", "1"}
+            }, false) != null;
+        }
+
+        public int Send(Message response, User user, long peerId = 0)
         {
             var attachments = new List<string>();
             string keyboard = null;
@@ -35,15 +45,29 @@ namespace Jubi.VKontakte.Api.Types
                 response.Text = "&#4448;";
             }
             
+            var chat = user.GetChat(peerId);
+
             if (response.Attachments != null)
             {
+                if (response.Attachments.OfType<AbstractKeyboard>().Count() == 2)
+                {
+                    var inline = response.Attachments.First(a => a is ReplyMarkupKeyboard) as ReplyMarkupKeyboard;
+                    var id = Send(new Message(null, inline), user, peerId);
+                    if (id != 0)
+                        Delete(id, user);
+
+                    var tmpAttachments = response.Attachments.ToList();
+                    tmpAttachments.Remove(inline);
+                    response.Attachments = tmpAttachments.ToArray();
+                }
+
                 foreach (var attachment in response.Attachments)
                 {
                     if (attachment is ReplyMarkupKeyboard markupKeyboard)
                     {
                         if (!markupKeyboard.IsEmpty) 
                         {
-                            keyboard = markupKeyboard.ToString(user, Provider);
+                            keyboard = markupKeyboard.ToString(user, response.Text, Provider);
                             continue;
                         }
                         
@@ -53,7 +77,13 @@ namespace Jubi.VKontakte.Api.Types
                             {"one_time", true}
                         }.ToString();
 
-                        user.KeyboardReset();
+                        chat.KeyboardReset();
+                        continue;
+                    }
+
+                    if (attachment is InlineMarkupKeyboard inlineMarkupKeyboard)
+                    {
+                        keyboard = inlineMarkupKeyboard.ToString(user, response.Text, Provider);
                         continue;
                     }
                     
@@ -61,22 +91,27 @@ namespace Jubi.VKontakte.Api.Types
                     if (attach == null) continue;
                     
                     attachments.Add(attach);
-                }      
+                }
             }
 
-            if (keyboard == null && user.Keyboard?.Pages?.Count != null)
+            if (keyboard == null && chat.ReplyMarkupKeyboard?.Pages?.Count != null)
             {
-                keyboard = Provider.BuildKeyboard(user.Keyboard.Menu, user.Keyboard.Pages[user.KeyboardPage]).ToString();
+                keyboard = Provider.Keyboard.
+                    BuildReplyMarkupKeyboard(chat.ReplyMarkupKeyboard.Menu, chat.ReplyMarkupKeyboard.Pages[chat.KeyboardPage]).ToString();
             }
 
-            return Provider.SendRequest("messages.send", new Dictionary<string, string>
+            if (peerId == 0) peerId = (long)user.Id;
+            var request = Provider.SendRequest("messages.send", new Dictionary<string, string>
             {
-                {"user_id", user.Id.ToString()},
+                {"peer_id", peerId.ToString()},
                 {"message", response.Text},
                 {"keyboard", keyboard},
                 {"random_id", new Random().Next(1, 10000).ToString()},
                 {"attachment", string.Join(",", attachments)}
-            }, false) != null;
+            }, false);
+            if (request == null) return 0;
+
+            return (int) request;
         }
 
         private string HandleAttachment(User user, IAttachment attachment)

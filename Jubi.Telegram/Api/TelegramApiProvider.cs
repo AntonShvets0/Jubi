@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
+using Jubi.Abstracts;
 using Jubi.Api;
 using Jubi.Api.Types;
+using Jubi.Response.Attachments.Keyboard.Parameters;
 using Jubi.Response.Attachments.Keyboard;
 using Jubi.Telegram.Api.Types;
 using Jubi.Telegram.Exceptions;
@@ -16,7 +18,11 @@ namespace Jubi.Telegram.Api
         public IMessageApiProvider Messages { get; } = new TelegramMessageApiProvider();
         public IUpdateApiProvider Updates { get; } = new TelegramUpdateApiProvider();
 
+        public IKeyboardApiProvider Keyboard { get; } = new TelegramKeyboardApiProvider();
+
         public TelegramChannelApiProvider Channels { get; } = new TelegramChannelApiProvider();
+
+        public SiteProvider Provider { get; set; }
 
         public TelegramApiProvider(string token)
         {
@@ -57,35 +63,6 @@ namespace Jubi.Telegram.Api
             }
 
             return response["result"];
-        }
-
-        public JObject BuildKeyboard(KeyboardAction menu, KeyboardPage keyboard, bool isOneTime = false)
-        {
-            var buttons = new JArray();
-            foreach (var row in keyboard.Rows)
-            {
-                buttons.Add(new JArray());
-                
-                foreach (var button in row.Buttons)
-                {
-                    (buttons[buttons.Count - 1] as JArray).Add(button.Name);
-                }
-            }
-
-            if (menu != null)
-            {
-                buttons.Add(new JArray
-                {
-                    {menu.Name}
-                });
-            }
-            
-            return new JObject
-            {
-                {"one_time_keyboard", isOneTime},
-                {"resize_keyboard", true},
-                {"keyboard", buttons}
-            };
         }
     }
 }

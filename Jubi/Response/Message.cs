@@ -10,19 +10,11 @@ namespace Jubi.Response
         public string Text;
         public IAttachment[] Attachments;
 
-        public Message(string text, IAttachment[] attachments)
+        public Message(string text, params IAttachment[] attachments)
         {
-            
             Text = text;
             Attachments = attachments;
         }
-
-        public Message(string text, IAttachment attachment)
-        {
-            Text = text;
-            Attachments = new[] {attachment};
-        }
-
 
         private static Message FromIAttachment(IAttachment attachment)
         {

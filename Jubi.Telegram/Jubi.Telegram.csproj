@@ -11,8 +11,4 @@
       <ProjectReference Include="..\Jubi\Jubi.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Models\Interfaces" />
-    </ItemGroup>
-
 </Project>

@@ -4,7 +4,7 @@ namespace Jubi.Updates
 {
     public class UpdateInfo
     {
-        public ulong Initiator;
+        public User Initiator;
         public IUpdateContent UpdateContent;
     }
 }

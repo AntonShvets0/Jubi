@@ -13,49 +13,101 @@ namespace Jubi.Abstracts.Executors
     {
         protected virtual int MaxButtonsInRow { get; } = 1;
 
+        public virtual CommandExecutor[] InlineSubcommands { get; set; }
+
         public override Message? Execute()
         {
-            var markup = Parent == null
-                ? new ReplyMarkupKeyboard()
-                : new ReplyMarkupKeyboard(false, () => ExecuteMarkup(Parent));
-            markup.MaxInRows = MaxButtonsInRow;
-
-            foreach (var executor in Subcommands)
+            ReplyMarkupKeyboard markup = null;
+            InlineMarkupKeyboard inline = null;
+            
+            if (InlineSubcommands != null)
             {
-                if (executor is NewLine)
-                {
-                    markup.AddLine();
-                    continue;
-                }
-                
-                executor.User = User;
-                executor.Parent = this;
-                executor.Args = Array.Empty<object>();
+                inline = new InlineMarkupKeyboard();
 
-                var isMiddlewaresReturnError = false;
-                
-                foreach (var middleware in executor.Middlewares)
+                foreach (var inlineSubcommand in InlineSubcommands)
                 {
-                    try
+                    if (inlineSubcommand is NewLine)
                     {
-                        if (!middleware(executor))
+                        inline.AddLine();
+                        continue;
+                    }
+
+                    inlineSubcommand.User = User;
+                    inlineSubcommand.Parent = this;
+                    inlineSubcommand.Args = Array.Empty<object>();
+
+                    var isMiddlewaresReturnError = false;
+                
+                    foreach (var middleware in inlineSubcommand.Middlewares)
+                    {
+                        try
+                        {
+                            if (!middleware(inlineSubcommand))
+                            {
+                                isMiddlewaresReturnError = true;
+                                break;
+                            }
+                        }
+                        catch (JubiException)
                         {
                             isMiddlewaresReturnError = true;
                             break;
                         }
                     }
-                    catch (JubiException)
-                    {
-                        isMiddlewaresReturnError = true;
-                        break;
-                    }
-                }
 
-                if (isMiddlewaresReturnError) continue;
-                markup.AddButton(executor.Alias, () => ExecuteMarkup(executor));
+                    if (isMiddlewaresReturnError) continue;
+                
+                    inline.AddButton(inlineSubcommand.Alias, () => ExecuteMarkup(inlineSubcommand));
+                }
             }
 
-            return markup;
+            if (Subcommands != null)
+            {
+                markup = Parent == null
+                    ? new ReplyMarkupKeyboard()
+                    : new ReplyMarkupKeyboard(false, () => ExecuteMarkup(Parent));
+                markup.MaxInRows = MaxButtonsInRow;
+
+                foreach (var executor in Subcommands)
+                {
+                    if (executor is NewLine)
+                    {
+                        markup.AddLine();
+                        continue;
+                    }
+                
+                    executor.User = User;
+                    executor.Parent = this;
+                    executor.Args = Array.Empty<object>();
+
+                    var isMiddlewaresReturnError = false;
+                
+                    foreach (var middleware in executor.Middlewares)
+                    {
+                        try
+                        {
+                            if (!middleware(executor))
+                            {
+                                isMiddlewaresReturnError = true;
+                                break;
+                            }
+                        }
+                        catch (JubiException)
+                        {
+                            isMiddlewaresReturnError = true;
+                            break;
+                        }
+                    }
+
+                    if (isMiddlewaresReturnError) continue;
+                
+                    markup.AddButton(executor.Alias, () => ExecuteMarkup(executor));
+                }
+            }
+
+            return markup != null && inline != null
+                ? new Message(null, markup, inline)
+                : (inline != null ? new Message(null, inline) : markup);
         }
 
         private void ExecuteMarkup(CommandExecutor executor)

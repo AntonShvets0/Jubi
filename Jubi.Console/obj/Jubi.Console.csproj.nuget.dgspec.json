@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lordoverlord0\\RiderProjects\\Jubi\\Jubi.Console\\Jubi.Console.csproj": {}
+    "C:\\Users\\rofyo\\RiderProjects\\Jubi\\Jubi.Console\\Jubi.Console.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lordoverlord0\\RiderProjects\\Jubi\\Jubi.Console\\Jubi.Console.csproj": {
+    "C:\\Users\\rofyo\\RiderProjects\\Jubi\\Jubi.Console\\Jubi.Console.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lordoverlord0\\RiderProjects\\Jubi\\Jubi.Console\\Jubi.Console.csproj",
+        "projectUniqueName": "C:\\Users\\rofyo\\RiderProjects\\Jubi\\Jubi.Console\\Jubi.Console.csproj",
         "projectName": "Jubi.Console",
-        "projectPath": "C:\\Users\\lordoverlord0\\RiderProjects\\Jubi\\Jubi.Console\\Jubi.Console.csproj",
-        "packagesPath": "C:\\Users\\lordoverlord0\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lordoverlord0\\RiderProjects\\Jubi\\Jubi.Console\\obj\\",
+        "projectPath": "C:\\Users\\rofyo\\RiderProjects\\Jubi\\Jubi.Console\\Jubi.Console.csproj",
+        "packagesPath": "C:\\Users\\rofyo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rofyo\\RiderProjects\\Jubi\\Jubi.Console\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lordoverlord0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rofyo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "netstandard2.1": {
             "targetAlias": "netstandard2.1",
             "projectReferences": {
-              "C:\\Users\\lordoverlord0\\RiderProjects\\Jubi\\Jubi\\Jubi.csproj": {
-                "projectPath": "C:\\Users\\lordoverlord0\\RiderProjects\\Jubi\\Jubi\\Jubi.csproj"
+              "C:\\Users\\rofyo\\RiderProjects\\Jubi\\Jubi\\Jubi.csproj": {
+                "projectPath": "C:\\Users\\rofyo\\RiderProjects\\Jubi\\Jubi\\Jubi.csproj"
               }
             }
           }
@@ -62,17 +62,17 @@
         }
       }
     },
-    "C:\\Users\\lordoverlord0\\RiderProjects\\Jubi\\Jubi\\Jubi.csproj": {
+    "C:\\Users\\rofyo\\RiderProjects\\Jubi\\Jubi\\Jubi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lordoverlord0\\RiderProjects\\Jubi\\Jubi\\Jubi.csproj",
+        "projectUniqueName": "C:\\Users\\rofyo\\RiderProjects\\Jubi\\Jubi\\Jubi.csproj",
         "projectName": "Jubi",
-        "projectPath": "C:\\Users\\lordoverlord0\\RiderProjects\\Jubi\\Jubi\\Jubi.csproj",
-        "packagesPath": "C:\\Users\\lordoverlord0\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lordoverlord0\\RiderProjects\\Jubi\\Jubi\\obj\\",
+        "projectPath": "C:\\Users\\rofyo\\RiderProjects\\Jubi\\Jubi\\Jubi.csproj",
+        "packagesPath": "C:\\Users\\rofyo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rofyo\\RiderProjects\\Jubi\\Jubi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lordoverlord0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rofyo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

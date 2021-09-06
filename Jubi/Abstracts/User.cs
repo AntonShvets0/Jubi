@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Jubi.Api;
+using Jubi.Chats;
 using Jubi.Models;
 using Jubi.Response;
 using Jubi.Response.Attachments.Keyboard;
@@ -19,32 +20,60 @@ namespace Jubi.Abstracts
         public List<Action> ThreadPoolActions = new List<Action>();
         public bool IsExecuting = false;
 
-        public object ThreadPoolLock = new object();
+        private object _userLock = new object();
 
-        public ReplyMarkupKeyboard Keyboard;
-        public int KeyboardPage = 0;
+        public object ThreadPoolLock = new object();
         
         protected static Dictionary<Type, ReadMessageData> _readMessageData;
 
         public SiteProvider Provider;
 
-        public void KeyboardReset()
+        public List<UserChat> Chats { get; } = new List<UserChat>();
+
+        public long LastPeerId { get; set; }
+        
+        public string QueryId { get; set; }
+
+        public UserChat GetChat(long peerId = 0)
         {
-            KeyboardPage = 0;
-            Keyboard = null;
+            lock (_userLock)
+            {
+                var chat = Chats.FirstOrDefault(c => c.PeerId == (peerId == 0 ? (long)Id : peerId));
+
+                if (chat == null)
+                {
+                    chat = new UserChat(peerId == 0 ? (long)Id : peerId);
+                    Chats.Add(chat);
+                }
+
+                return chat;
+            }
+        }
+        
+        public virtual int Send(Message message, long peerId = 0)
+        {
+            message.Text = ProccessText(message.Text);
+            return Provider.Api.Messages.Send(message, this, peerId);
         }
 
-        public virtual bool Send(Message message)
-            => Provider.Api.Messages.Send(message, this);
-
-        public Action<string> NewMessageAction;
+        private string ProccessText(string text)
+        {
+            if (text == null) return null;
+            
+            text = text.Replace("<<", "«");
+            text = text.Replace(">>", "»");
+            text = text.Replace("--", "—");
+            
+            return text;
+        }
         
-        public void Read<T>(Action<T> newMessage, ReadMessageData messageData = null)
+        public void Read<T>(Action<T> newMessage, ReadMessageData messageData = null, long peerId = 0)
         {
             if (_readMessageData == null)
                 FillReadMessageData(Provider.BotInstance);
+            if (peerId == 0) peerId = (long)Id;
 
-            NewMessageAction = message =>
+            GetChat(peerId).NewMessageAction = message =>
             {
                 ReadMessageData data;
 
@@ -57,30 +86,31 @@ namespace Jubi.Abstracts
 
                 if (!data.TryParse(message, out object result))
                 {
-                    Send(data.Error);
+                    Send(data.Error, peerId);
                     Read(newMessage, messageData);
                     return;
                 }
 
-                NewMessageAction = null;
+                GetChat(peerId).NewMessageAction = null;
                 newMessage?.Invoke((T) result);
             };
         }
 
-        public void Read<T>(Message message, Action<T> newMessage, ReadMessageData messageData = null)
+        public void Read<T>(Message message, Action<T> newMessage, ReadMessageData messageData = null, long peerId = 0)
         {
-            Send(message);
-            Read<T>(newMessage, messageData);
+            if (peerId == 0) peerId = (long)Id;
+            Send(message, peerId);
+            Read<T>(newMessage, messageData, peerId);
         }
 
-        public void Read(Message message, Action<string> newMessage)
+        public void Read(Message message, Action<string> newMessage, long peerId = 0)
         {
-            Read<string>(message, newMessage);
+            Read<string>(message, newMessage, null, peerId);
         }
 
-        public void Read(Action<string> newMessage)
+        public void Read(Action<string> newMessage, long peerId = 0)
         {
-            Read<string>(newMessage);
+            Read<string>(newMessage, null, peerId);
         }
 
         protected virtual void FillReadMessageData(Bot bot)

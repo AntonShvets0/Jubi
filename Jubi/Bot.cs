@@ -22,6 +22,8 @@ namespace Jubi
         private Dictionary<string, Type> _commandExecutors;
         private object _commandExecutorsLock = new object();
 
+        public bool IsThrowExceptions { get; set; } = true;
+
         /// <summary>
         /// Logs. Contains exception, which throwed in Executors.
         /// </summary>
@@ -53,6 +55,7 @@ namespace Jubi
             {
                 provider.BotInstance = this;
                 provider.OnInit();
+                provider.Api.Provider = provider;
 
                 new Thread(() =>
                 {
