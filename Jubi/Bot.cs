@@ -51,6 +51,7 @@ namespace Jubi
         /// </summary>
         public void Run()
         {
+            IsStoped = false;
             foreach (var provider in Providers)
             {
                 provider.BotInstance = this;
@@ -62,6 +63,13 @@ namespace Jubi
                     provider.Run();
                 }).Start();
             }
+        }
+        
+        public bool IsStoped { get; private set; }
+        
+        public void Stop()
+        {
+            IsStoped = true;
         }
 
         /// <summary>

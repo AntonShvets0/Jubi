@@ -27,6 +27,8 @@ namespace Jubi.Abstracts
         protected static Dictionary<Type, ReadMessageData> _readMessageData;
 
         public SiteProvider Provider;
+        
+        public string Username { get; set; }
 
         public List<UserChat> Chats { get; } = new List<UserChat>();
 

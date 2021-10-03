@@ -27,6 +27,8 @@ namespace Jubi.VKontakte.Api.Types
 
         public IEnumerable<UpdateInfo> Get()
         {
+            if (Provider.Provider.BotInstance.IsStoped) yield break;
+
             JObject response;
 
             while (true)

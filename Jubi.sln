@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jubi.Telegram", "Jubi.Teleg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jubi.VKontakte", "Jubi.VKontakte\Jubi.VKontakte.csproj", "{AC2BC0E7-8077-4B7E-9D43-D795096C693C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jubi.ConsoleApp", "Jubi.ConsoleApp\Jubi.ConsoleApp.csproj", "{58EFA165-B9DD-468A-B560-6FF37DAD6C13}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +24,5 @@ Global
 		{AC2BC0E7-8077-4B7E-9D43-D795096C693C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC2BC0E7-8077-4B7E-9D43-D795096C693C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC2BC0E7-8077-4B7E-9D43-D795096C693C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58EFA165-B9DD-468A-B560-6FF37DAD6C13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58EFA165-B9DD-468A-B560-6FF37DAD6C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58EFA165-B9DD-468A-B560-6FF37DAD6C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58EFA165-B9DD-468A-B560-6FF37DAD6C13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

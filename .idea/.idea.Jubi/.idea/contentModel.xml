@@ -103,30 +103,6 @@
           <e p="UpdateInfo.cs" t="Include" />
         </e>
       </e>
-      <e p="Jubi.ConsoleApp" t="IncludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
-        <e p="Executors" t="Include">
-          <e p="HelloExecutor.cs" t="Include" />
-          <e p="MenuExecutor.cs" t="Include" />
-          <e p="StrictExecutor.cs" t="Include" />
-          <e p="Subcommands" t="Include">
-            <e p="Hello2Executor.cs" t="Include" />
-            <e p="Menu" t="Include">
-              <e p="Test2Executor.cs" t="Include" />
-              <e p="TestExecutor.cs" t="Include" />
-            </e>
-          </e>
-        </e>
-        <e p="Jubi.ConsoleApp.csproj" t="IncludeRecursive" />
-        <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
-            <e p="net5.0" t="Include">
-              <e p="Jubi.ConsoleApp.AssemblyInfo.cs" t="Include" />
-            </e>
-          </e>
-        </e>
-        <e p="Program.cs" t="Include" />
-      </e>
       <e p="Jubi.sln" t="IncludeFlat" />
       <e p="Jubi.Telegram" t="IncludeRecursive">
         <e p="Api" t="Include">
@@ -167,6 +143,7 @@
         <e p="Api" t="Include">
           <e p="Types" t="Include">
             <e p="VKonakteKeyboardApiProvider.cs" t="Include" />
+            <e p="VKontakteCoverApiProvider.cs" t="Include" />
             <e p="VKontakteGroupApiProvider.cs" t="Include" />
             <e p="VKontakteMessageApiProvider.cs" t="Include" />
             <e p="VKontaktePhotoApiProvider.cs" t="Include" />
@@ -189,6 +166,7 @@
         </e>
         <e p="Jubi.VKontakte.csproj" t="IncludeRecursive" />
         <e p="Models" t="Include">
+          <e p="Crop.cs" t="Include" />
           <e p="Enums" t="Include">
             <e p="DeactivatedType.cs" t="Include" />
             <e p="GroupType.cs" t="Include" />

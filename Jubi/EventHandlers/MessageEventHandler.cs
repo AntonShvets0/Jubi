@@ -62,14 +62,24 @@ namespace Jubi.EventHandlers
             return null;
         }
 
-        private KeyboardButton FindButton(string text, User user) => FindButton(text, user.GetChat().ReplyMarkupKeyboard) ??
-                                                                     FindButton(text, user.GetChat().InlineMarkupKeyboard);
+        private KeyboardButton FindButton(string text, User user, out bool isInline)
+        {
+            var button = FindButton(text, user.GetChat().ReplyMarkupKeyboard);
+            if (button != null)
+            {
+                isInline = false;
+                return button;
+            }
+            
+            isInline = true;
+            return FindButton(text, user.GetChat().InlineMarkupKeyboard);
+        }
 
         private void HandleReadMessageEvent(User user, MessageNewContent content, UserChat chat)
         {
             var btn = !user.GetChat().HasKeyboard() 
                 ? null 
-                : FindButton(content.Text, user);
+                : FindButton(content.Text, user, out var _);
 
             if (btn == null)
             {
@@ -130,7 +140,7 @@ namespace Jubi.EventHandlers
 
             if (chat.HasKeyboard())
             {
-                var btn = FindButton(content.Text, keyboardUser);
+                var btn = FindButton(content.Text, keyboardUser, out var isInline);
                 if (btn == null && chat.ReplyMarkupKeyboard != null)
                 {
                     if (chat.ReplyMarkupKeyboard != null && chat.InlineMarkupKeyboard != null) 
@@ -146,23 +156,26 @@ namespace Jubi.EventHandlers
 
                     return;
                 }
+               
+                
+                if (btn?.Action is DefaultButtonAction defaultButtonAction)
+                {
+                    var oldKeyboard = chat.ReplyMarkupKeyboard;
+                
+                    if (chat.ReplyMarkupKeyboard != null && oldKeyboard == chat.ReplyMarkupKeyboard 
+                                                         && chat.ReplyMarkupKeyboard.IsOneTime && 
+                                                         !(defaultButtonAction.Executor?.StartsWith("/page ") ?? false) && !isInline) chat.KeyboardReset();
+
+                    if (!defaultButtonAction.Executor?.StartsWith("/page") ?? true) defaultButtonAction.Action?.Invoke(user);
+                
+                    if (defaultButtonAction.Executor == null) return;
+
+                    message = defaultButtonAction.Executor;
+                    isFromKeyboard = true;
+                }
                 else
                 {
-                    if (btn?.Action is DefaultButtonAction defaultButtonAction)
-                    {
-                        var oldKeyboard = chat.ReplyMarkupKeyboard;
-                
-                        if (chat.ReplyMarkupKeyboard != null && oldKeyboard == chat.ReplyMarkupKeyboard 
-                                                             && chat.ReplyMarkupKeyboard.IsOneTime && 
-                                                             !(defaultButtonAction.Executor?.StartsWith("/page ") ?? false)) chat.KeyboardReset();
-
-                        if (!defaultButtonAction.Executor?.StartsWith("/page") ?? true) defaultButtonAction.Action?.Invoke(user);
-                
-                        if (defaultButtonAction.Executor == null) return;
-
-                        message = defaultButtonAction.Executor;
-                        isFromKeyboard = true;
-                    }
+                    return;
                 }
             }
 

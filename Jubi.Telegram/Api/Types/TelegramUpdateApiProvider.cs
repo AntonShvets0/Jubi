@@ -20,6 +20,8 @@ namespace Jubi.Telegram.Api.Types
 
         public IEnumerable<UpdateInfo> Get()
         {
+            if (Provider.Provider.BotInstance.IsStoped) yield break;
+            
             var array = Provider.SendRequest("getUpdates", new Dictionary<string, string>()
             {
                 {"offset", TimeStamp.ToString()}
@@ -48,10 +50,14 @@ namespace Jubi.Telegram.Api.Types
             var peerId = updateObject["message"]?["chat"]?["id"];
             if (updateObject["message"]?["text"] == null) return null;
             if (updateObject["message"]?["from"]?["id"] == null) return null;
-            
+
+            var initiator =
+                Provider.Provider.GetOrCreateUser((ulong) updateObject["message"]["from"]["id"]);
+            initiator.Username = updateObject["message"]?["from"]?["username"]?.ToString();
+
             return new UpdateInfo
             {
-                Initiator = Provider.Provider.GetOrCreateUser((ulong)updateObject["message"]["from"]["id"]),
+                Initiator = initiator,
                 UpdateContent = new MessageNewContent
                 {
                     Text = updateObject["message"]?["text"]?.ToString(),
@@ -65,9 +71,13 @@ namespace Jubi.Telegram.Api.Types
         {
             var peer = updateObject["callback_query"]?["message"]?["chat"]?["id"];
             
+            var initiator =
+                Provider.Provider.GetOrCreateUser((ulong) updateObject["callback_query"]["from"]["id"]);
+            initiator.Username = updateObject["callback_query"]?["from"]?["username"]?.ToString();
+
             return new UpdateInfo
             {
-                Initiator = Provider.Provider.GetOrCreateUser((ulong) updateObject["callback_query"]["from"]["id"]),
+                Initiator = initiator,
                 UpdateContent = new CallbackQueryContent
                 {
                     Data = updateObject["callback_query"]["data"].ToString(),

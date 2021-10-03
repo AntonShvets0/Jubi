@@ -136,7 +136,7 @@ namespace Jubi.VKontakte.Api.Types
             return "";
         }
 
-        private byte[] GetBytes(string file)
+        internal byte[] GetBytes(string file)
         {
             if (file.StartsWith("http://") || file.StartsWith("https://"))
             {

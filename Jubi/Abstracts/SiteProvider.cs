@@ -60,7 +60,7 @@ namespace Jubi.Abstracts
         {
             SetProviderRefToMethod();
             
-            while (true)
+            while (!BotInstance.IsStoped)
             {
                 try
                 {
@@ -100,6 +100,8 @@ namespace Jubi.Abstracts
                 .Where(a => a.GetCustomAttribute<EventAttribute>()?.Event != null);
             foreach (var eventMethod in eventMethods)
             {
+                if (_events.ContainsKey(eventMethod.GetCustomAttribute<EventAttribute>().Event)) continue;
+                
                 _events.Add(eventMethod.GetCustomAttribute<EventAttribute>().Event, 
                     (EventDelegate)Delegate.CreateDelegate(typeof(EventDelegate), Api.Updates, eventMethod));
             }

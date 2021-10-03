@@ -27,6 +27,8 @@ namespace Jubi.VKontakte.Api
 
         public IKeyboardApiProvider Keyboard { get; } = new VKonakteKeyboardApiProvider();
 
+        public VKontakteCoverApiProvider Cover { get; } = new VKontakteCoverApiProvider();
+
         public SiteProvider Provider { get; set; }
 
         public const string API_VERSION = "5.130";
