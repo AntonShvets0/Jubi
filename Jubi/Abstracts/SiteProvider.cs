@@ -205,6 +205,8 @@ namespace Jubi.Abstracts
             
             lock (updateInfo.Initiator.ThreadPoolLock)
             {
+                if (!updateInfo.Initiator.IsExecuting && updateInfo.Initiator.ThreadPoolActions.Count > 0) updateInfo.Initiator.ThreadPoolActions.Clear();
+                
                 if (updateInfo.Initiator.IsExecuting || updateInfo.Initiator.ThreadPoolActions.Count > 0)
                 {
                     updateInfo.Initiator.ThreadPoolActions.Add(() =>
@@ -231,59 +233,35 @@ namespace Jubi.Abstracts
             
             user.IsExecuting = true;
 
-            if (BotInstance.IsThrowExceptions)
+            try
             {
-                try
-                {
-                    if (user.ThreadPoolActions.Count != 0) 
-                        lock (user.ThreadPoolLock) user.ThreadPoolActions.RemoveAt(0);
+                if (user.ThreadPoolActions.Count != 0) 
+                    lock (user.ThreadPoolLock) user.ThreadPoolActions.RemoveAt(0);
 
-                    eventHandler.Handle(user as T, content);
-                }
-                catch (ErrorException ex)
+                eventHandler.Handle(user as T, content);
+            }
+            catch (ErrorException ex)
+            {
+                user.Send(Error.FromConfig(BotInstance, "default") + $" {ex.Message}");
+            }
+            catch (SyntaxErrorException ex)
+            {
+                user.Send(Error.FromConfig(BotInstance, "syntax") +
+                          $" /{ex.Alias} {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                if (BotInstance.IsDebug) throw;
+                    
+                if (!(updateInfo.UpdateContent is MessageNewContent {Text: "/error exception"}))
                 {
-                    user.Send(Error.FromConfig(BotInstance, "default") + $" {ex.Message}");
-                }
-                catch (SyntaxErrorException ex)
-                {
-                    user.Send(Error.FromConfig(BotInstance, "syntax") +
-                              $" /{ex.Alias} {ex.Message}");
-                }
-                catch (Exception ex)
-                {
-                    if (!(updateInfo.UpdateContent is MessageNewContent {Text: "/error exception"}))
-                    {
-                        lock (Bot.LogsLock)
-                            HandleError(ex, user as T);
-                    }
-                }
-                finally
-                {
-                    if (user.ThreadPoolActions.Count == 0) user.IsExecuting = false;
+                    lock (Bot.LogsLock)
+                        HandleError(ex, user as T);
                 }
             }
-            else
+            finally
             {
-                try
-                {
-                    if (user.ThreadPoolActions.Count != 0) 
-                        lock (user.ThreadPoolLock) user.ThreadPoolActions.RemoveAt(0);
-
-                    eventHandler.Handle(user as T, content);
-                }
-                catch (ErrorException ex)
-                {
-                    user.Send(Error.FromConfig(BotInstance, "default") + $" {ex.Message}");
-                }
-                catch (SyntaxErrorException ex)
-                {
-                    user.Send(Error.FromConfig(BotInstance, "syntax") +
-                              $" /{ex.Alias} {ex.Message}");
-                }
-                finally
-                {
-                    if (user.ThreadPoolActions.Count == 0) user.IsExecuting = false;
-                }
+                if (user.ThreadPoolActions.Count == 0) user.IsExecuting = false;
             }
 
             if (user.ThreadPoolActions.Count == 0) return;

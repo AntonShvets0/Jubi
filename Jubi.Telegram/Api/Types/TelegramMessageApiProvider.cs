@@ -31,6 +31,8 @@ namespace Jubi.Telegram.Api.Types
             Type typeAttachment = null;
 
             var chat = user.GetChat(peerId);
+            if (peerId == 0) peerId = (long)user.Id;
+
             if (response.Attachments != null)
             {
                 if (response.Attachments.OfType<AbstractKeyboard>().Count() == 2)
@@ -47,26 +49,24 @@ namespace Jubi.Telegram.Api.Types
 
                 foreach (var attachment in response.Attachments)
                 {
-                    if (attachment is ReplyMarkupKeyboard markupKeyboard)
+                    switch (attachment)
                     {
-                        if (!markupKeyboard.IsEmpty) 
-                        {
+                        case ReplyMarkupKeyboard markupKeyboard when peerId != (long) user.Id:
+                            return 0;
+                        case ReplyMarkupKeyboard markupKeyboard when !markupKeyboard.IsEmpty:
                             keyboard = markupKeyboard.ToString(user, response.Text, Provider);
                             continue;
-                        }
-                        keyboard = new JObject
-                        {
-                            {"remove_keyboard", true}
-                        }.ToString();
+                        case ReplyMarkupKeyboard markupKeyboard:
+                            keyboard = new JObject
+                            {
+                                {"remove_keyboard", true}
+                            }.ToString();
                         
-                        chat.KeyboardReset();
-                        continue;
-                    }
-                    
-                    if (attachment is InlineMarkupKeyboard inlineMarkupKeyboard)
-                    {
-                        keyboard = inlineMarkupKeyboard.ToString(user, response.Text, Provider);
-                        continue;
+                            chat.KeyboardReset();
+                            continue;
+                        case InlineMarkupKeyboard inlineMarkupKeyboard:
+                            keyboard = inlineMarkupKeyboard.ToString(user, response.Text, Provider);
+                            continue;
                     }
 
                     if (typeAttachment != null && attachment.GetType() != typeAttachment) 
@@ -88,7 +88,6 @@ namespace Jubi.Telegram.Api.Types
                     chat.ReplyMarkupKeyboard.Pages[chat.KeyboardPage]).ToString();
             }
 
-            if (peerId == 0) peerId = (long)user.Id;
             var args = new List<WebMultipartContent>()
             {
                 new WebMultipartContent("chat_id", new StringContent(peerId.ToString())),
@@ -122,6 +121,7 @@ namespace Jubi.Telegram.Api.Types
             {
                 var jArray = new JArray();
                 var i = 0;
+                response.Text = response.Text.Replace("<b>", "").Replace("</b>", "").Replace("<i>", "").Replace("</i>", "").Replace("<u>", "</u>");
                 
                 foreach (var attachment in attachments)
                 {
@@ -144,7 +144,7 @@ namespace Jubi.Telegram.Api.Types
                 }
                 
                 args.Add(new WebMultipartContent("media", new StringContent(jArray.ToString())));
-
+                
                 request = (Provider as TelegramApiProvider).SendMultipartRequest("sendMediaGroup", args, false);
                 if (request == null) return 0;
                 else if (!((request as JObject)?.ContainsKey("message_id") ?? false)) return 0;

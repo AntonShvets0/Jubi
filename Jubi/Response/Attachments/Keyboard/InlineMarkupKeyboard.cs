@@ -35,7 +35,7 @@ namespace Jubi.Response.Attachments.Keyboard
         {
             if (base.ToString(user, message, site) == null) return null;
 
-            user.GetChat().InlineMarkupKeyboard = this;
+            user.GetChat(user.LastPeerId).InlineMarkupKeyboard = this;
 
             return site.Keyboard.BuildInlineMarkupKeyboard(Pages[PageIndex]).ToString();
         }

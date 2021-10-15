@@ -22,22 +22,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="widgets, inlines">
-      <change afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteCoverApiProvider.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Jubi.VKontakte/Models/Crop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/contentModel.xml" afterDir="false" />
+    <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="new methods">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramUpdateApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramUpdateApiProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/TelegramUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/TelegramUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/VKontakteApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/VKontakteApiProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/Api/Types/IMessageApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Api/Types/IMessageApiProvider.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi/Bot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Bot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi/EventHandlers/MessageEventHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/EventHandlers/MessageEventHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/InlineMarkupKeyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/InlineMarkupKeyboard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/ReplyMarkupKeyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/ReplyMarkupKeyboard.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,21 +56,21 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/61F5185B-E9CF-48B9-8487-181D7861EB9C/6e/8f83eab0/Void.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../SimpleIni/SimpleIni/Ini.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi/EventHandlers/MessageEventHandler.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/0DAD6A3B-C5A9-4E61-8AE8-AF64D4F5554C/c4/057d7ebf/02000002.il" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi/Abstracts/User.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Jubi/Api/Types/IMessageApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0DAD6A3B-C5A9-4E61-8AE8-AF64D4F5554C/06/96034178/Ini.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi/Bot.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../SimpleIni/SimpleIni/Ini.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi/Abstracts/User.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/0DAD6A3B-C5A9-4E61-8AE8-AF64D4F5554C/c4/057d7ebf/02000002.il" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Jubi/Chats/UserChat.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi/Bot.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0DAD6A3B-C5A9-4E61-8AE8-AF64D4F5554C/06/96034178/Ini.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi/EventHandlers/MessageEventHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -87,13 +82,10 @@
       <option value="$PROJECT_DIR$/Jubi/Enums/CommandScope.cs" />
       <option value="$PROJECT_DIR$/Jubi/Chats/ГыукChat.cs" />
       <option value="$PROJECT_DIR$/Jubi/Updates/Types/MessageNewContent.cs" />
-      <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" />
       <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/Models/LinkButtonAction.cs" />
       <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKonakteKeyboardApiProvider.cs" />
       <option value="$PROJECT_DIR$/Jubi/Chats/Chat.cs" />
       <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/AbstractKeyboard.cs" />
-      <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/ReplyMarkupKeyboard.cs" />
-      <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/InlineMarkupKeyboard.cs" />
       <option value="$PROJECT_DIR$/Jubi.Telegram/Updates/CallbackQueryContent.cs" />
       <option value="$PROJECT_DIR$/Jubi.Telegram/EventHandlers/CallbackEventHandler.cs" />
       <option value="$PROJECT_DIR$/Jubi/Chats/UserChat.cs" />
@@ -118,18 +110,21 @@
       <option value="$PROJECT_DIR$/Jubi/Abstracts/User.cs" />
       <option value="$PROJECT_DIR$/Jubi.VKontakte/Models/Crop.cs" />
       <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/VKontakteApiProvider.cs" />
-      <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" />
-      <option value="$PROJECT_DIR$/Jubi/Bot.cs" />
-      <option value="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" />
       <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramUpdateApiProvider.cs" />
       <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" />
       <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteCoverApiProvider.cs" />
-      <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" />
-      <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" />
       <option value="$PROJECT_DIR$/Jubi/Executors/PageExecutor.cs" />
       <option value="$PROJECT_DIR$/Jubi/Executors/ErrorExecutor.cs" />
-      <option value="$PROJECT_DIR$/Jubi/EventHandlers/MessageEventHandler.cs" />
       <option value="$PROJECT_DIR$/Jubi/Api/Types/IMessageApiProvider.cs" />
+      <option value="$PROJECT_DIR$/Jubi/Bot.cs" />
+      <option value="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" />
+      <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" />
+      <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/ReplyMarkupKeyboard.cs" />
+      <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/InlineMarkupKeyboard.cs" />
+      <option value="$PROJECT_DIR$/Jubi/EventHandlers/MessageEventHandler.cs" />
+      <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" />
+      <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" />
+      <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1qOHcuMThZ1R03TNmnsCjZYYUz6" />
@@ -215,6 +210,16 @@
       <workItem from="1632342365235" duration="2538000" />
       <workItem from="1632433881098" duration="2327000" />
       <workItem from="1633199676492" duration="4806000" />
+      <workItem from="1633269772431" duration="620000" />
+      <workItem from="1633445519754" duration="2371000" />
+      <workItem from="1633811421107" duration="2615000" />
+      <workItem from="1633864993231" duration="1208000" />
+      <workItem from="1633972809496" duration="784000" />
+      <workItem from="1634043331464" duration="594000" />
+      <workItem from="1634162444638" duration="1152000" />
+      <workItem from="1634226176487" duration="1064000" />
+      <workItem from="1634243765517" duration="2615000" />
+      <workItem from="1634305401435" duration="1257000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1617136135398</created>
@@ -314,7 +319,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630934240453</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="new methods">
+      <created>1633269796439</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1633269796439</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -350,7 +362,8 @@
     <MESSAGE value="Fix MenuCommandExecutor.cs" />
     <MESSAGE value="New Read() algorithm in User" />
     <MESSAGE value="widgets, inlines" />
-    <option name="LAST_COMMIT_MESSAGE" value="widgets, inlines" />
+    <MESSAGE value="new methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="new methods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

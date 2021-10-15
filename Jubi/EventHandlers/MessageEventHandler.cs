@@ -64,7 +64,7 @@ namespace Jubi.EventHandlers
 
         private KeyboardButton FindButton(string text, User user, out bool isInline)
         {
-            var button = FindButton(text, user.GetChat().ReplyMarkupKeyboard);
+            var button = FindButton(text, user.GetChat(user.LastPeerId).ReplyMarkupKeyboard);
             if (button != null)
             {
                 isInline = false;
@@ -72,12 +72,12 @@ namespace Jubi.EventHandlers
             }
             
             isInline = true;
-            return FindButton(text, user.GetChat().InlineMarkupKeyboard);
+            return FindButton(text, user.GetChat(user.LastPeerId).InlineMarkupKeyboard);
         }
 
         private void HandleReadMessageEvent(User user, MessageNewContent content, UserChat chat)
         {
-            var btn = !user.GetChat().HasKeyboard() 
+            var btn = !user.GetChat(user.LastPeerId).HasKeyboard() 
                 ? null 
                 : FindButton(content.Text, user, out var _);
 
@@ -97,7 +97,7 @@ namespace Jubi.EventHandlers
                 {
                     SiteProvider.EmulateExecute(user, defaultButtonAction.Executor);
                 };
-            else if (btn.Action == user.GetChat().ReplyMarkupKeyboard.Menu.Action)
+            else if (btn.Action == user.GetChat(user.LastPeerId).ReplyMarkupKeyboard.Menu.Action)
             {
                 chat.NewMessageAction = null;
             }
@@ -116,16 +116,13 @@ namespace Jubi.EventHandlers
         
         public override void Handle(User user, MessageNewContent content)
         {
-            if (content.PeerId != (long) user.Id) return;
-            
             user.LastPeerId = content.PeerId;
             var keyboardUser = content.Text?.StartsWith("from ") ?? false
                 ? user.Provider.GetOrCreateUser(ulong.Parse(content.Text.Substring(5)))
                 : user;
 
-            var chat = keyboardUser.GetChat();
+            var chat = keyboardUser.GetChat(user.LastPeerId);
 
-            
             if (chat.NewMessageAction != null)
             {
                 HandleReadMessageEvent(user, content, chat);
@@ -143,14 +140,14 @@ namespace Jubi.EventHandlers
                 var btn = FindButton(content.Text, keyboardUser, out var isInline);
                 if (btn == null && chat.ReplyMarkupKeyboard != null)
                 {
-                    if (chat.ReplyMarkupKeyboard != null && chat.InlineMarkupKeyboard != null) 
+                    if (chat.ReplyMarkupKeyboard != null && chat.InlineMarkupKeyboard != null && user.LastPeerId == (long)user.Id) 
                         user.Send(new Message(chat.KeyboardMessage, 
                             new ReplyMarkupKeyboard(chat.ReplyMarkupKeyboard), 
-                            new InlineMarkupKeyboard(chat.InlineMarkupKeyboard)), user.LastPeerId);
-                    else if (chat.ReplyMarkupKeyboard != null)
+                            new InlineMarkupKeyboard(chat.InlineMarkupKeyboard)), (long)user.Id);
+                    else if (chat.ReplyMarkupKeyboard != null && user.LastPeerId == (long)user.Id)
                         user.Send(new Message(chat.KeyboardMessage, 
-                            new ReplyMarkupKeyboard(chat.ReplyMarkupKeyboard)), user.LastPeerId);
-                    else 
+                            new ReplyMarkupKeyboard(chat.ReplyMarkupKeyboard)), (long)user.Id);
+                    else  if (chat.ReplyMarkupKeyboard == null)
                         user.Send(new Message(chat.KeyboardMessage, 
                             new InlineMarkupKeyboard(chat.InlineMarkupKeyboard)), user.LastPeerId);
 
@@ -173,7 +170,7 @@ namespace Jubi.EventHandlers
                     message = defaultButtonAction.Executor;
                     isFromKeyboard = true;
                 }
-                else
+                else if (btn?.Action != null)
                 {
                     return;
                 }

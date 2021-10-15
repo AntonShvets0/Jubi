@@ -45,6 +45,7 @@ namespace Jubi.VKontakte.Api.Types
                 response.Text = "&#4448;";
             }
             
+            if (peerId == 0) peerId = (long)user.Id;
             var chat = user.GetChat(peerId);
 
             if (response.Attachments != null)
@@ -65,6 +66,7 @@ namespace Jubi.VKontakte.Api.Types
                 {
                     if (attachment is ReplyMarkupKeyboard markupKeyboard)
                     {
+                        if (peerId != (long) user.Id) return 0;
                         if (!markupKeyboard.IsEmpty) 
                         {
                             keyboard = markupKeyboard.ToString(user, response.Text, Provider);
@@ -100,7 +102,6 @@ namespace Jubi.VKontakte.Api.Types
                     BuildReplyMarkupKeyboard(chat.ReplyMarkupKeyboard.Menu, chat.ReplyMarkupKeyboard.Pages[chat.KeyboardPage]).ToString();
             }
 
-            if (peerId == 0) peerId = (long)user.Id;
             var request = Provider.SendRequest("messages.send", new Dictionary<string, string>
             {
                 {"peer_id", peerId.ToString()},

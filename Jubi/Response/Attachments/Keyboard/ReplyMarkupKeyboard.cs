@@ -62,7 +62,7 @@ namespace Jubi.Response.Attachments.Keyboard
             if (base.ToString(user, message, site) == null) return null;
             if (IsEmpty) return null;
             
-            user.GetChat().ReplyMarkupKeyboard = this;
+            user.GetChat(user.LastPeerId).ReplyMarkupKeyboard = this;
 
             return site.Keyboard.BuildReplyMarkupKeyboard(Menu, Pages[PageIndex], IsOneTime).ToString();
         }

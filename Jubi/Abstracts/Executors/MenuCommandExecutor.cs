@@ -13,6 +13,8 @@ namespace Jubi.Abstracts.Executors
     {
         protected virtual int MaxButtonsInRow { get; } = 1;
 
+        protected virtual bool IsOnce { get; } = false;
+
         public virtual CommandExecutor[] InlineSubcommands { get; set; }
 
         public override Message? Execute()
@@ -101,7 +103,13 @@ namespace Jubi.Abstracts.Executors
 
                     if (isMiddlewaresReturnError) continue;
                 
-                    markup.AddButton(executor.Alias, () => ExecuteMarkup(executor));
+                    var isClicked = false;
+                    markup.AddButton(executor.Alias, () =>
+                    {
+                        if (isClicked && IsOnce) return;
+                        isClicked = true;
+                        ExecuteMarkup(executor);
+                    });
                 }
             }
 

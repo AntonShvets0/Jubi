@@ -22,7 +22,7 @@ namespace Jubi
         private Dictionary<string, Type> _commandExecutors;
         private object _commandExecutorsLock = new object();
 
-        public bool IsThrowExceptions { get; set; } = true;
+        public bool IsDebug { get; set; } = false;
 
         /// <summary>
         /// Logs. Contains exception, which throwed in Executors.

@@ -119,13 +119,10 @@ namespace Jubi.Abstracts.Executors
             executor.User = User;
             executor.Parent = this;
 
-            var args = new object[Args.Length - 2 < 0 ? 0 : Args.Length - 2];
-            for (var i = 1; i < Args.Length - 1; i++)
-            {
-                args[i - 1] = Args[i];
-            }
+            var args = new List<object>(Args);
+            args.RemoveAt(0);
 
-            executor.Args = args;
+            executor.Args = args.ToArray();
 
             foreach (var middleware in executor.Middlewares)
             {
