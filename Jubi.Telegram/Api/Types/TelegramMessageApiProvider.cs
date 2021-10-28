@@ -101,13 +101,18 @@ namespace Jubi.Telegram.Api.Types
 
             JToken request;
             
+            if (response.Text?.Length > 1024 && attachments.Count != 0)
+            {
+                Send(new Message(null, response.Attachments), user, peerId, parseMode);
+                response.Attachments = Array.Empty<IAttachment>();
+                attachments.Clear();
+            }
+
             if (attachments.Count == 0)
             {
                 if (string.IsNullOrEmpty(response.Text))
-                {
                     response.Text = "\u2062";
-                } 
-                
+
                 args.Add(new WebMultipartContent("text", new StringContent(response.Text)));
                 
                 request = (Provider as TelegramApiProvider).SendMultipartRequest("sendMessage", args, false);
@@ -115,13 +120,13 @@ namespace Jubi.Telegram.Api.Types
 
                 return (int) request["message_id"];
             }
-
+            
             var media = GetMediaGroup(typeAttachment);
             if (attachments.Count >= 2)
             {
                 var jArray = new JArray();
                 var i = 0;
-                response.Text = response.Text.Replace("<b>", "").Replace("</b>", "").Replace("<i>", "").Replace("</i>", "").Replace("<u>", "</u>");
+                response.Text = response.Text?.Replace("<b>", "").Replace("</b>", "").Replace("<i>", "").Replace("</i>", "").Replace("<u>", "</u>");
                 
                 foreach (var attachment in attachments)
                 {

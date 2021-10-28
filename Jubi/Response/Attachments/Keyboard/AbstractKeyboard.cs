@@ -74,24 +74,26 @@ namespace Jubi.Response.Attachments.Keyboard
             }, color);
         }
 
-        private string ProcessName(string name)
+        public virtual int MaxLengthButton { get; set; } = 40;
+        
+        protected virtual string ProcessName(string name)
         {
-            var match = Regex.Match(name, @"^(.*) \(x(.*)\)$");
+            var match = Regex.Match(name, @"^(.*) \((.*)\)$");
             if (match.Groups.Count == 3)
             {
                 var itemName = match.Groups[1].Value;
                 var count = match.Groups[2].Value;
 
-                if (itemName.Length > 33)
+                if (itemName.Length > MaxLengthButton - 7)
                 {
-                    itemName = itemName.Substring(0, 30) + "...";
+                    itemName = itemName.Substring(0, MaxLengthButton - 7) + "...";
                 }
 
-                name = $"{itemName} (x{count})";
+                name = $"{itemName} ({count})";
             }
-            else if (name.Length > 40)
+            else if (name.Length > MaxLengthButton)
             {
-                name = name.Substring(0, 37) + "...";
+                name = name.Substring(0, MaxLengthButton) + "...";
             }
 
             return name;

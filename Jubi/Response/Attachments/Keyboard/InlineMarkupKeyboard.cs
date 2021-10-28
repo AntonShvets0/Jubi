@@ -21,6 +21,8 @@ namespace Jubi.Response.Attachments.Keyboard
 
             PageIndex = pageIndex;
         }
+
+        public override int MaxLengthButton { get; set; } = 25;
         
         public void AddButton(string name, Action<User> action, User user, KeyboardColor color = KeyboardColor.Default)
         {

@@ -25,14 +25,8 @@
     <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="new methods">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/Bot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Bot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/EventHandlers/MessageEventHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/EventHandlers/MessageEventHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/AbstractKeyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/AbstractKeyboard.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/InlineMarkupKeyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/InlineMarkupKeyboard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/ReplyMarkupKeyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/ReplyMarkupKeyboard.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +68,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Jubi.Telegram/EventHandlers/CallbackQueryHandler.cs" />
       <option value="$PROJECT_DIR$/Jubi/Attributes/EventAttribute.cs" />
       <option value="$PROJECT_DIR$/Jubi/Api/Types/IUpdateApiProvider.cs" />
       <option value="$PROJECT_DIR$/Jubi.Telegram/TelegramProvider.cs" />
@@ -85,9 +78,7 @@
       <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/Models/LinkButtonAction.cs" />
       <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKonakteKeyboardApiProvider.cs" />
       <option value="$PROJECT_DIR$/Jubi/Chats/Chat.cs" />
-      <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/AbstractKeyboard.cs" />
       <option value="$PROJECT_DIR$/Jubi.Telegram/Updates/CallbackQueryContent.cs" />
-      <option value="$PROJECT_DIR$/Jubi.Telegram/EventHandlers/CallbackEventHandler.cs" />
       <option value="$PROJECT_DIR$/Jubi/Chats/UserChat.cs" />
       <option value="$PROJECT_DIR$/Jubi.VKontakte/LikeAddContent.cs" />
       <option value="$PROJECT_DIR$/Jubi.VKontakte/Updates/LikeAddContent.cs" />
@@ -120,11 +111,14 @@
       <option value="$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" />
       <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" />
       <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/ReplyMarkupKeyboard.cs" />
-      <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/InlineMarkupKeyboard.cs" />
       <option value="$PROJECT_DIR$/Jubi/EventHandlers/MessageEventHandler.cs" />
       <option value="$PROJECT_DIR$/Jubi/Abstracts/Executors/MenuCommandExecutor.cs" />
-      <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" />
       <option value="$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" />
+      <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" />
+      <option value="$PROJECT_DIR$/Jubi.Telegram/EventHandlers/CallbackEventHandler.cs" />
+      <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramKeyboardApiProvider.cs" />
+      <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/AbstractKeyboard.cs" />
+      <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/InlineMarkupKeyboard.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1qOHcuMThZ1R03TNmnsCjZYYUz6" />
@@ -220,6 +214,8 @@
       <workItem from="1634226176487" duration="1064000" />
       <workItem from="1634243765517" duration="2615000" />
       <workItem from="1634305401435" duration="1257000" />
+      <workItem from="1635263385309" duration="1810000" />
+      <workItem from="1635426885596" duration="2146000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1617136135398</created>
