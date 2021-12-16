@@ -91,9 +91,9 @@ namespace Jubi.Response.Attachments.Keyboard
 
                 name = $"{itemName} ({count})";
             }
-            else if (name.Length > MaxLengthButton)
+            else if (name.Length > MaxLengthButton - 3)
             {
-                name = name.Substring(0, MaxLengthButton) + "...";
+                name = name.Substring(0, MaxLengthButton - 3) + "...";
             }
 
             return name;

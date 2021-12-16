@@ -22,11 +22,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="new methods">
+    <list default="true" id="8e022898-2812-4e34-b635-4f45b188ede2" name="Default Changelist" comment="architecture fix">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Jubi/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramMessageApiProvider.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/AbstractKeyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/AbstractKeyboard.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/InlineMarkupKeyboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/InlineMarkupKeyboard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jubi/Response/Message.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Jubi/Response/Message.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,24 +51,23 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/61F5185B-E9CF-48B9-8487-181D7861EB9C/6e/8f83eab0/Void.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi/Api/Types/IMessageApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Jubi/Bot.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../SimpleIni/SimpleIni/Ini.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Jubi/Abstracts/User.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/0DAD6A3B-C5A9-4E61-8AE8-AF64D4F5554C/c4/057d7ebf/02000002.il" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi/Abstracts/Executors/CommandExecutor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi/Chats/UserChat.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0DAD6A3B-C5A9-4E61-8AE8-AF64D4F5554C/06/96034178/Ini.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi/EventHandlers/MessageEventHandler.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteMessageApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi/Chats/UserChat.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteGroupApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi/Api/Types/IMessageApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi/Abstracts/SiteProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi/EventHandlers/MessageEventHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi.ConsoleApp/Executors/HelloExecutor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Jubi.VKontakte/Api/Types/VKontakteUpdateApiProvider.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Jubi/Attributes/EventAttribute.cs" />
       <option value="$PROJECT_DIR$/Jubi/Api/Types/IUpdateApiProvider.cs" />
       <option value="$PROJECT_DIR$/Jubi.Telegram/TelegramProvider.cs" />
       <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/Models/DefaultButtonAction.cs" />
@@ -119,6 +118,7 @@
       <option value="$PROJECT_DIR$/Jubi.Telegram/Api/Types/TelegramKeyboardApiProvider.cs" />
       <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/AbstractKeyboard.cs" />
       <option value="$PROJECT_DIR$/Jubi/Response/Attachments/Keyboard/InlineMarkupKeyboard.cs" />
+      <option value="$PROJECT_DIR$/Jubi/Response/Message.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1qOHcuMThZ1R03TNmnsCjZYYUz6" />
@@ -215,7 +215,14 @@
       <workItem from="1634243765517" duration="2615000" />
       <workItem from="1634305401435" duration="1257000" />
       <workItem from="1635263385309" duration="1810000" />
-      <workItem from="1635426885596" duration="2146000" />
+      <workItem from="1635426885596" duration="2765000" />
+      <workItem from="1635527399153" duration="1581000" />
+      <workItem from="1635948188870" duration="1202000" />
+      <workItem from="1636025120105" duration="4054000" />
+      <workItem from="1636417775243" duration="641000" />
+      <workItem from="1636484495946" duration="2984000" />
+      <workItem from="1638713706034" duration="594000" />
+      <workItem from="1639147540601" duration="970000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1617136135398</created>
@@ -322,7 +329,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633269796439</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="architecture fix">
+      <created>1635429666724</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1635429666724</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -359,7 +373,8 @@
     <MESSAGE value="New Read() algorithm in User" />
     <MESSAGE value="widgets, inlines" />
     <MESSAGE value="new methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="new methods" />
+    <MESSAGE value="architecture fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="architecture fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

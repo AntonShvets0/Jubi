@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Jubi.Response.Attachments;
 using Jubi.Response.Attachments.Keyboard;
 using Jubi.Response.Interfaces;
@@ -14,6 +15,13 @@ namespace Jubi.Response
         {
             Text = text;
             Attachments = attachments;
+        }
+
+        public void AddAttachment(IAttachment attachment)
+        {
+            var attachments = Attachments.ToList();
+            attachments.Add(attachment);
+            Attachments = attachments.ToArray();
         }
 
         private static Message FromIAttachment(IAttachment attachment)
